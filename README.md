@@ -81,7 +81,7 @@ POC多数来源于[AngelSword](https://github.com/Sch01ar/AngelSword)
 
 ### 问题一
 
-![1570354539633](C:\Users\19190\AppData\Roaming\Typora\typora-user-images\1570354539633.png)
+![1570354539633](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/3.png)
 
 将Qt安装目录下的platforms文件夹复制到exe程序目录。若风格不同，复制styles文件夹到程序目录。
 
@@ -89,4 +89,4 @@ POC多数来源于[AngelSword](https://github.com/Sch01ar/AngelSword)
 
 若出现以下提示模块不存在，请pip安装模块或在Plugins.py中注释掉该行。
 
-![1570354735619](C:\Users\19190\AppData\Roaming\Typora\typora-user-images\1570354735619.png)
+![1570354735619](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/4.png)
