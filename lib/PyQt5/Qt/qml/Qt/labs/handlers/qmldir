@@ -1,0 +1,5 @@
+module Qt.labs.handlers
+plugin handlersplugin
+classname QtQuickHandlersPlugin
+typeinfo plugins.qmltypes
+
