@@ -81,7 +81,7 @@ POC多数来源于[AngelSword](https://github.com/Sch01ar/AngelSword)
 
 ### 问题一
 
-![3](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/1.png)
+![3](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/3.png)
 
 将Qt安装目录下的platforms文件夹复制到exe程序目录。若风格不同，复制styles文件夹到程序目录。
 
