@@ -11,9 +11,15 @@ FrameScan-GUI是一款python3和Pyqt编写的具有图形化界面的cms漏洞�
 
 下载本项目，运行exe即可。
 
+<<<<<<< HEAD
 ![1](F:\编程代码\Python37\脚本\FrameScan-GUI\img\1.jpg)
 
 ![2](F:\编程代码\Python37\脚本\FrameScan-GUI\img\2.jpg)
+=======
+![1](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/1.jpg)
+
+![2](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/2.jpg)
+>>>>>>> e207108fc4e4878d6c66cc72779caed29b788057
 
 ## 自定义POC模板
 
@@ -81,7 +87,11 @@ POC多数来源于[AngelSword](https://github.com/Sch01ar/AngelSword)
 
 ### 问题一
 
+<<<<<<< HEAD
 ![3](F:\编程代码\Python37\脚本\FrameScan-GUI\img\3.png)
+=======
+![1570354539633](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/3.png)
+>>>>>>> e207108fc4e4878d6c66cc72779caed29b788057
 
 将Qt安装目录下的platforms文件夹复制到exe程序目录。若风格不同，复制styles文件夹到程序目录。
 
@@ -89,4 +99,8 @@ POC多数来源于[AngelSword](https://github.com/Sch01ar/AngelSword)
 
 若出现以下提示模块不存在，请pip安装模块或在Plugins.py中注释掉该行。
 
+<<<<<<< HEAD
 ![4](F:\编程代码\Python37\脚本\FrameScan-GUI\img\4.png)
+=======
+![1570354735619](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/4.png)
+>>>>>>> e207108fc4e4878d6c66cc72779caed29b788057
