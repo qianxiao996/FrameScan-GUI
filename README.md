@@ -23,8 +23,7 @@ FrameScan-GUI是一款python3和Pyqt编写的具有图形化界面的cms漏洞�
 
 优化显示插件的颜色
 修复增加插件未定义问题
-增加php后门检测
-增加致远A8 getshell
+更新POC
 
 #### 2020-04-05 v1.2
 
