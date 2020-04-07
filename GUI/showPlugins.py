@@ -15,6 +15,7 @@ class Ui_Form(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("../img/main.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Form.setWindowIcon(icon)
+        Form.setStyleSheet("        background: rgb(255, 255, 255)")
         self.show_Plugins = QtWidgets.QTableWidget(Form)
         self.show_Plugins.setGeometry(QtCore.QRect(-1, 20, 1461, 801))
         self.show_Plugins.setSizeIncrement(QtCore.QSize(0, 0))
@@ -23,7 +24,7 @@ class Ui_Form(object):
 "/**********表头**********/\n"
 "QHeaderView{\n"
 "        border: none;\n"
-"        background: rgb(57, 58, 60);\n"
+"        background:  rgb(240, 240, 240);\n"
 "        min-height: 30px;\n"
 "}\n"
 "QHeaderView::section:horizontal {\n"
