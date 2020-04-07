@@ -98,7 +98,7 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
     def showtime(self):
         datetime = QDateTime.currentDateTime()
         text = datetime.toString("yyyy-MM-dd hh:mm:ss")
-        self.setWindowTitle("FrameScan  V1.2 测试版 200405      %s"%text)
+        self.setWindowTitle("FrameScan  V1.2.1 测试版 20200407      %s"%text)
     #得到选中的方法
     def get_methods(self):
         poc_methods = []  # 保存的所有方法。
