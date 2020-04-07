@@ -488,10 +488,7 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
                 self.Ui.textEdit_log.append(
                     "[%s]Success:共写入%s个插件" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), values[0][0]))
                 self.loadplugins()  # 调用加载插件
-                box = QtWidgets.QMessageBox()
-                box.information(self, "End", "数据更新完成！\n插件数量：%s，重新启动!"%values[0][0])
-                reboot = sys.executable
-                os.execl(reboot, reboot, *sys.argv)
+
 
             else:
                 self.Ui.textEdit_log.append(
@@ -499,6 +496,10 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
                 return 0
             conn.close()
             cmsmain_file.close()
+            box = QtWidgets.QMessageBox()
+            box.information(self, "End", "数据更新完成！\n插件数量：%s，重新启动!" % values[0][0])
+            reboot = sys.executable
+            os.execl(reboot, reboot, *sys.argv)
         except Exception as e:
             self.Ui.textEdit_log.append(
                 "[%s]Error:数据写入失败！\n[Exception]:\n%s" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), e))
