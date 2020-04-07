@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 '''
 name: 用友NC 未授权访问
-referer: 漏洞地址（禁止换行）不存在请填unknown
+referer: 无
 author: M
-description: 漏洞描述 
+description: 用友NC 未授权访问
 '''
 import sys
 import requests

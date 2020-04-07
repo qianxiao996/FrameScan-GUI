@@ -489,7 +489,9 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
                     "[%s]Success:共写入%s个插件" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), values[0][0]))
                 self.loadplugins()  # 调用加载插件
                 box = QtWidgets.QMessageBox()
-                box.information(self, "End", "数据更新完成！\n插件数量：%s"%values[0][0])
+                box.information(self, "End", "数据更新完成！\n插件数量：%s，重新启动!"%values[0][0])
+                reboot = sys.executable
+                os.execl(reboot, reboot, *sys.argv)
 
             else:
                 self.Ui.textEdit_log.append(
@@ -506,7 +508,7 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
     def about(self):
         box = QtWidgets.QMessageBox()
         box.setIcon(1)
-        box.about(self, "About", "\t\t\tAbout\n       此程序为一款CMS扫描工具，可自行选择扫描的插件进行漏洞检查，请勿非法使用！\n\t\t\t\t   Powered by qianxiao996")
+        box.about(self, "About", "\t\t\tAbout\n       此程序为一款CMS扫描工具，可自行选择扫描的插件进行漏洞检查，请勿非法使用！\n\t\t\t   Powered by qianxiao996")
     #更新
     def version_update(self):
         webbrowser.open("https://github.com/qianxiao996/FrameScan-GUI")

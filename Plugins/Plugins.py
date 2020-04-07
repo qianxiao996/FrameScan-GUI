@@ -278,6 +278,7 @@ from Plugins.phpok.res_action_control_filedownload import res_action_control_fil
 
 #phpstudy
 from Plugins.phpstudy.phpmyadmin_defaultpwd import phpmyadmin_defaultpwd
+from Plugins.phpstudy.phpstudy_backdoor import phpstudy_backdoor
 from Plugins.phpstudy.probe import probe
 
 #piaoyou
@@ -399,96 +400,3 @@ from Plugins.trs.was5_config_disclosure import was5_config_disclosure
 from Plugins.trs.was5_download_templet import was5_download_templet
 from Plugins.trs.wcm_default_user import wcm_default_user
 from Plugins.trs.wcm_infoview_disclosure import wcm_infoview_disclosure
-from Plugins.trs.wcm_pre_as_lfi import wcm_pre_as_lfi
-from Plugins.trs.wcm_service_writefile import wcm_service_writefile
-
-#typecho
-from Plugins.typecho.install_code_exec import install_code_exec
-
-#umail
-from Plugins.umail.physical_path import physical_path
-from Plugins.umail.sessionid_access import sessionid_access
-
-#urp
-from Plugins.urp.query import query
-from Plugins.urp.query2 import query2
-from Plugins.urp.ReadJavaScriptServlet_fileread import ReadJavaScriptServlet_fileread
-
-#v2tech
-from Plugins.v2tech.v2Conference_sqli_xxe import v2Conference_sqli_xxe
-
-#viewgood
-from Plugins.viewgood.pic_proxy_sqli import pic_proxy_sqli
-from Plugins.viewgood.two_sqli import two_sqli
-from Plugins.viewgood.viewgood_GetCaption_sqli import GetCaption_sqli
-
-#weaver_oa
-from Plugins.weaver_oa.db_disclosure import db_disclosure
-from Plugins.weaver_oa.download_sqli import download_sqli
-from Plugins.weaver_oa.filedownload import filedownload
-
-#weblogic
-from Plugins.weblogic.interface_disclosure import interface_disclosure_BaseVerify
-from Plugins.weblogic.ssrf import ssrf_BaseVerify
-from Plugins.weblogic.weak_pass import weak_pass
-from Plugins.weblogic.ws_utc_xxe import ws_utc_xxe_BaseVerify
-from Plugins.weblogic.xmldecoder_exec import xmldecoder_exec_BaseVerify
-
-#wecenter
-from Plugins.wecenter.topic_id_sqli import topic_id_sqli
-
-#weway
-from Plugins.weway.PictureView1_filedownload import PictureView1_filedownload
-
-#wizbank
-from Plugins.wizbank.download_filedownload import download_filedownload
-from Plugins.wizbank.usr_id_sqli import usr_id_sqli
-
-#wordpress
-from Plugins.wordpress.admin_ajax_filedownload import admin_ajax_filedownload
-from Plugins.wordpress.display_widgets_backdoor import display_widgets_backdoor
-from Plugins.wordpress.plugin_azonpop_sqli import plugin_azonpop_sqli
-from Plugins.wordpress.plugin_mailpress_rce import plugin_mailpress_rce
-from Plugins.wordpress.plugin_ShortCode_lfi import plugin_ShortCode_lfi
-from Plugins.wordpress.restapi_sqli import restapi_sqli
-from Plugins.wordpress.url_redirect import url_redirect
-from Plugins.wordpress.woocommerce_code_exec import woocommerce_code_exec
-
-#xplus
-from Plugins.xplus.mysql_mssql_sqli import mysql_mssql_sqli
-from Plugins.xplus.v2003_getshell import v2003_getshell
-
-#yonyou
-from Plugins.yonyou.a8_CmxUser_sqli import a8_CmxUser_sqli
-from Plugins.yonyou.a8_logs_disclosure import a8_logs_disclosure
-from Plugins.yonyou.a8_personService_xxe import a8_personService_xxe
-from Plugins.yonyou.cm_info_content_sqli import cm_info_content_sqli
-from Plugins.yonyou.createMysql_disclosure import createMysql_disclosure
-from Plugins.yonyou.ehr_ELTextFile import ehr_ELTextFile
-from Plugins.yonyou.ehr_resetpwd_sqli import ehr_resetpwd_sqli
-from Plugins.yonyou.fe_treeXml_sqli import fe_treeXml_sqli
-from Plugins.yonyou.getemaildata_fileread import getemaildata_fileread
-from Plugins.yonyou.icc_struts2 import icc_struts2
-from Plugins.yonyou.initData_disclosure import initData_disclosure
-from Plugins.yonyou.multi_union_sqli import multi_union_sqli
-from Plugins.yonyou.nc_NCFindWeb_fileread import nc_NCFindWeb_fileread
-from Plugins.yonyou.status_default_pwd import status_default_pwd
-from Plugins.yonyou.test_sqli import test_sqli
-from Plugins.yonyou.user_ids_sqli import user_ids_sqli
-from Plugins.yonyou.yonyou_nc_Unauthorized import yonyou_nc_Unauthorized
-
-#zabbix
-from Plugins.zabbix.jsrpc_profileIdx2_sqli import jsrpc_profileIdx2_sqli_BaseVerify
-
-#zfsoft
-from Plugins.zfsoft.database_control import database_control
-from Plugins.zfsoft.default3_bruteforce import default3_bruteforce
-
-#zookeeper
-from Plugins.zookeeper.unauth import unauth_BaseVerify
-
-#zuitu
-from Plugins.zuitu.coupon_id_sqli import coupon_id_sqli
-
-#__pycache__
-
