@@ -1,39 +1,43 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import sys,os,webbrowser,threading
+import sys, os, webbrowser, threading
+
 if hasattr(sys, 'frozen'):
     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
 
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-import csv,re,requests,time,sqlite3
+import csv, re, requests, time, sqlite3
 from GUI.FrameScan import Ui_MainWindow
 from GUI.showPlugins import Ui_Form
 import win32con
 import win32clipboard as wincld
-import frozen_dir,queue
+import frozen_dir, queue
+
 SETUP_DIR = frozen_dir.app_path()
 sys.path.append(SETUP_DIR)
 DB_NAME = 'POC_DB.db'
 # 禁用安全警告
 requests.packages.urllib3.disable_warnings()
-class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
 
-    def __init__(self,parent=None):
-        super(MainWindows,self).__init__(parent)
-        #self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint) #去掉标题栏
+
+class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
+
+    def __init__(self, parent=None):
+        super(MainWindows, self).__init__(parent)
+        # self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint) #去掉标题栏
         self.Ui = Ui_MainWindow()
         self.Ui.setupUi(self)
         self.setWindowIcon(QtGui.QIcon('main.ico'))
-        self.setFixedSize(self.width(), self.height()) #设置宽高不可变
-        #self.Ui.exit.clicked.connect(QtCore.QCoreApplication.instance().quit)  #退出
-        self.Ui.action_vuln_start.triggered.connect(self.vuln_Start)  #开始扫描
+        # self.setFixedSize(self.width(), self.height())  # 设置宽高不可变
+        # self.Ui.exit.clicked.connect(QtCore.QCoreApplication.instance().quit)  #退出
+        self.Ui.action_vuln_start.triggered.connect(self.vuln_Start)  # 开始扫描
         self.Ui.action_vuln_import.triggered.connect(self.vuln_import_file)  # 导入文件列表
         self.Ui.pushButton_vuln_file.clicked.connect(self.vuln_import_file)  # 导入地址
         self.Ui.action_vuln_export.triggered.connect(self.vuln_export_file)  # 导出扫描结果
         self.Ui.pushButton_vuln_export.clicked.connect(self.vuln_export_file)  # 导出结果
-        self.Ui.action_vuln_reload.triggered.connect(self.vuln_reload_Plugins)  #重新加载插件
+        self.Ui.action_vuln_reload.triggered.connect(self.vuln_reload_Plugins)  # 重新加载插件
         self.Ui.action_vuln_showplubins.triggered.connect(self.vuln_ShowPlugins)  # 查看插件
         self.Ui.pushButton_vuln_showplugins.clicked.connect(self.vuln_ShowPlugins)  # 查看插件
         self.Ui.pushButton_vuln_start.clicked.connect(self.vuln_Start)  # 开始扫描\
@@ -42,20 +46,21 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
         self.Ui.action_ideas.triggered.connect(self.ideas)  # 意见反馈
         self.Ui.pushButton_vuln_all.clicked.connect(self.vuln_all)  # 全选
         self.Ui.pushButton_vuln_noall.clicked.connect(self.vuln_noall)  # 反选
-        #虚拟终端右键菜单
+        # 虚拟终端右键菜单
         self.Ui.tableWidget_vuln.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.Ui.tableWidget_vuln.customContextMenuRequested['QPoint'].connect(self.createtableWidget_vulnMenu)
-        self.timer = QTimer()  #设定一个定时器用来显示时间
+        self.timer = QTimer()  # 设定一个定时器用来显示时间
         self.timer.timeout.connect(self.showtime)
         self.timer.start()
         self.loadplugins()
-        self.url_list=[]
-        self.stop_flag=0
-        #设置漏洞扫描表格属性  列宽度
-        self.Ui.tableWidget_vuln.setColumnWidth(0, 222)
-        self.Ui.tableWidget_vuln.setColumnWidth(1, 325)
-        self.Ui.tableWidget_vuln.setColumnWidth(2, 370)
-        self.Ui.tableWidget_vuln.setColumnWidth(3, 91)
+        self.url_list = []
+        self.stop_flag = 0
+        # 设置漏洞扫描表格属性  列宽度
+        # self.Ui.tableWidget_vuln.setColumnWidth(0, 222)
+        # self.Ui.tableWidget_vuln.setColumnWidth(1, 325)
+        # self.Ui.tableWidget_vuln.setColumnWidth(2, 370)
+        # self.Ui.tableWidget_vuln.setColumnWidth(3, 91)
+
     def createtableWidget_vulnMenu(self):
         '''''
                 创建右键菜单
@@ -75,11 +80,13 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
         # 当然也可以将他们分别与不同函数关联，实现不同的功能
         self.copy_textEdit.triggered.connect(self.Copy_tableWidget_vuln)
         self.clear_textEdit.triggered.connect(self.Clear_tableWidget_vuln)
+
     # 右键点击时调用的函数，移动鼠标位置
     def showContextMenu(self, pos):
         # 菜单显示前，将它移动到鼠标点击的位置
         self.contextMenu.move(QtGui.QCursor.pos())
         self.contextMenu.show()
+
     def Copy_tableWidget_vuln(self):
         try:
             data = self.Ui.tableWidget_vuln.selectedItems()[0].text()
@@ -91,15 +98,18 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
             wincld.CloseClipboard()
         except:
             pass
+
     def Clear_tableWidget_vuln(self):
         for i in range(0, self.Ui.tableWidget_vuln.rowCount()):  # 循环行
             self.Ui.tableWidget_vuln.removeRow(0)
+
     # 显示时间
     def showtime(self):
         datetime = QDateTime.currentDateTime()
         text = datetime.toString("yyyy-MM-dd hh:mm:ss")
-        self.setWindowTitle("FrameScan  V1.2.1 测试版 20200407      %s"%text)
-    #得到选中的方法
+        self.setWindowTitle("FrameScan  V1.2.2 测试版 20200508      %s" % text)
+
+    # 得到选中的方法
     def get_methods(self):
         poc_methods = []  # 保存的所有方法。
         item = QtWidgets.QTreeWidgetItemIterator(self.Ui.treeWidget_Plugins)
@@ -113,65 +123,66 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
                     poc_methods.append(item.value().text(0))
             item = item.__iadd__(1)
         return poc_methods
-    #开始扫描
+
+    # 开始扫描
     def vuln_Start(self):
         threadnum = int(self.Ui.threadsnum.currentText())
         portQueue = queue.Queue()  # 待检测端口队列，会在《Python常用操作》一文中更新用法
         self.Ui.textEdit_log.clear()
-        target = [] #存放扫描的URL
+        target = []  # 存放扫描的URL
         if self.url_list:
             target = self.url_list
         else:
-            url= self.Ui.lineEdit_vuln_url.text()
+            url = self.Ui.lineEdit_vuln_url.text()
             if 'http://' in url or 'https://' in url:
                 target.append(url.strip())
         if not target:
             self.Ui.textEdit_log.append(
                 "[%s]Info:未获取到URL地址。" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
-            return  0
-        poc_methods=  self.get_methods()
+            return 0
+        poc_methods = self.get_methods()
         # print(poc_methods)
-        if not poc_methods :
+        if not poc_methods:
             self.Ui.textEdit_log.append(
                 "[%s]Info:未选择插件。" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
             return 0
         else:
             self.Ui.textEdit_log.append(
-                "[%s]Info:共加载%s个插件。" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))),len(poc_methods)))
+                "[%s]Info:共加载%s个插件。" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), len(poc_methods)))
             self.Ui.textEdit_log.append(
                 "[%s]Info:正在创建队列..." % ((time.strftime('%H:%M:%S', time.localtime(time.time())))))
             for u in target:
                 for p in poc_methods:
-                    portQueue.put(u+'$$$'+ p)
+                    portQueue.put(u + '$$$' + p)
             self.Ui.textEdit_log.append(
                 "[%s]Start:扫描开始..." % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
-            #限制线程数小于队列大小
-            if threadnum>portQueue.qsize():
+            # 限制线程数小于队列大小
+            if threadnum > portQueue.qsize():
                 threadnum = portQueue.qsize()
             # print(threadnum)
-            
+
             self.Ui.action_vuln_import.setEnabled(False)
             self.Ui.pushButton_vuln_file.setEnabled(False)
             self.Ui.action_vuln_start.setEnabled(False)
             self.Ui.pushButton_vuln_start.setEnabled(False)
-    
+
             for i in range(threadnum):
-                thread = threading.Thread(target=self.vuln_scan, args=(portQueue,threadnum))
+                thread = threading.Thread(target=self.vuln_scan, args=(portQueue, threadnum))
                 # thread.setDaemon(True)  # 设置为后台线程，这里默认是False，设置为True之后则主线程不用等待子线程
                 thread.start()
 
-    #调用脚本
-    def vuln_scan(self,portQueue,threadnum):
+    # 调用脚本
+    def vuln_scan(self, portQueue, threadnum):
         while 1:
-            if portQueue.empty() :  # 队列空就结束
-                self.stop_flag=  self.stop_flag+1
+            if portQueue.empty():  # 队列空就结束
+                self.stop_flag = self.stop_flag + 1
                 # print(self.stop_flag,threadnum)
                 if self.stop_flag == threadnum:
                     self.Ui.action_vuln_import.setEnabled(True)
                     self.Ui.pushButton_vuln_file.setEnabled(True)
                     self.Ui.action_vuln_start.setEnabled(True)
                     self.Ui.pushButton_vuln_start.setEnabled(True)
-                    self.stop_flag=0
+                    self.stop_flag = 0
                 break
             all = portQueue.get()  # 从队列中取出
             url = all.split('$$$')[0]
@@ -184,7 +195,7 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
                 # print(result_url)
                 self.Ui.textEdit_log.append(
                     "[%s]Info:%s----%s----%s。" % (
-                    (time.strftime('%H:%M:%S', time.localtime(time.time()))), result_url, result[0], result[2]))
+                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), result_url, result[0], result[2]))
                 if result[2] != '不存在' and result[2] != '':
                     row = self.Ui.tableWidget_vuln.rowCount()  # 获取行数
                     self.Ui.tableWidget_vuln.setRowCount(row + 1)
@@ -194,13 +205,14 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
                     resultItem = QTableWidgetItem(result[2])
                     self.Ui.tableWidget_vuln.setItem(row, 0, urlItem)
                     self.Ui.tableWidget_vuln.setItem(row, 1, nameItem)
-                    self.Ui.tableWidget_vuln.setItem(row, 2, payloadItem)
-                    self.Ui.tableWidget_vuln.setItem(row, 3, resultItem)
+                    self.Ui.tableWidget_vuln.setItem(row, 3, payloadItem)
+                    self.Ui.tableWidget_vuln.setItem(row, 2, resultItem)
             except Exception as e:
                 self.Ui.textEdit_log.append(
                     "[%s]Error:%s脚本执行错误！\n[Exception]:\n%s" % (
                         (time.strftime('%H:%M:%S', time.localtime(time.time()))), poc, e))
-    #初始化加载插件
+
+    # 初始化加载插件
     def loadplugins(self):
         if os.path.isfile(DB_NAME):
             conn = sqlite3.connect(DB_NAME)
@@ -216,14 +228,14 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
             sql = "SELECT cmsname,pocmethods from POC"
             cursor.execute(sql)
             values = cursor.fetchall()
-        except Exception as e :
+        except Exception as e:
             box = QtWidgets.QMessageBox()
-            box.warning(self, "提示", "数据文件错误：\n%s"%e)
+            box.warning(self, "提示", "数据文件错误：\n%s" % e)
             return 0
-        #将查询的值组合为字典包含列表的形式
+        # 将查询的值组合为字典包含列表的形式
         cms_name = {}
         for cms in values:
-            cms_name[cms[0]]=[]
+            cms_name[cms[0]] = []
         for cms in values:
             if cms[0] in cms_name.keys():
                 cms_name[cms[0]].append(cms[1])
@@ -238,9 +250,11 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
                 child1.setText(0, poc)
                 child1.setCheckState(0, Qt.Unchecked)
         self.Ui.treeWidget_Plugins.itemChanged.connect(self.handleChanged)
-        self.Ui.textEdit_log.append("[%s]Success:插件加载完成，共%s个。"%(time.strftime('%H:%M:%S', time.localtime(time.time())),len(values)))
-     #父节点关联子节点
-    def handleChanged(self,item, column):
+        self.Ui.textEdit_log.append(
+            "[%s]Success:插件加载完成，共%s个。" % (time.strftime('%H:%M:%S', time.localtime(time.time())), len(values)))
+
+    # 父节点关联子节点
+    def handleChanged(self, item, column):
         count = item.childCount()
         # print dir(item)
         if item.checkState(column) == Qt.Checked:
@@ -252,25 +266,26 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
             for f in range(count):
                 item.child(f).setCheckState(0, Qt.Unchecked)
         #  self.Ui.treeWidget_Plugins.setSelectionMode(QAbstractItemView.ExtendedSelection)  # 设置item可以多选
-        #self.tree.itemChanged.connect(self.handleChanged)
-        #self.Ui.treeWidget_Plugins.addTopLevelItem(root)
+        # self.tree.itemChanged.connect(self.handleChanged)
+        # self.Ui.treeWidget_Plugins.addTopLevelItem(root)
 
-    #导入文件列表
+    # 导入文件列表
     def vuln_import_file(self):
-        self.url_list=[]
+        self.url_list = []
         filename = self.file_open(r"Text Files (*.txt);;All files(*.*)")
         if os.path.isfile(filename):
             self.Ui.textEdit_log.append(
                 "[%s]Info:正在从文件中读取URL..." % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
-            f=open(filename,'r',encoding='utf-8')
+            f = open(filename, 'r', encoding='utf-8')
             for line in f.readlines():
                 if 'http' in line:
-                    self.url_list.append(line.replace('\n','').strip())
+                    self.url_list.append(line.replace('\n', '').strip())
             self.Ui.textEdit_log.append(
-                "[%s]Info:读取完成，共加载%s条。" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))),len( self.url_list)))
+                "[%s]Info:读取完成，共加载%s条。" % (
+                (time.strftime('%H:%M:%S', time.localtime(time.time()))), len(self.url_list)))
         self.Ui.lineEdit_vuln_url.setText(filename)
 
-    #导出扫描结果
+    # 导出扫描结果
     def vuln_export_file(self):
         data = []
         comdata = []
@@ -281,24 +296,26 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
             comdata.append(list(data))
             data = []
 
-        if len(comdata)>0  :
-            path = (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + '.csv').replace(' ', '-').replace('-','').replace(':', '')
+        if len(comdata) > 0:
+            path = (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + '.csv').replace(' ', '-').replace('-',
+                                                                                                             '').replace(
+                ':', '')
             # print(path)
             file_name = self.file_save(path)
-            if file_name!="":
+            if file_name != "":
                 with open(file_name, 'w', newline='') as f:
                     writer = csv.writer(f)
                     for row in comdata:
                         writer.writerow(row)
                 f.close()
 
-    #显示插件
+    # 显示插件
     def vuln_ShowPlugins(self):
         self.widget = Ui_Form()
         self.dialog = QtWidgets.QDialog(self)
         self.widget.setupUi(self.dialog)
         self.dialog.setFixedSize(self.dialog.width(), self.dialog.height())  # 设置宽高不可变
-        #设置查看插件表格属性  列宽度
+        # 设置查看插件表格属性  列宽度
         self.widget.show_Plugins.setColumnWidth(0, 100)
         self.widget.show_Plugins.setColumnWidth(1, 350)
         self.widget.show_Plugins.setColumnWidth(2, 350)
@@ -307,25 +324,25 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
         conn2 = sqlite3.connect(DB_NAME)
         # 创建一个游标 curson
         cursor = conn2.cursor()
-        #self.Ui.textEdit_log.append("[%s]Info:正在查询数据..."%(time.strftime('%H:%M:%S', time.localtime(time.time()))))
+        # self.Ui.textEdit_log.append("[%s]Info:正在查询数据..."%(time.strftime('%H:%M:%S', time.localtime(time.time()))))
         # 列出所有数据
         sql = "SELECT * from POC"
         cursor.execute(sql)
         values = cursor.fetchall()
-        #self.Ui.textEdit_log.append("[%s]Success:数据查询成功！"%(time.strftime('%H:%M:%S', time.localtime(time.time()))))
-        i=0
+        # self.Ui.textEdit_log.append("[%s]Success:数据查询成功！"%(time.strftime('%H:%M:%S', time.localtime(time.time()))))
+        i = 0
         self.widget.show_Plugins.setRowCount(len(values))
         sql2 = "SELECT distinct cmsname from POC"
         cursor.execute(sql2)
         cms_name_data = cursor.fetchall()
-        #添加查询列表
+        # 添加查询列表
         for cms_name in cms_name_data:
             self.widget.show_Plugins_comboBox.addItem(cms_name[0])
             # print(cms_name[0])
         for single in values:
             vuln_name = QTableWidgetItem(str(single[1]))
             vuln_url = QTableWidgetItem(str(single[3]))
-            vuln_payload = QTableWidgetItem( str(single[4]))
+            vuln_payload = QTableWidgetItem(str(single[4]))
             vuln_result = QTableWidgetItem(str(single[5]))
             vuln_motheds = QTableWidgetItem(str(single[2]))
             self.widget.show_Plugins.setItem(i, 0, vuln_name)
@@ -337,14 +354,15 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
         conn2.close()
         self.dialog.show()
         self.widget.show_Plugins_comboBox.currentIndexChanged.connect(self.show_plugins_go)  # comboBox事件选中触发刷新
-    #单击列表刷新显示控件
+
+    # 单击列表刷新显示控件
     def show_plugins_go(self):
         self.widget.show_Plugins.clearContents()
         conn2 = sqlite3.connect(DB_NAME)
         # 创建一个游标 curson
         cursor = conn2.cursor()
         cms_name = self.widget.show_Plugins_comboBox.currentText()  # 获取文本
-        if cms_name=="ALL":
+        if cms_name == "ALL":
             sql = "SELECT * from POC "
         else:
             sql = "SELECT * from POC where cmsname = '%s'" % cms_name
@@ -379,7 +397,7 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
                 os.remove(DB_NAME)
             except Exception as e:
                 self.Ui.textEdit_log.append("[%s]Error:数据库文件删除失败！\n[Exception]:\n%s" % (
-                (time.strftime('%H:%M:%S', time.localtime(time.time()))), e))
+                    (time.strftime('%H:%M:%S', time.localtime(time.time()))), e))
                 return 0
             self.Ui.textEdit_log.append(
                 "[%s]Success:删除数据库完成！" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
@@ -407,15 +425,15 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
             cmsmain_file = open(cms_path + "/Plugins.py", "w", encoding="utf-8")
         except Exception as e:
             self.Ui.textEdit_log.append("[%s]Error:打开Plugins.py文件失败！\n[Exception]:\n%s" % (
-            (time.strftime('%H:%M:%S', time.localtime(time.time()))), e))
+                (time.strftime('%H:%M:%S', time.localtime(time.time()))), e))
             return 0
         try:
             cmsmain_file.write(r"#!/usr/bin/env python" + '\n'
-                            r"# -*- coding: utf-8 -*-" + '\n'
-                            r"'''" + '\n'
-                            r"name: cms漏洞库" + '\n'
-                            r"referer: unknow" + '\n'
-                            r"author: qianxiao996" + '\n'                                                                                                                                                                                      r"'''" + '\n')
+                                                          r"# -*- coding: utf-8 -*-" + '\n'
+                                                                                       r"'''" + '\n'
+                                                                                                r"name: cms漏洞库" + '\n'
+                                                                                                                  r"referer: unknow" + '\n'
+                                                                                                                                       r"author: qianxiao996" + '\n'                                                                                                                                                                                      r"'''" + '\n')
             for cms_name in os.listdir(cms_path):  # 遍历目录名
                 cmsmain_file.write("#" + cms_name + "\n")
                 poc_path = os.path.join(cms_path, cms_name)
@@ -462,14 +480,16 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
                                     # print(condata)
                                     # 匹配描述
                                     comment = re.compile(r"description:(.*?)'''", re.DOTALL)
-                                    poc_description = str(comment.findall(condata)[0]).replace("\"", "").replace(" ","")
+                                    poc_description = str(comment.findall(condata)[0]).replace("\"", "").replace(" ",
+                                                                                                                 "")
                                     if poc_name != "" and poc_methos != "":
                                         # 将数据插入到表中
                                         cursor.execute(
                                             'insert into POC (cmsname, pocname,pocfilename,pocreferer,pocdescription,pocmethods) values ("%s","%s","%s","%s","%s","%s")' % (
-                                                cms_name, poc_name, poc_file_name, poc_referer, poc_description,poc_methos))
+                                                cms_name, poc_name, poc_file_name, poc_referer, poc_description,
+                                                poc_methos))
                                         data = "from Plugins." + cms_name + "." + poc_file_name.replace(".py",
-                                                                                                    "") + " import " + poc_methos + "\n"
+                                                                                                        "") + " import " + poc_methos + "\n"
                                         cmsmain_file.write(data)
                                 f.close()
                             else:
@@ -505,25 +525,30 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
                 "[%s]Error:数据写入失败！\n[Exception]:\n%s" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), e))
             return 0
 
-    #关于
+    # 关于
     def about(self):
         box = QtWidgets.QMessageBox()
         box.setIcon(1)
-        box.about(self, "About", "\t\t\tAbout\n       此程序为一款CMS扫描工具，可自行选择扫描的插件进行漏洞检查，请勿非法使用！\n\t\t\t   Powered by qianxiao996")
-    #更新
+        box.about(self, "About",
+                  "\t\t\tAbout\n       此程序为一款CMS扫描工具，可自行选择扫描的插件进行漏洞检查，请勿非法使用！\n\t\t\t   Powered by qianxiao996")
+
+    # 更新
     def version_update(self):
-        webbrowser.open("https://github.com/qianxiao996/FrameScan-GUI")
-    #版本
+        webbrowser.open("https://github.com/qianxiao996/FrameScan-GUI/releases")
+
+    # 版本
     def version(self):
         box = QtWidgets.QMessageBox()
         box.setIcon(1)
-        box.about (self, "版本", "FrameScan\nV1.2测试版")
-    #意见反馈
+        box.about(self, "版本", "FrameScan\nV1.2测试版")
+
+    # 意见反馈
     def ideas(self):
         box = QtWidgets.QMessageBox()
         box.setIcon(1)
         box.about(self, "意见反馈", "作者邮箱：qianxiao996@126.com\n作者主页：http://blog.qianxiao996.cn")
-    #全选
+
+    # 全选
     def vuln_all(self):
         item = QtWidgets.QTreeWidgetItemIterator(self.Ui.treeWidget_Plugins)
         # 该类的value()即为QTreeWidgetItem
@@ -531,19 +556,19 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
             if item.value().checkState(0) != QtCore.Qt.Checked:
                 item.value().setCheckState(0, Qt.Checked)
             item = item.__iadd__(1)
-    #反选
+
+    # 反选
     def vuln_noall(self):
         item = QtWidgets.QTreeWidgetItemIterator(self.Ui.treeWidget_Plugins)
         # 该类的value()即为QTreeWidgetItem
         while item.value():
             if item.value().checkState(0) == QtCore.Qt.Checked:
-                item.value().setCheckState(0,Qt.Unchecked)
+                item.value().setCheckState(0, Qt.Unchecked)
             item = item.__iadd__(1)
 
-
-    #文件打开对话框
-    def file_open(self,type):
-        fileName, selectedFilter = QFileDialog.getOpenFileName(self, (r"上传文件"), (r"C:\windows"),type)
+    # 文件打开对话框
+    def file_open(self, type):
+        fileName, selectedFilter = QFileDialog.getOpenFileName(self, (r"上传文件"), (r"C:\windows"), type)
         return (fileName)  # 返回文件路径
 
     # 保存文件对话框
@@ -552,6 +577,7 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
                                                          r"All files(*.*)")
         # print(fileName)
         return fileName
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
@@ -563,5 +589,3 @@ if __name__ == "__main__":
         a.vuln_reload_Plugins()
     window.show()
     sys.exit(app.exec_())
-
-
