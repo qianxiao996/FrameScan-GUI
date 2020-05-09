@@ -97,23 +97,3 @@ POC多数来源于[AngelSword](https://github.com/Sch01ar/AngelSword)
 
 ## 警告！
 **请勿用于非法用途！否则自行承担一切后果**
-
-
-
-## 使用问题
-
-### 问题一
-
-![3](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/3.png)
-
-将Qt安装目录下的platforms文件夹复制到exe程序目录。若风格不同，复制styles文件夹到程序目录。
-
-### 问题二
-
-若出现以下提示模块不存在，请pip安装模块或在Plugins.py中注释掉该行。
-
-![4](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/4.png)
-
-```
-pyinstaller -D -w FrameScan-GUI.py -i img/main.ico
-```
