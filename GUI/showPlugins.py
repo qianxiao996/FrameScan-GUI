@@ -18,6 +18,7 @@ class Ui_Form(object):
         Form.setStyleSheet("        background: rgb(255, 255, 255)")
         self.show_Plugins = QtWidgets.QTableWidget(Form)
         self.show_Plugins.setGeometry(QtCore.QRect(-1, 20, 1461, 801))
+        self.show_Plugins.setMinimumSize(QtCore.QSize(200, 0))
         self.show_Plugins.setSizeIncrement(QtCore.QSize(0, 0))
         self.show_Plugins.setTabletTracking(False)
         self.show_Plugins.setStyleSheet("\n"
@@ -78,7 +79,8 @@ class Ui_Form(object):
         self.show_Plugins.verticalHeader().setCascadingSectionResizes(False)
         self.show_Plugins.verticalHeader().setSortIndicatorShown(False)
         self.show_Plugins_comboBox = QtWidgets.QComboBox(Form)
-        self.show_Plugins_comboBox.setGeometry(QtCore.QRect(0, 0, 111, 21))
+        self.show_Plugins_comboBox.setGeometry(QtCore.QRect(0, 0, 161, 21))
+        self.show_Plugins_comboBox.setMinimumSize(QtCore.QSize(150, 0))
         self.show_Plugins_comboBox.setStyleSheet("QComboBox {\n"
 "    \n"
 "    /* 边框宽度,线条样式,颜色 */\n"

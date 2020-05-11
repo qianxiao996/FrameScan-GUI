@@ -10,21 +10,14 @@ import sys
 import urllib
 import hashlib
 import warnings
-
-  
-
-class focus_flashxss:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['discuz X3 focus.swf flashxss漏洞', '', '']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         flash_md5 = "c16a7c6143f098472e52dd13de85527f"
         payload = "/static/image/common/focus.swf"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = urllib.request.urlopen(vulnurl)
             data = req.read()
@@ -39,5 +32,4 @@ class focus_flashxss:
         return result
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = focus_flashxss(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

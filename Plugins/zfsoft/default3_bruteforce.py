@@ -9,20 +9,13 @@ description: 文件default3.aspx页面可爆破。
 import sys
 import requests
 import warnings
-
-
-
-class default3_bruteforce:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['正方教务系统default3.aspx爆破页面','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         try:
-            req = requests.get(self.url, headers=headers, timeout=6, verify=False, allow_redirects=True)
+            req = requests.get(url, headers=headers, timeout=6, verify=False, allow_redirects=True)
             tmpurl = str(req.url)
             tmpurl = tmpurl.lower()
             if r"default2.aspx" in tmpurl or r"default.aspx" in tmpurl:
@@ -46,5 +39,5 @@ class default3_bruteforce:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = default3_bruteforce(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

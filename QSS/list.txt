@@ -1,0 +1,5 @@
+{
+	"默认皮肤": "default.qss",
+	"黑色炫酷": "black.qss",
+	"白色风情": "white.qss"
+}

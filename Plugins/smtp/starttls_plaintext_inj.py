@@ -11,17 +11,12 @@ import socket
 import warnings
 
 from urllib.parse import urlparse
-
-class starttls_plaintext_inj_BaseVerify:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['smtp starttls明文命令注入(CVE-2011-0411)', '', '']
         port = 25
-        if r"http" in self.url:
+        if r"http" in url:
             #提取host
-            host = urlparse(self.url)[1]
+            host = urlparse(url)[1]
             try:
                 port = int(host.split(':')[1])
             except:
@@ -30,11 +25,11 @@ class starttls_plaintext_inj_BaseVerify:
             if flag != -1:
                 host = host[:flag]
         else:
-            if self.url.find(":") >= 0:
-                host = self.url.split(":")[0]
-                port = int(self.url.split(":")[1])
+            if url.find(":") >= 0:
+                host = url.split(":")[0]
+                port = int(url.split(":")[1])
             else:
-                host = self.url
+                host = url
 
         try:
             s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -55,5 +50,5 @@ class starttls_plaintext_inj_BaseVerify:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = starttls_plaintext_inj_BaseVerify(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

