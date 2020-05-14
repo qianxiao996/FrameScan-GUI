@@ -138,7 +138,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
     def showtime(self):
         datetime = QDateTime.currentDateTime()
         text = datetime.toString("yyyy-MM-dd hh:mm:ss")
-        self.setWindowTitle("FrameScan  V1.2.3 测试版 20200512      %s" % text)
+        self.setWindowTitle("FrameScan  V1.2.4 测试版 20200514      %s" % text)
 
     # 得到选中的方法
     def get_methods(self):
@@ -194,15 +194,14 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 "[%s]Info:正在创建队列..." % ((time.strftime('%H:%M:%S', time.localtime(time.time())))))
             self.Ui.textEdit_log.append(
                 "[%s]Start:扫描开始..." % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
-            for xuanzhong_data in all_data:
-                for u in target:
+            for u in target:
+                for xuanzhong_data in all_data:
                     for p in xuanzhong_data:
                         # print(p)
                         cms_name = p[1]
                         filename = 'Plugins/' + cms_name + '/' + p[2]
                         poc_methods = 'Plugins.'+ cms_name + '.' + p[6]
                         portQueue.put(u + '$$$' +filename+'$$$'+ poc_methods)
-
                 # 限制线程数小于队列大小
                 if threadnum > portQueue.qsize():
                     threadnum = portQueue.qsize()
@@ -214,7 +213,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 self.Ui.pushButton_vuln_start.setEnabled(False)
                 for i in range(threadnum):
                     thread = threading.Thread(target=self.vuln_scan, args=(portQueue, threadnum))
-                    # thread.setDaemon(True)  # 设置为后台线程，这里默认是False，设置为True之后则主线程不用等待子线程
+                    thread.setDaemon(True)  # 设置为后台线程，这里默认是False，设置为True之后则主线程不用等待子线程
                     thread.start()
     # 调用脚本
     def vuln_scan(self, portQueue, threadnum):
