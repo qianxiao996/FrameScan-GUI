@@ -12,6 +12,7 @@ from PyQt5.QtGui import *
 import csv, re, requests, time, sqlite3
 from GUI.FrameScan import Ui_MainWindow
 from GUI.showPlugins import Ui_Form
+from GUI.Plugins_information import Ui_Plugins_information
 import win32con
 import win32clipboard as wincld
 import frozen_dir, queue
@@ -19,6 +20,8 @@ import frozen_dir, queue
 SETUP_DIR = frozen_dir.app_path()
 sys.path.append(SETUP_DIR)
 DB_NAME = 'POC_DB.db'
+version = '1.2.5'
+update_time = '20200520'
 # 禁用安全警告
 requests.packages.urllib3.disable_warnings()
 
@@ -58,10 +61,10 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         self.stop_flag = 0
         self.readfile()
         # 设置漏洞扫描表格属性  列宽度
-        # self.Ui.tableWidget_vuln.setColumnWidth(0, 222)
-        # self.Ui.tableWidget_vuln.setColumnWidth(1, 325)
-        # self.Ui.tableWidget_vuln.setColumnWidth(2, 370)
-        # self.Ui.tableWidget_vuln.setColumnWidth(3, 91)
+        self.Ui.tableWidget_vuln.setColumnWidth(0, 150)
+        self.Ui.tableWidget_vuln.setColumnWidth(1, 240)
+        self.Ui.tableWidget_vuln.setColumnWidth(2, 280)
+        self.Ui.tableWidget_vuln.setColumnWidth(3, 80)
         #帮助
         othersmenubar = self.menuBar()  # 获取窗体的菜单栏
         others = othersmenubar.addMenu("帮助")
@@ -138,7 +141,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
     def showtime(self):
         datetime = QDateTime.currentDateTime()
         text = datetime.toString("yyyy-MM-dd hh:mm:ss")
-        self.setWindowTitle("FrameScan  V1.2.4 测试版 20200514      %s" % text)
+        self.setWindowTitle("FrameScan-GUI v"+version+" 测试版 "+update_time+"      %s" % text)
 
     # 得到选中的方法
     def get_methods(self):
@@ -249,10 +252,13 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                     nameItem = QTableWidgetItem(result[0])
                     payloadItem = QTableWidgetItem(result[1])
                     resultItem = QTableWidgetItem(result[2])
+                    filenameItem = QTableWidgetItem(filename)
                     self.Ui.tableWidget_vuln.setItem(row, 0, urlItem)
                     self.Ui.tableWidget_vuln.setItem(row, 1, nameItem)
-                    self.Ui.tableWidget_vuln.setItem(row, 3, payloadItem)
-                    self.Ui.tableWidget_vuln.setItem(row, 2, resultItem)
+                    self.Ui.tableWidget_vuln.setItem(row, 3, resultItem)
+                    self.Ui.tableWidget_vuln.setItem(row, 2, filenameItem)
+                    self.Ui.tableWidget_vuln.setItem(row, 4, payloadItem)
+
             except Exception as e:
                 self.Ui.textEdit_log.append(
                     "[%s]Error:%s脚本执行错误！\n[Exception]:\n%s" % (
@@ -297,8 +303,40 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 child1.setText(0, poc)
                 child1.setCheckState(0, Qt.Unchecked)
         self.Ui.treeWidget_Plugins.itemChanged.connect(self.handleChanged)
+        self.Ui.treeWidget_Plugins.doubleClicked.connect(self.Show_Plugins_info)
         self.Ui.textEdit_log.append(
             "[%s]Success:插件加载完成，共%s个。" % (time.strftime('%H:%M:%S', time.localtime(time.time())), len(values)))
+    def Show_Plugins_info(self):
+        methods_name = self.Ui.treeWidget_Plugins.currentItem().text(0)
+        conn = sqlite3.connect(DB_NAME)
+        cursor = conn.cursor()
+        # 列出所有数据
+        sql = "SELECT *  from POC where pocmethods='%s'"%methods_name
+        cursor.execute(sql)
+        values = cursor.fetchall()
+        # print(values)
+        try:
+            self.dialog.close()
+        except:
+            pass
+        if len(values) !=0:
+            self.WChild_info = Ui_Plugins_information()
+            self.dialog = QtWidgets.QDialog(self)
+            self.WChild_info.setupUi(self.dialog)
+            self.dialog.show()
+            self.WChild_info.vuln_name.setText(values[0][3])
+            self.WChild_info.cms_name.setText(values[0][1])
+            self.WChild_info.plugins_methods.setText(values[0][6])
+            self.WChild_info.file_path.setText("Plugins/"+values[0][1]+'/'+values[0][2])
+            self.WChild_info.vuln_url.setText('<a href="'+values[0][4]+'">'+values[0][4]+'</a>')
+            self.WChild_info.vuln_miaoshu.setText(values[0][5])
+
+            return 0
+        else:
+            return
+    def open_link(self):
+        print(2)
+
 
     # 父节点关联子节点
     def handleChanged(self, item, column):
@@ -439,6 +477,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
     # 重新加载插件
     def vuln_reload_Plugins(self):
         self.Ui.treeWidget_Plugins.clear()
+        self.Ui.textEdit_log.setText("[%s]Start:正在重新加载插件..." % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
         # 删除数据库，重新建立
         if os.path.isfile(DB_NAME):
             try:
@@ -547,9 +586,9 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 return 0
             conn.close()
             box = QtWidgets.QMessageBox()
-            box.information(self, "End", "数据更新完成！\n插件数量：%s，重新启动!" % values[0][0])
-            reboot = sys.executable
-            os.execl(reboot, reboot, *sys.argv)
+            box.information(self, "Load Plugins", "数据更新完成！\n插件数量：%s" % values[0][0])
+            # reboot = sys.executable
+            # os.execl(reboot, reboot, *sys.argv)
         except Exception as e:
             self.Ui.textEdit_log.append(
                 "[%s]Error:数据写入失败！\n[Exception]:\n%s" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), e))
@@ -628,4 +667,15 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindows()
     window.show()
+    try:
+        response = requests.get("https://qianxiao996.cn/FrameScan-GUI/version.txt",timeout = 2)
+        if (int(response.text.replace('.',''))>int(version.replace('.',''))):
+            reply = QMessageBox.question(window,'软件更新', "检测到软件已发布新版本，是否前去下载?",QMessageBox.Yes | QMessageBox.No,
+                                         QMessageBox.Yes)
+            if reply == QMessageBox.Yes:
+                webbrowser.open('https://github.com/qianxiao996/FrameScan-GUI/releases')
+            else:
+                pass
+    except:
+        pass
     sys.exit(app.exec_())
