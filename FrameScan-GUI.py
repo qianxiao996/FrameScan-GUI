@@ -498,6 +498,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             # 创建一个游标 curson
             cursor = conn.cursor()
             # 执行一条语句,创建 user表 如不存在创建
+
             sql = "create table IF NOT EXISTS POC (id integer primary key autoincrement , cmsname varchar(30),pocfilename varchar(40),pocname  varchar(30),pocreferer varchar(50),pocdescription varchar(200),pocmethods  varchar(40))"
             cursor.execute(sql)
             self.Ui.textEdit_log.append(
@@ -536,16 +537,17 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                                         # print(name)
                                         # 得到中文poc_name
                                         if "name:" in name:
-                                            poc_name = name.split(":")[1].replace(" ", "")
-                                            poc_name = poc_name.replace("\n", "").replace("\r", "").replace("\r\n", "")
+                                            poc_name = name.replace("name:", "").replace("\n", "").replace(
+                                                "\r", "").replace("\r\n", "").strip()
                                             # print(poc_name)
                                         # 得到调用的poc_methos
                                             # self.Ui.textEdit_log.append(poc_methos)
                                         # 得到调用的poc_referer
                                         if "referer" in name:
-                                            poc_referer = name.replace(":", "").split(" ")[1].replace("\n", "").replace(
-                                                "\r", "").replace("\r\n", "")
+                                            poc_referer = name.replace("referer:", "").replace("\n", "").replace(
+                                                "\r", "").replace("\r\n", "").strip()
                                             # self.Ui.textEdit_log.append(poc_referer)
+                                    # print(poc_referer)
                                     # 读取文件光标恢复到初始位置
                                     f.seek(0)
                                     condata = f.read()  ##所有数据
