@@ -41,7 +41,7 @@ def run(url):
 					shell_result = s.get(shell,timeout=5,headers=headers, verify=False)
 					if shell_result.status_code==200 and 'code' in shell_result.text:
 						result_2[1] = '当前shell上传位置为:%s'%shell
-						return result
+						return result_2
 			else:
 				result_2[2]=  '不存在'
 
