@@ -58,7 +58,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         self.timer.start()
         self.loadplugins()
         self.url_list = []
-        self.stop_flag = 0
         self.readfile()
         # 设置漏洞扫描表格属性  列宽度
         self.Ui.tableWidget_vuln.setColumnWidth(0, 150)
@@ -168,7 +167,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
 
     # 开始扫描
     def vuln_Start(self):
-
         threadnum = int(self.Ui.threadsnum.currentText())
         portQueue = queue.Queue()  # 待检测端口队列，会在《Python常用操作》一文中更新用法
         self.Ui.textEdit_log.clear()
@@ -223,41 +221,39 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         # print(portQueue.queue)  #输出所有队列
         while 1:
             try:
-                if portQueue.empty():  # 队列空就结束
-                    self.stop_flag = self.stop_flag + 1
-                    # print(self.stop_flag,threadnum)
-                    if self.stop_flag == threadnum:
-                        time.sleep(3)
-                        self.Ui.action_vuln_import.setEnabled(True)
-                        self.Ui.pushButton_vuln_file.setEnabled(True)
-                        self.Ui.action_vuln_start.setEnabled(True)
-                        self.Ui.pushButton_vuln_start.setEnabled(True)
-                        self.stop_flag = 0
-                    break
-                all = portQueue.get()  # 从队列中取出
-                url = all.split('$$$')[0]
-                filename = all.split('$$$')[1]
-                poc_methods = all.split('$$$')[2]
-                # nnnnnnnnnnnn1 = importlib.import_module(poc_methods)
-                nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(poc_methods, filename).load_module()
-                result = nnnnnnnnnnnn1.run(url)
-                result_url = url.replace("http://", "").replace("https://", "")
-                self.Ui.textEdit_log.append(
-                    "[%s]Info:%s----%s----%s。" % (
-                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), result_url, result[0], result[2]))
-                if result[2] != '不存在' and result[2] != '':
-                    row = self.Ui.tableWidget_vuln.rowCount()  # 获取行数
-                    self.Ui.tableWidget_vuln.setRowCount(row + 1)
-                    urlItem = QTableWidgetItem(result_url)
-                    nameItem = QTableWidgetItem(result[0])
-                    payloadItem = QTableWidgetItem(result[1])
-                    resultItem = QTableWidgetItem(result[2])
-                    filenameItem = QTableWidgetItem(filename)
-                    self.Ui.tableWidget_vuln.setItem(row, 0, urlItem)
-                    self.Ui.tableWidget_vuln.setItem(row, 1, nameItem)
-                    self.Ui.tableWidget_vuln.setItem(row, 3, resultItem)
-                    self.Ui.tableWidget_vuln.setItem(row, 2, filenameItem)
-                    self.Ui.tableWidget_vuln.setItem(row, 4, payloadItem)
+                if portQueue.empty() :  # 队列空就结束
+                    time.sleep(3)
+                    self.Ui.action_vuln_import.setEnabled(True)
+                    self.Ui.pushButton_vuln_file.setEnabled(True)
+                    self.Ui.action_vuln_start.setEnabled(True)
+                    self.Ui.pushButton_vuln_start.setEnabled(True)
+                    return
+                else:
+                    all = portQueue.get()  # 从队列中取出
+                    url = all.split('$$$')[0]
+                    filename = all.split('$$$')[1]
+                    poc_methods = all.split('$$$')[2]
+                    # nnnnnnnnnnnn1 = importlib.import_module(poc_methods)
+                    nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(poc_methods, filename).load_module()
+                    result = nnnnnnnnnnnn1.run(url)
+                    # print(result)
+                    result_url = url.replace("http://", "").replace("https://", "")
+                    self.Ui.textEdit_log.append(
+                        "[%s]Info:%s----%s----%s。" % (
+                            (time.strftime('%H:%M:%S', time.localtime(time.time()))), result_url, result[0], result[2]))
+                    if result[2] != '不存在' and result[2] != '':
+                        row = self.Ui.tableWidget_vuln.rowCount()  # 获取行数
+                        self.Ui.tableWidget_vuln.setRowCount(row + 1)
+                        urlItem = QTableWidgetItem(result_url)
+                        nameItem = QTableWidgetItem(result[0])
+                        payloadItem = QTableWidgetItem(result[1])
+                        resultItem = QTableWidgetItem(result[2])
+                        filenameItem = QTableWidgetItem(filename)
+                        self.Ui.tableWidget_vuln.setItem(row, 0, urlItem)
+                        self.Ui.tableWidget_vuln.setItem(row, 1, nameItem)
+                        self.Ui.tableWidget_vuln.setItem(row, 3, resultItem)
+                        self.Ui.tableWidget_vuln.setItem(row, 2, filenameItem)
+                        self.Ui.tableWidget_vuln.setItem(row, 4, payloadItem)
 
             except Exception as e:
                 self.Ui.textEdit_log.append(
@@ -634,7 +630,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
     def ideas(self):
         box = QtWidgets.QMessageBox()
         box.setIcon(1)
-        box.about(self, "意见反馈", "作者邮箱：qianxiao996@126.com\n作者主页：http://blog.qianxiao996.cn")
+        box.about(self, "意见反馈", "作者邮箱：qianxiao996@126.com\n作者主页：<a href=\"http://blog.qianxiao996.cn\">http://blog.qianxiao996.cn</a>")
 
     # 全选
     def vuln_all(self):
