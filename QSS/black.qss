@@ -42,6 +42,28 @@ QPushButton:pressed {
 QPushButton:disabled {
     color: #333333;
 }
+/* === QToolButton === */
+QToolButton {
+    border: 1px solid #333333;
+    padding: 4px;
+    height: 25px;
+}
+
+QToolButton:hover {
+    background-color: #333333;
+    border-color: #444444;
+}
+
+QToolButton:pressed {
+    background-color: #111111;
+    border-color: #333333;
+    color: yellow;
+}
+
+QToolButton:disabled {
+    color: #333333;
+}
+
 
 /* === Checkable items === */
 QCheckBox::indicator, QRadioButton::indicator, QTreeView::indicator {

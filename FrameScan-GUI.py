@@ -4,7 +4,6 @@ import json
 import sys, os, webbrowser, threading,importlib
 if hasattr(sys, 'frozen'):
     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
-
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -20,14 +19,11 @@ import frozen_dir, queue
 SETUP_DIR = frozen_dir.app_path()
 sys.path.append(SETUP_DIR)
 DB_NAME = 'POC_DB.db'
-version = '1.2.5'
-update_time = '20200520'
+version = '1.2.6'
+update_time = '20200530'
 # 禁用安全警告
 requests.packages.urllib3.disable_warnings()
-
-
 class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
-
     def __init__(self, parent=None):
         super(MainWindows, self).__init__(parent)
         # self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint) #去掉标题栏
@@ -50,7 +46,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         self.Ui.action_ideas.triggered.connect(self.ideas)  # 意见反馈
         self.Ui.pushButton_vuln_all.clicked.connect(self.vuln_all)  # 全选
         self.Ui.pushButton_vuln_noall.clicked.connect(self.vuln_noall)  # 反选
-        # 虚拟终端右键菜单
+        # 右键菜单
         self.Ui.tableWidget_vuln.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.Ui.tableWidget_vuln.customContextMenuRequested['QPoint'].connect(self.createtableWidget_vulnMenu)
         self.timer = QTimer()  # 设定一个定时器用来显示时间
@@ -76,7 +72,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             impMenu.addAction(sub_action)
         others.addMenu(impMenu)
         others.triggered[QAction].connect(self.show_others)
-
     def readfile(self):
         try:
             global json_qss
@@ -102,24 +97,22 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         # 否则无法使用customContextMenuRequested信号
         self.Ui.tableWidget_vuln.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.Ui.tableWidget_vuln.customContextMenuRequested.connect(self.showContextMenu)
-
         # 创建QMenu
         self.contextMenu = QtWidgets.QMenu(self)
         self.copy_textEdit = self.contextMenu.addAction(u'复制')
         self.clear_textEdit = self.contextMenu.addAction(u'清空')
-
+        self.delete_textEdit= self.contextMenu.addAction(u'删除')
         # 将动作与处理函数相关联
         # 这里为了简单，将所有action与同一个处理函数相关联，
         # 当然也可以将他们分别与不同函数关联，实现不同的功能
         self.copy_textEdit.triggered.connect(self.Copy_tableWidget_vuln)
         self.clear_textEdit.triggered.connect(self.Clear_tableWidget_vuln)
-
+        self.delete_textEdit.triggered.connect(self.Delete_tableWidget_vuln)
     # 右键点击时调用的函数，移动鼠标位置
     def showContextMenu(self, pos):
         # 菜单显示前，将它移动到鼠标点击的位置
         self.contextMenu.move(QtGui.QCursor.pos())
         self.contextMenu.show()
-
     def Copy_tableWidget_vuln(self):
         try:
             data = self.Ui.tableWidget_vuln.selectedItems()[0].text()
@@ -131,17 +124,16 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             wincld.CloseClipboard()
         except:
             pass
-
     def Clear_tableWidget_vuln(self):
         for i in range(0, self.Ui.tableWidget_vuln.rowCount()):  # 循环行
             self.Ui.tableWidget_vuln.removeRow(0)
-
+    def Delete_tableWidget_vuln(self):
+        self.Ui.tableWidget_vuln.removeRow(self.Ui.tableWidget_vuln.currentRow())#删除选中的行
     # 显示时间
     def showtime(self):
         datetime = QDateTime.currentDateTime()
         text = datetime.toString("yyyy-MM-dd hh:mm:ss")
         self.setWindowTitle("FrameScan-GUI v"+version+" 测试版 "+update_time+"      %s" % text)
-
     # 得到选中的方法
     def get_methods(self):
         all_data = []
@@ -164,11 +156,9 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         conn2.close()
         #返回所有选中的数据
         return all_data
-
     # 开始扫描
     def vuln_Start(self):
         threadnum = int(self.Ui.threadsnum.currentText())
-        portQueue = queue.Queue()  # 待检测端口队列，会在《Python常用操作》一文中更新用法
         self.Ui.textEdit_log.clear()
         target = []  # 存放扫描的URL
         if self.url_list:
@@ -182,8 +172,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 "[%s]Info:未获取到URL地址。" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
             return 0
         all_data = self.get_methods()
-
-
         if not all_data:
             self.Ui.textEdit_log.append(
                 "[%s]Info:未选择插件。" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
@@ -192,30 +180,64 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             self.Ui.textEdit_log.append(
                 "[%s]Info:共加载%s个插件。" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), len(all_data)))
             self.Ui.textEdit_log.append(
-                "[%s]Info:正在创建队列..." % ((time.strftime('%H:%M:%S', time.localtime(time.time())))))
+                "[%s]Info:共获取到%s个URL地址。" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), len(target)))
             self.Ui.textEdit_log.append(
-                "[%s]Start:扫描开始..." % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
+                "[%s]Info:正在创建队列..." % ((time.strftime('%H:%M:%S', time.localtime(time.time())))))
+            thread = threading.Thread(target=self.add_queue, args=(target,all_data,threadnum))
+            thread.setDaemon(True)  # 设置为后台线程，这里默认是False，设置为True之后则主线程不用等待子线程
+            thread.start()
+    def add_queue(self,target,all_data,threadnum):
+        portQueue = queue.Queue()  # 待检测端口队列，会在《Python常用操作》一文中更新用法
+        if self.Ui.jump_url.checkState() != Qt.Checked:
+            num=  len(target)
             for u in target:
                 for xuanzhong_data in all_data:
                     for p in xuanzhong_data:
                         # print(p)
                         cms_name = p[1]
                         filename = 'Plugins/' + cms_name + '/' + p[2]
-                        poc_methods = 'Plugins.'+ cms_name + '.' + p[6]
-                        portQueue.put(u + '$$$' +filename+'$$$'+ poc_methods)
-                # 限制线程数小于队列大小
-                if threadnum > portQueue.qsize():
-                    threadnum = portQueue.qsize()
-                # print(portQueue.qsize())
-
-                self.Ui.action_vuln_import.setEnabled(False)
-                self.Ui.pushButton_vuln_file.setEnabled(False)
-                self.Ui.action_vuln_start.setEnabled(False)
-                self.Ui.pushButton_vuln_start.setEnabled(False)
-                for i in range(threadnum):
-                    thread = threading.Thread(target=self.vuln_scan, args=(portQueue, threadnum))
-                    thread.setDaemon(True)  # 设置为后台线程，这里默认是False，设置为True之后则主线程不用等待子线程
-                    thread.start()
+                        poc_methods = 'Plugins.' + cms_name + '.' + p[6]
+                        portQueue.put(u + '$$$' + filename + '$$$' + poc_methods)
+        else:
+            num = 0
+            for u in target:
+                headers = {'content-type': 'application/json',
+                           'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:22.0) Gecko/20100101 Firefox/22.0'}
+                try:
+                    dara = requests.get(u, timeout=3, headers=headers)
+                except Exception as  e:
+                    row = self.Ui.tableWidget_vuln.rowCount()  # 获取行数
+                    self.Ui.tableWidget_vuln.setRowCount(row + 1)
+                    urlItem = QTableWidgetItem(u)
+                    resultItem = QTableWidgetItem('无法访问')
+                    self.Ui.tableWidget_vuln.setItem(row, 0, urlItem)
+                    self.Ui.tableWidget_vuln.setItem(row, 3, resultItem)
+                    continue
+                else:
+                    for xuanzhong_data in all_data:
+                        for p in xuanzhong_data:
+                            # print(p)
+                            cms_name = p[1]
+                            filename = 'Plugins/' + cms_name + '/' + p[2]
+                            poc_methods = 'Plugins.' + cms_name + '.' + p[6]
+                            portQueue.put(u + '$$$' + filename + '$$$' + poc_methods)
+                    num+= 1
+                    # 限制线程数小于队列大小
+        if threadnum > portQueue.qsize():
+            threadnum = portQueue.qsize()
+        # print(portQueue.qsize())
+        self.Ui.textEdit_log.append(
+            "[%s]Info:共获取到%s个有效URL地址。" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), num))
+        self.Ui.textEdit_log.append(
+            "[%s]Start:扫描开始..." % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
+        self.Ui.action_vuln_import.setEnabled(False)
+        self.Ui.pushButton_vuln_file.setEnabled(False)
+        self.Ui.action_vuln_start.setEnabled(False)
+        self.Ui.pushButton_vuln_start.setEnabled(False)
+        for i in range(threadnum):
+            thread = threading.Thread(target=self.vuln_scan, args=(portQueue, threadnum))
+            thread.setDaemon(True)  # 设置为后台线程，这里默认是False，设置为True之后则主线程不用等待子线程
+            thread.start()
     # 调用脚本
     def vuln_scan(self, portQueue, threadnum):
         # print(portQueue.queue)  #输出所有队列
@@ -254,13 +276,11 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                         self.Ui.tableWidget_vuln.setItem(row, 3, resultItem)
                         self.Ui.tableWidget_vuln.setItem(row, 2, filenameItem)
                         self.Ui.tableWidget_vuln.setItem(row, 4, payloadItem)
-
             except Exception as e:
                 self.Ui.textEdit_log.append(
                     "[%s]Error:%s脚本执行错误！\n[Exception]:\n%s" % (
                         (time.strftime('%H:%M:%S', time.localtime(time.time()))), filename, e))
                 pass
-
     # 初始化加载插件
     def loadplugins(self):
         if os.path.isfile(DB_NAME):
@@ -326,14 +346,9 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             self.WChild_info.file_path.setText("Plugins/"+values[0][1]+'/'+values[0][2])
             self.WChild_info.vuln_url.setText('<a href="'+values[0][4]+'">'+values[0][4]+'</a>')
             self.WChild_info.vuln_miaoshu.setText(values[0][5])
-
             return 0
         else:
             return
-    def open_link(self):
-        print(2)
-
-
     # 父节点关联子节点
     def handleChanged(self, item, column):
         count = item.childCount()
@@ -360,7 +375,8 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             f = open(filename, 'r', encoding='utf-8')
             for line in f.readlines():
                 if 'http' in line:
-                    self.url_list.append(line.replace('\n', '').strip())
+                    line = line.replace('\n', '').strip()
+                    self.url_list.append(line)
             self.Ui.textEdit_log.append(
                 "[%s]Info:读取完成，共加载%s条。" % (
                 (time.strftime('%H:%M:%S', time.localtime(time.time()))), len(self.url_list)))
@@ -376,10 +392,8 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                     data.append(self.Ui.tableWidget_vuln.item(i, j).text())  # 空格分隔
             comdata.append(list(data))
             data = []
-
         if len(comdata) > 0:
-            path = (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + '.csv').replace(' ', '-').replace('-',
-                                                                                                             '').replace(
+            path = (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + '.csv').replace(' ', '-').replace('-','').replace(
                 ':', '')
             # print(path)
             file_name = self.file_save(path)
@@ -389,11 +403,14 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                     for row in comdata:
                         writer.writerow(row)
                 f.close()
+                box = QtWidgets.QMessageBox()
+                box.information(self, "Success", "导出成功！\n文件位置："+file_name)
+            else:
+                box2= QtWidgets.QMessageBox()
+                box2.warning(self, "Error", "保存失败！文件名错误！" )
         else:
             self.Ui.textEdit_log.append(
                 "[%s]Faile:没有扫描结果！" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
-
-
     # 显示插件
     def vuln_ShowPlugins(self):
         self.widget = Ui_Form()
@@ -439,7 +456,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         conn2.close()
         self.dialog.show()
         self.widget.show_Plugins_comboBox.currentIndexChanged.connect(self.show_plugins_go)  # comboBox事件选中触发刷新
-
     # 单击列表刷新显示控件
     def show_plugins_go(self):
         self.widget.show_Plugins.clearContents()
@@ -454,7 +470,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         cursor.execute(sql)
         cms_data = cursor.fetchall()
         i = 0
-
         self.widget.show_Plugins.setRowCount(len(cms_data))
         for single in cms_data:
             vuln_name = QTableWidgetItem(str(single[1]))
@@ -469,7 +484,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             self.widget.show_Plugins.setItem(i, 4, vuln_motheds)
             i = i + 1
         conn2.close()
-
     # 重新加载插件
     def vuln_reload_Plugins(self):
         self.Ui.treeWidget_Plugins.clear()
@@ -494,7 +508,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             # 创建一个游标 curson
             cursor = conn.cursor()
             # 执行一条语句,创建 user表 如不存在创建
-
             sql = "create table IF NOT EXISTS POC (id integer primary key autoincrement , cmsname varchar(30),pocfilename varchar(40),pocname  varchar(30),pocreferer varchar(50),pocdescription varchar(200),pocmethods  varchar(40))"
             cursor.execute(sql)
             self.Ui.textEdit_log.append(
@@ -576,8 +589,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 self.Ui.textEdit_log.append(
                     "[%s]Success:共写入%s个插件" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), values[0][0]))
                 self.loadplugins()  # 调用加载插件
-
-
             else:
                 self.Ui.textEdit_log.append(
                     "[%s]Error:数据更新失败，原因:" % (time.strftime('%H:%M:%S', time.localtime(time.time()))), str(result))
@@ -621,7 +632,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         box.setIcon(1)
         box.about(self, "About",
                   "\t\t\tAbout\n       此程序为一款CMS扫描工具，可自行选择扫描的插件进行漏洞检查，请勿非法使用！\n\t\t\t   Powered by qianxiao996")
-
     # 更新
     def version_update(self):
         webbrowser.open("https://github.com/qianxiao996/FrameScan-GUI/releases")
@@ -630,7 +640,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
     def ideas(self):
         box = QtWidgets.QMessageBox()
         box.setIcon(1)
-        box.about(self, "意见反馈", "作者邮箱：qianxiao996@126.com\n作者主页：<a href=\"http://blog.qianxiao996.cn\">http://blog.qianxiao996.cn</a>")
+        box.about(self, "意见反馈", "作者邮箱：qianxiao996@126.com\n作者主页：http://blog.qianxiao996.cn")
 
     # 全选
     def vuln_all(self):
@@ -640,7 +650,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             if item.value().checkState(0) != QtCore.Qt.Checked:
                 item.value().setCheckState(0, Qt.Checked)
             item = item.__iadd__(1)
-
     # 反选
     def vuln_noall(self):
         item = QtWidgets.QTreeWidgetItemIterator(self.Ui.treeWidget_Plugins)
@@ -649,18 +658,14 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             if item.value().checkState(0) == QtCore.Qt.Checked:
                 item.value().setCheckState(0, Qt.Unchecked)
             item = item.__iadd__(1)
-
     # 文件打开对话框
     def file_open(self, type):
-        fileName, selectedFilter = QFileDialog.getOpenFileName(self, (r"上传文件"), (r"C:\windows"), type)
+        fileName, selectedFilter = QFileDialog.getOpenFileName(self, (r"上传文件"),'', type)
         return (fileName)  # 返回文件路径
-
     # 保存文件对话框
     def file_save(self, filename):
-        fileName, filetype = QFileDialog.getSaveFileName(self, (r"保存文件"), (r'C:\Users\Administrator\\' + filename),
-                                                         r"All files(*.*)")
+        fileName, filetype = QFileDialog.getSaveFileName(self, (r"保存文件"), (filename),r"All files(*.*)")
         return fileName
-
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindows()

@@ -90,6 +90,40 @@ QTableView::indicator {
        /* width: 20px;*/
         height: 20px;
 }
+/*QToolButton*/
+/*按钮普通态*/
+QToolButton
+{
+    border: 1px solid;
+    height: 25px;
+    /*背景颜色*/  
+    background-color:rgb(225, 225, 225);
+    /*边框圆角半径为8像素*/ 
+    border-radius:3px;
+}
+ 
+/*按钮停留态*/
+QToolButton:hover
+{
+    width: 75px;
+    height: 25px;
+     /* 控件最小宽度 */  
+    min-width:200px;  
+    /*背景颜色*/  
+    background-color:rgb(170, 170, 255);
+   color:white;
+}
+ 
+/*按钮按下态*/
+QToolButton:pressed
+{
+    /*背景颜色*/  
+    background-color:rgb(14 , 135 , 228);
+    /*左内边距为2像素，让按下时字向右移动3像素*/  
+    padding-left:2px;
+    /*上内边距为2像素，让按下时字向下移动3像素*/  
+    padding-top:2px;
+}
 
 /*按钮普通态*/
 QPushButton

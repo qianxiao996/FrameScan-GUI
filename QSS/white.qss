@@ -77,17 +77,6 @@ QPushButton{
 
 }
  
-QPushButton#Source_tihuan_Button,#Source_clear_Button,#Source_Copy_Button,#Source_Paste_Button,#Result_tihuan_Button,#Result_clear_Button,#Result_Copy_Button,#Result_Paste_Button
-{
-        /*字体为微软雅黑*/
-    font-family:Microsoft Yahei;
-    /*字体大小为10点*/
-    font-size:10pt;
-    /*字体颜色为白色*/    
-    color:white;
-
-}
- 
 /*按钮停留态*/
 QPushButton:hover
 {
@@ -105,3 +94,34 @@ QPushButton:pressed
     /*上内边距为3像素，让按下时字向下移动3像素*/  
     padding-top:3px;
 }
+
+/* === QToolButton === */
+
+/*按钮普通态*/
+QToolButton{
+    height: 25px;
+    /*背景颜色*/  
+    background-color:rgb(170, 170, 255);
+    /*边框圆角半径为8像素*/ 
+    border-radius:8px;
+
+}
+ 
+/*按钮停留态*/
+QToolButton:hover
+{
+    /*背景颜色*/  
+    background-color:rgb(44 , 137 , 255);
+}
+ 
+/*按钮按下态*/
+QToolButton:pressed
+{
+    /*背景颜色*/  
+    background-color:rgb(14 , 135 , 228);
+    /*左内边距为3像素，让按下时字向右移动3像素*/  
+    padding-left:3px;
+    /*上内边距为3像素，让按下时字向下移动3像素*/  
+    padding-top:3px;
+}
+
