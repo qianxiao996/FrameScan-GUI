@@ -12,7 +12,10 @@ QWidget:window {
     color: #BBBBBB;
     font-family: "Segoe UI";
 }
-
+QWidget {
+    background: #222222;
+    color: #BBBBBB;
+}
 /* === QToolTip === */
 QToolTip {
     background-color: #000000;
@@ -363,6 +366,25 @@ QHeaderView::section {
     color: #BBBBBB;
     padding: 3px 0 3px 4px;
 }
+/**********表头**********/
+QHeaderView{
+        border: none;
+        background: #222222;
+        min-height: 30px;
+}
+QHeaderView::section:horizontal {
+    background:  #222222;
+        border: none;
+        padding-left: 5px;
+}
+QTableView::item {
+    background:  #222222;
+        padding-left: 5px;
+        padding-right: 5px;
+    	border: none;
+}
+
+
 
 /* === QListView === */
 QListView::item:hover {
