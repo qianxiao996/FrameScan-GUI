@@ -3,23 +3,24 @@
 import sys
 import json
 import requests
+import warnings
 
 def vuln_info():
     info={
         'name': 'POC测试漏洞',
         'referer':'http://baidu.com',
         'author':'qianxiao996',
-        'description':'''exp描述信息，会显示在漏洞利用模块的信息文本编辑框'''
+        'description':'''expddddd'''
 
     }
     return info
 
-def run(url,heads='',cookie='',cmd='whoami',lhost='',lport=8888):
+def run(MainWindows,url,heads='',cookie='',cmd='whoami',lhost='',lport=8888):
     #命令执行
     if lhost=='':
-        return('root')
+        MainWindows.vuln_exp_log('result','root')
 
     #反弹shell    
     if lhost!='':
-        return('反弹成功！')
+        MainWindows.vuln_exp_log('log','反弹成功','red')
  

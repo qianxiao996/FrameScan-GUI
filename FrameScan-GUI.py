@@ -21,7 +21,7 @@ import frozen_dir, queue
 SETUP_DIR = frozen_dir.app_path()
 sys.path.append(SETUP_DIR)
 DB_NAME = 'POC_DB.db'
-version = '1.2.8'
+version = '1.2.9'
 plugins_dir_name = 'Plugins/'
 update_time = '20200816'
 # 禁用安全警告
@@ -771,8 +771,14 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             cmd = self.Ui.vuln_exp_input_cmd.text()
             self.Ui.vuln_exp_textEdit_log.append(
                 "[%s]命令执行:%s" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), cmd))
-            nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(exp_path[:-3], exp_path).load_module()
-            result = nnnnnnnnnnnn1.run(url,heads,cookie,cmd)
+            try:
+                nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(exp_path[:-3], exp_path).load_module()
+                nnnnnnnnnnnn1.run(self,url,heads,cookie,cmd)
+            except Exception as  e:
+                self.Ui.textEdit_result.append(
+                    "[%s]Error:%s脚本执行错误！\n[Exception]:\n%s" % (
+                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), exp_path, e))
+                return
         if exp_type=='shell':
             ip = self.Ui.vuln_exp_input_ip.text()
             port = self.Ui.vuln_exp_input_port.text()
@@ -794,30 +800,15 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 return
 
             try:
-                timeout = int(self.Ui.comboBox_timeout.currentText())
-                with eventlet.Timeout(timeout, True):
-                    try:
-                        self.Ui.vuln_exp_textEdit_log.append(
+                self.Ui.vuln_exp_textEdit_log.append(
                             "[%s]反弹Shell:%s:%s %s" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), ip,port,shelltype))
-                        nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(exp_path[:-3], exp_path).load_module()
-                        result = nnnnnnnnnnnn1.run(url,heads,cookie,shellcmd,ip,int(port))
-                    except Exception as  e:
-                        self.Ui.textEdit_result.append(
-                            "[%s]Error:%s脚本执行错误！\n[Exception]:\n%s" % (
-                                (time.strftime('%H:%M:%S', time.localtime(time.time()))), exp_path, e))
-
-
-                        return
-            except:
+                nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(exp_path[:-3], exp_path).load_module()
+                nnnnnnnnnnnn1.run(self,url,heads,cookie,shellcmd,ip,int(port))
+            except Exception as  e:
                 self.Ui.textEdit_result.append(
-                    "[%s]Error:%s脚本运行超时！" % (
-                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), exp_path))
-
-        # print(result)
-        self.Ui.textEdit_result.setText(str(result))
-        self.Ui.vuln_exp_textEdit_log.append(
-            "[%s]执行结果:%s" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), result))
-
+                    "[%s]Error:%s脚本执行错误！\n[Exception]:\n%s" % (
+                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), exp_path, e))
+                return
     # 关于
     def about(self):
         box = QtWidgets.QMessageBox()
@@ -887,6 +878,15 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         if type!="Debug" and type!='result':
             self.Ui.textEdit_log.append(
                 "<p style=\"color:%s\">[%s]%s:%s。</p>" % (color,time.strftime('%H:%M:%S'),type, text))
+
+    def vuln_exp_log(self, type, text='', color='black'):
+        if type=='result':
+            self.Ui.textEdit_result.setText(text)
+            self.Ui.vuln_exp_textEdit_log.append(
+                "[%s]执行结果:%s" % (time.strftime('%H:%M:%S'),text))
+        else:
+            self.Ui.vuln_exp_textEdit_log.append(
+                "<p style=\"color:%s\">[%s]%s:%s。</p>" % (color, time.strftime('%H:%M:%S'), type, text))
     def sql_search(self,sql,type='list'):
         if type=='dict':
             conn = sqlite3.connect(DB_NAME)

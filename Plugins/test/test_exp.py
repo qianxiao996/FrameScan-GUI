@@ -15,12 +15,12 @@ def vuln_info():
     }
     return info
 
-def run(url,heads='',cookie='',cmd='whoami',lhost='',lport=8888):
+def run(MainWindows,url,heads='',cookie='',cmd='whoami',lhost='',lport=8888):
     #命令执行
     if lhost=='':
-        return('root')
+        MainWindows.vuln_exp_log('result','root')
 
     #反弹shell    
     if lhost!='':
-        return('反弹成功！')
+        MainWindows.vuln_exp_log('log','反弹成功','red')
  

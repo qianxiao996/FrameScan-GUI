@@ -17,7 +17,7 @@ FrameScan-GUI是一款python3和Pyqt编写的具有图形化界面的cms漏洞�
 
 ![2](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/2.jpg)
 
-## 自定义POC模板
+## 插件模板
 
 以下为POC模板，请尽量规范编写。脚本中为示例代码。
 
@@ -64,25 +64,26 @@ exp
 import sys
 import json
 import requests
+import warnings
 
 def vuln_info():
     info={
         'name': 'POC测试漏洞',
         'referer':'http://baidu.com',
         'author':'qianxiao996',
-        'description':'''exp描述信息，会显示在漏洞利用模块的信息文本编辑框'''
+        'description':'''expddddd'''
 
     }
     return info
 
-def run(url,heads='',cookie='',cmd='whoami',lhost='',lport=8888):
+def run(MainWindows,url,heads='',cookie='',cmd='whoami',lhost='',lport=8888):
     #命令执行
     if lhost=='':
-        return('root')
+        MainWindows.vuln_exp_log('result','root')
 
     #反弹shell    
     if lhost!='':
-        return('反弹成功！')
+        MainWindows.vuln_exp_log('log','反弹成功','red')
  
 ```
 
