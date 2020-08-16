@@ -1,18 +1,27 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''
-name: POC测试漏洞
-referer: http://baidu.com
-author: qianxiao996
-description: 百度测试。
-'''
 import requests
-import warnings
-def run(url):
-    #返回一个列表，参数一为检测结果，参数二为Payload
-    result = ['Payload','存在']
-    return result
+from urllib.parse import urlparse
 
-if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
-    testVuln = run(sys.argv[1])
+def vuln_info():
+    info={
+        'name': 'POC测试漏洞',
+        'referer':'http://baidu.com',
+        'author':'qianxiao996',
+        'description':'''百度测试。'''
+
+    }
+    return info
+def run(MainWindows,url,all):
+    # all =  0=url  1=filename  2=pocmethods  3=pocname
+    _url = urlparse(url)
+    dip = _url.hostname
+    dport = _url.port
+    result = '存在'
+    padload= 'payload'
+    #debug信息 默认不会显示，勾选显示调试信息会输出此结果
+    MainWindows.vuln_scanner_log('Debug','denbug信息')
+    #返回的结果
+    MainWindows.vuln_scanner_log('result', result,padload,all)
+    
+

@@ -160,38 +160,6 @@ QPushButton:pressed
     padding-top:2px;
 }
 
-QComboBox {
-	
-    /* 边框宽度,线条样式,颜色 */
-    border:1px solid black;
-
-    /* 倒角 */
-    border-radius:4px;
-
-    /* 内边框 */
-    padding:1px 10px 1px 3px;
-
-    max-width:35px;
-}
-QComboBox:editable {
-  /*  background:green;*/
-}
-/* 当下拉框打开时, 移动显示框文本位置*/
-QComboBox:on {
-    padding-top: 3px;
-    padding-left: 4px;
-}
-/* 下拉按钮 */
-QComboBox::drop-down {
-
-	subcontrol-origin: padding;
-
-    /* 按钮位置,右上角 */
-    subcontrol-position: top right;
-
-	width: 17px;
-  
-	
 
 }
 QLineEdit {
