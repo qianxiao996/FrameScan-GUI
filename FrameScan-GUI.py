@@ -21,9 +21,9 @@ import frozen_dir, queue
 SETUP_DIR = frozen_dir.app_path()
 sys.path.append(SETUP_DIR)
 DB_NAME = 'POC_DB.db'
-version = '1.2.9'
+version = '1.3.0'
 plugins_dir_name = 'Plugins/'
-update_time = '20200816'
+update_time = '20200824'
 # 禁用安全警告
 # time.strftime('%Y-%m-%d-%H.%M.%S', time.localtime(time.time()))
 requests.packages.urllib3.disable_warnings()
@@ -447,7 +447,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             else:
                 self.WChild_info.exp_file_path.setText("Plugins/" + values[0][1] + '/' + values[0][3])
             self.WChild_info.vuln_url.setText('<a href="'+values[0][5]+'">'+values[0][5]+'</a>')
-            self.WChild_info.vuln_miaoshu.setText(values[0][4])
+            self.WChild_info.vuln_miaoshu.setText(values[0][6])
             return 0
         else:
             return
