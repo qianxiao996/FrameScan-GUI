@@ -362,7 +362,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             sql_poc = "SELECT cmsname,pocname,pocfilename from POC where pocfilename !=''"
             poc_dict = self.sql_search(sql_poc,'dict')
             # print(self.poc_dict)
-            sql_exp = "SELECT cmsname,pocname,pocfilename,expdescription from POC where pocfilename !=''"
+            sql_exp = "SELECT cmsname,pocname,pocfilename,expdescription from POC where expfilename !=''"
             exp_dict = self.sql_search(sql_exp,'dict')
             # print(values)
         except Exception as e:
