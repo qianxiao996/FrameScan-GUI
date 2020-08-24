@@ -16,6 +16,7 @@ def vuln_info():
     return info
 
 def run(MainWindows,url,heads='',cookie='',cmd='whoami',lhost='',lport=8888):
+    MainWindows.vuln_scanner_log('Debug',heads)
     #命令执行
     if lhost=='':
         MainWindows.vuln_exp_log('result','root')
