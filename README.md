@@ -13,9 +13,9 @@ FrameScan-GUI是一款python3和Pyqt编写的具有图形化界面的cms漏洞�
 
 下载本项目，运行exe即可。
 
-![1](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/1.jpg)
+![1](./img/1.jpg)
 
-![2](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/2.jpg)
+![2](./img/2.jpg)
 
 ## 插件模板
 
