@@ -1,9 +1,9 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import configparser
-import eventlet
+import configparser,importlib
+
 # import logging
-import sys, os, webbrowser, threading,importlib
+import sys, os, webbrowser
 if hasattr(sys, 'frozen'):
     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
 from PyQt5 import QtWidgets, QtCore, QtGui
@@ -16,14 +16,15 @@ from GUI.showPlugins import Ui_Form
 from GUI.Plugins_information import Ui_Plugins_information
 import win32con
 import win32clipboard as wincld
-import frozen_dir, queue
-
+import frozen_dir
+from modules.vuln_scanner import Vuln_scanner
+from modules.vuln_exp import Vuln_exp
 SETUP_DIR = frozen_dir.app_path()
 sys.path.append(SETUP_DIR)
-DB_NAME = 'POC_DB.db'
-version = '1.3.0'
+DB_NAME = 'VULN_DB.db'
+version = '1.3.1'
 plugins_dir_name = 'Plugins/'
-update_time = '20200824'
+update_time = '20210520'
 # 禁用安全警告
 # time.strftime('%Y-%m-%d-%H.%M.%S', time.localtime(time.time()))
 requests.packages.urllib3.disable_warnings()
@@ -50,7 +51,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         # 漏洞扫描
         self.Ui.pushButton_vuln_file.clicked.connect(self.vuln_import_file)  # 导入地址
         self.Ui.pushButton_vuln_start.clicked.connect(self.vuln_Start)  # 开始扫描
-        self.Ui.action_vuln_expstart.triggered.connect(self.vuln_exp)  # 一键利用
         self.Ui.pushButton_vuln_expstart.clicked.connect(self.vuln_exp)  # 一键利用
         self.Ui.pushButton_vuln_all.clicked.connect(self.vuln_all)  # 全选
         self.Ui.pushButton_vuln_noall.clicked.connect(self.vuln_noall)  # 反选
@@ -96,14 +96,13 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         for z in config_setup.options('QSS_List'):
             sub_action = QAction(QIcon(''), z, self)
             impMenu.addAction(sub_action)
-        #漏洞利用
-        for z in config_setup.options('Shell'):
-            self.Ui.comboBox_type.addItem(z)
+
         others.addMenu(impMenu)
         others.triggered[QAction].connect(self.show_others)
     def load_config(self):
         try:
             global config_setup
+            global qss_style
             # 实例化configParser对象
             config_setup = configparser.ConfigParser()
             # -read读取ini文件
@@ -118,6 +117,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             with open("QSS/"+qss_Setup, 'r', encoding='utf-8') as f:
                 qss_style = f.read()
                 f.close()
+                
             MainWindows.setStyleSheet(self,qss_style)
             f.close()
         except Exception as e :
@@ -126,7 +126,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
     def createtableWidget_vulnMenu(self):
         '''''
                 创建右键菜单
-                '''
+        '''
         # 必须将ContextMenuPolicy设置为Qt.CustomContextMenu
         # 否则无法使用customContextMenuRequested信号
         self.Ui.tableWidget_vuln.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
@@ -199,8 +199,8 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                     # print(item.value().text(0))
                     for cms in self.poc_cms_name_dict:
                         for poc in self.poc_cms_name_dict[cms]:
-                            if poc['pocname'] ==item.value().text(0):
-                                poc['pocmethods'] = poc['pocfilename'].replace('.py','')
+                            if poc['vuln_name'] ==item.value().text(0):
+                                poc['pocmethods'] = poc['vuln_file'].replace('.py','')
                                 all_data.append(poc)
             item = item.__iadd__(1)
         # print(all_data)
@@ -208,147 +208,12 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         return all_data
     # 开始扫描
     def vuln_Start(self):
-        threadnum = int(self.Ui.threadsnum.currentText())
-        self.Ui.textEdit_log.clear()
-        target = []  # 存放扫描的URL
-        if self.url_list:
-            target = self.url_list
-        else:
-            url = self.Ui.lineEdit_vuln_url.text()
-            if 'http://' in url or 'https://' in url:
-                target.append(url.strip())
-        if not target:
-            self.Ui.textEdit_log.append(
-                "<p style=\"color:black\">[%s]Info:未获取到URL地址。</p>" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
-            return 0
-        poc_data = self.get_methods() #得到选中的数据
-        # print(poc_data)
-        if not poc_data:
-            self.Ui.textEdit_log.append(
-                "<p style=\"color:black\">[%s]Info:未选择插件。</p>" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
-            return 0
-        else:
-            self.Ui.textEdit_log.append(
-                "[%s]Info:共加载%s个插件。" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), len(poc_data)))
-            self.Ui.textEdit_log.append(
-                "<p style=\"color:black\">[%s]Info:共获取到%s个URL地址。</p>" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), len(target)))
-            self.Ui.textEdit_log.append(
-                "<p style=\"color:black\">[%s]Info:正在创建队列...</p>" % ((time.strftime('%H:%M:%S', time.localtime(time.time())))))
-            thread = threading.Thread(target=self.add_queue, args=(target,poc_data,threadnum))
-            thread.setDaemon(True)  # 设置为后台线程，这里默认是False，设置为True之后则主线程不用等待子线程
-            thread.start()
-    def add_queue(self,target,poc_data,threadnum):
-        # print(poc_data)
-        portQueue = queue.Queue()  # 待检测端口队列，会在《Python常用操作》一文中更新用法
-        num = 0
-        if self.Ui.jump_url.checkState() != Qt.Checked:
-            num= len(target)
-            for u in target:
-                for xuanzhong_data in poc_data:
-                    # print(poc_data)
-                    filename =plugins_dir_name+'/' + xuanzhong_data['cmsname'] + '/' + xuanzhong_data['pocmethods']+'.py'
-                    poc_methods = plugins_dir_name+'/'+ xuanzhong_data['cmsname'] + '/' + xuanzhong_data['pocmethods']
-                    portQueue.put(u + '$$$' + filename + '$$$' + poc_methods+'$$$'+xuanzhong_data['pocname'] )
-            self.Ui.textEdit_log.append(
-                "<p style=\"color:black\">[%s]Info:共请求%s个URL地址。</p>" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), num))
-        if self.Ui.jump_url.checkState() == Qt.Checked:
-            self.Ui.textEdit_log.append(
-                "<p style=\"color:black\">[%s]Info:正在进行地址存活检测...</p>" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
-            false_url =[]
-            for u in target:
-                headers = {'content-type': 'application/json',
-                           'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:22.0) Gecko/20100101 Firefox/22.0'}
-                try:
-                    if u not in false_url:
-                        time22 = int(self.Ui.comboBox_timeout.currentText())
-                        dara = requests.get(u, timeout=time22, headers=headers,verify=False)
-                    else:
-                        continue
-                except Exception as  e:
-                    false_url.append(u)
-                    row = self.Ui.tableWidget_vuln.rowCount()  # 获取行数
-                    self.Ui.tableWidget_vuln.setRowCount(row + 1)
-                    urlItem = QTableWidgetItem(u)
-                    resultItem = QTableWidgetItem('无法访问')
-                    self.Ui.tableWidget_vuln.setItem(row, 0, urlItem)
-                    self.Ui.tableWidget_vuln.setItem(row, 3, resultItem)
-                    self.Ui.textEdit_log.append(
-                        "<p style=\"color:black\">[%s]Info:%s----无法访问。</p>" % (
-                            (time.strftime('%H:%M:%S', time.localtime(time.time()))), u))
 
-                    continue
-                else:
-                    for xuanzhong_data in poc_data:
-                        # print(poc_data)
-                        filename = plugins_dir_name+'/'+ xuanzhong_data['cmsname'] + '/' + xuanzhong_data['pocmethods'] + '.py'
-                        poc_methods = plugins_dir_name+'/' + xuanzhong_data['cmsname'] + '/' + xuanzhong_data['pocmethods']
-                        portQueue.put(u + '$$$' + filename + '$$$' + poc_methods + '$$$' + xuanzhong_data['pocname'])
-                    num+= 1
-                    # 限制线程数小于队列大小
-            self.Ui.textEdit_log.append(
-                "<p style=\"color:black\">[%s]Info:共获取到%s个有效URL地址。</p>" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), num))
-        if threadnum > portQueue.qsize():
-            threadnum = portQueue.qsize()
-        # print(portQueue.qsize())
-        if num==0:
-            self.Ui.textEdit_log.append(
-                "[%s]End:扫描结束。" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
-            return
-        else:
-            self.Ui.textEdit_log.append(
-                "[%s]Start:扫描开始..." % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
-            self.Ui.action_vuln_import.setEnabled(False)
-            self.Ui.pushButton_vuln_file.setEnabled(False)
-            self.Ui.action_vuln_start.setEnabled(False)
-            self.Ui.pushButton_vuln_start.setEnabled(False)
-            for i in range(threadnum):
-                thread = threading.Thread(target=self.vuln_scan, args=(portQueue, threadnum))
-                thread.setDaemon(True)  # 设置为后台线程，这里默认是False，设置为True之后则主线程不用等待子线程
-                thread.start()
+        obj = Vuln_scanner(self,plugins_dir_name)
+        obj.start()
+
     # 调用脚本
-    def vuln_scan(self, portQueue, threadnum):
-        # print(portQueue.queue)  #输出所有队列
-        while 1:
-            try:
-                if portQueue.empty() :  # 队列空就结束
-                    time.sleep(int(self.Ui.comboBox_timeout.currentText()))
-                    self.Ui.pushButton_vuln_file.setEnabled(True)
-                    self.Ui.pushButton_vuln_start.setEnabled(True)
-                    return
-                else:
-                    all = portQueue.get().split('$$$')  # 从队列中取出 #0 url  1 filename  2 pocmethods  3 pocname
-                    url = all[0]
-                    filename = all[1]
-                    poc_methods = all[2]
-                    # nnnnnnnnnnnn1 = importlib.import_module(poc_methods)
-                    eventlet.monkey_patch(thread=False)
-                    #超时限制
-                    try:
-                        timeout = int(self.Ui.comboBox_timeout.currentText())
-                        with eventlet.Timeout(timeout, True):
-                            # print(timeout)
-                            # time.sleep(6)
-                            try:
-                                nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(poc_methods, filename).load_module()
-                                nnnnnnnnnnnn1.run(self, url, all)
-                            except Exception as  e:
-                                self.Ui.textEdit_log.append(
-                                    "<p style=\"color:red\">[%s]Error:%s脚本执行错误！<br>[Exception]:<br>%s</p>" % (
-                                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), filename, e))
-                                continue
-                    except:
-                        self.Ui.textEdit_log.append(
-                            "<p style=\"color:red\">[%s]Error:%s----%s----%s。</p>" % (
-                                (time.strftime('%H:%M:%S', time.localtime(time.time()))), url, all[3], '脚本运行超时'))
-                        self.Ui.pushButton_vuln_file.setEnabled(True)
-                        self.Ui.pushButton_vuln_start.setEnabled(True)
-                        pass
-
-            except Exception as e:
-                self.Ui.textEdit_log.append(
-                    "<p style=\"color:red\">[%s]Error:%s脚本执行错误！<br>[Exception]:<br>%s</p>" % (
-                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), filename, e))
-                pass
+    
     # 初始化加载插件
     def loadplugins(self):
         if not os.path.isfile(DB_NAME):
@@ -359,11 +224,14 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         #加载漏洞扫描模块
         try:
             # 列出所有数据
-            sql_poc = "SELECT cmsname,pocname,pocfilename from POC where pocfilename !=''"
+            sql_poc = "SELECT cms_name,vuln_name,vuln_file from vuln_poc where ispoc !=''"
             poc_dict = self.sql_search(sql_poc,'dict')
-            # print(self.poc_dict)
-            sql_exp = "SELECT cmsname,pocname,pocfilename,expdescription from POC where expfilename !=''"
-            exp_dict = self.sql_search(sql_exp,'dict')
+            if len(poc_dict)>=1:
+                # print(self.poc_dict)
+                sql_exp = "SELECT cms_name,vuln_name,vuln_file,vuln_description from vuln_poc where isexp !=''"
+                exp_dict = self.sql_search(sql_exp,'dict')
+            else:
+                return
             # print(values)
         except Exception as e:
             box = QtWidgets.QMessageBox()
@@ -372,16 +240,14 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         # 将查询的值组合为字典包含列表的形式
         self.poc_cms_name_dict = {}
         for cms in poc_dict :
-            self.poc_cms_name_dict[cms['cmsname']] = []
+            self.poc_cms_name_dict[cms['cms_name']] = []
         # print(cms_name)
         for cms in poc_dict :
-            # print(cms['cmsname'] )
-            # if cms['cmsname'] in cms_name.keys():
             poc_cms_sing= {}
-            poc_cms_sing['cmsname'] = cms['cmsname']
-            poc_cms_sing['pocname'] = cms['pocname']
-            poc_cms_sing['pocfilename'] = cms['pocfilename']
-            self.poc_cms_name_dict[cms['cmsname']].append(poc_cms_sing)
+            poc_cms_sing['cms_name'] = cms['cms_name']
+            poc_cms_sing['vuln_name'] = cms['vuln_name']
+            poc_cms_sing['vuln_file'] = cms['vuln_file']
+            self.poc_cms_name_dict[cms['cms_name']].append(poc_cms_sing)
         for cms in self.poc_cms_name_dict:
             # 设置root为self.treeWidget_Plugins的子树，故root是根节点
             root = QTreeWidgetItem(self.Ui.treeWidget_Plugins)
@@ -391,28 +257,26 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             for cms_single in self.poc_cms_name_dict[cms]:
                 # 为root节点设置子结点
                 child1 = QTreeWidgetItem(root)
-                child1.setText(0, cms_single['pocname'])
+                child1.setText(0, cms_single['vuln_name'])
                 child1.setCheckState(0, Qt.Unchecked)
         self.Ui.treeWidget_Plugins.itemChanged.connect(self.handleChanged)
         self.Ui.treeWidget_Plugins.doubleClicked.connect(self.Show_Plugins_info)
         self.Ui.textEdit_log.append(
             "<p style=\"color:green\">[%s]Success:插件加载完成，共%s个。</p>" % (time.strftime('%H:%M:%S', time.localtime(time.time())), len(poc_dict)))
-        #加载exp
-        # print(self.exp_dict)
         # 将查询的值组合为字典包含列表的形式
         self.exp_cms_name_dict = {}
         for cms in exp_dict :
-            self.exp_cms_name_dict[cms['cmsname']] = []
+            self.exp_cms_name_dict[cms['cms_name']] = []
         # print(exp_cms_name_dict)
         for exp_cms in exp_dict :
             # print(cms['cmsname'] )
             # if cms['cmsname'] in cms_name.keys():
             exp_cms_sing= {}
-            exp_cms_sing['cmsname'] = exp_cms['cmsname']
-            exp_cms_sing['pocname'] = exp_cms['pocname']
-            exp_cms_sing['pocfilename'] = exp_cms['pocfilename']
-            exp_cms_sing['expdescription'] = exp_cms['expdescription']
-            self.exp_cms_name_dict[exp_cms['cmsname']].append(exp_cms_sing)
+            exp_cms_sing['cms_name'] = exp_cms['cms_name']
+            exp_cms_sing['vuln_name'] = exp_cms['vuln_name']
+            exp_cms_sing['vuln_file'] = exp_cms['vuln_file']
+            exp_cms_sing['vuln_description'] = exp_cms['vuln_description']
+            self.exp_cms_name_dict[exp_cms['cms_name']].append(exp_cms_sing)
         # print(exp_cms_name_dict)
         self.Ui.vuln_name.clear()
         self.Ui.vuln_type.clear()
@@ -420,14 +284,14 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             self.Ui.vuln_type.addItem(cms)
         for exp_methods in list(self.exp_cms_name_dict.values())[0] :
             # print(exp_methods)
-            self.Ui.vuln_name.addItem(exp_methods['pocname'])
-            self.Ui.vuln_exp_textEdit_info.setText(exp_methods['expdescription'])
+            self.Ui.vuln_name.addItem(exp_methods['vuln_name'])
+            self.Ui.vuln_exp_textEdit_info.setText(exp_methods['vuln_description'])
 
     def Show_Plugins_info(self):
         poc_name = self.Ui.treeWidget_Plugins.currentItem().text(0)
         # 列出所有数据
-        sql = "SELECT *  from POC where pocname='%s'"%poc_name
-        values = self.sql_search(sql)
+        sql = "SELECT *  from vuln_poc where vuln_name='%s'"%poc_name
+        values = self.sql_search(sql,'dict')
         # print(values)
         try:
             self.dialog.close()
@@ -439,15 +303,22 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             self.WChild_info.setupUi(self.dialog)
             self.dialog.show()
             # print(values)
-            self.WChild_info.vuln_name.setText(values[0][4])
-            self.WChild_info.cms_name.setText(values[0][1])
-            self.WChild_info.poc_file_path.setText("Plugins/"+values[0][1]+'/'+values[0][2])
-            if values[0][3]=='':
-                self.WChild_info.exp_file_path.setText("暂无EXP")
+            self.WChild_info.vuln_name.setText(values[0]['vuln_name'])
+            self.WChild_info.cms_name.setText(values[0]['cms_name'])
+            if values[0]['isexp']:
+                self.WChild_info.vuln_exp.setText("True")
             else:
-                self.WChild_info.exp_file_path.setText("Plugins/" + values[0][1] + '/' + values[0][3])
-            self.WChild_info.vuln_url.setText('<a href="'+values[0][5]+'">'+values[0][5]+'</a>')
-            self.WChild_info.vuln_miaoshu.setText(values[0][6])
+                self.WChild_info.vuln_exp.setText("暂无")
+            if values[0]['ispoc']:
+                self.WChild_info.vuln_poc.setText("True")
+            else:
+                self.WChild_info.vuln_poc.setText("暂无")
+
+            self.WChild_info.vuln_file.setText("Plugins/" + values[0]['cms_name'] + '/' + values[0]['vuln_file'])
+            self.WChild_info.vuln_url.setText('<a href="'+values[0]['vuln_referer']+'">'+values[0]['vuln_referer']+'</a>')
+            self.WChild_info.vuln_miaoshu.setText(values[0]['vuln_description'])
+            self.WChild_info.vuln_solution.setText(values[0]['vuln_solution'])
+            self.WChild_info.vuln_identifier.setText(values[0]['vuln_identifier'])
             return 0
         else:
             return
@@ -520,22 +391,22 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 "[%s]Faile:没有扫描结果！" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
     # 显示插件
     def vuln_ShowPlugins(self):
+        self.form2 = QtWidgets.QWidget()
         self.widget = Ui_Form()
-        self.dialog = QtWidgets.QDialog(self)
-        self.widget.setupUi(self.dialog)
-        self.dialog.setFixedSize(self.dialog.width(), self.dialog.height())  # 设置宽高不可变
-        # 设置查看插件表格属性  列宽度
-        self.widget.show_Plugins.setColumnWidth(0, 120)
-        self.widget.show_Plugins.setColumnWidth(1, 200)
-        self.widget.show_Plugins.setColumnWidth(2, 320)
-        self.widget.show_Plugins.setColumnWidth(3, 360)
-        self.widget.show_Plugins.setColumnWidth(4, 218)
-        self.widget.show_Plugins.setColumnWidth(5, 218)
-        sql = "SELECT * from POC"
-        values = self.sql_search(sql)
+        self.widget.setupUi(self.form2)
+
+        self.form2.show()
+        self.widget.show_Plugins.setColumnWidth(0, 70)
+        self.widget.show_Plugins.setColumnWidth(7, 150)
+        # self.widget.show_Plugins.setColumnWidth(2, 320)
+        # self.widget.show_Plugins.setColumnWidth(3, 360)
+        # self.widget.show_Plugins.setColumnWidth(4, 218)
+        # self.widget.show_Plugins.setColumnWidth(5, 218)
+        sql = "SELECT * from vuln_poc"
+        values = self.sql_search(sql,'dict')
         i = 0
         self.widget.show_Plugins.setRowCount(len(values))
-        sql2 = "SELECT distinct cmsname from POC"
+        sql2 = "SELECT distinct cms_name from vuln_poc"
         cms_name_data = self.sql_search(sql2)
         # 添加查询列表
         for cms_name in cms_name_data:
@@ -543,45 +414,56 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             # print(cms_name[0])
         for single in values:
             # print(single)
-            cms_name = QTableWidgetItem(str(single[1]))
-            poc_file_name = QTableWidgetItem(str(single[2]))
-            exp_file_name = QTableWidgetItem(str(single[3]))
-            poc_name = QTableWidgetItem(str(single[4]))
-            poc_referer = QTableWidgetItem(str(single[5]))
-            poc_descr = QTableWidgetItem(str(single[6]))
-            self.widget.show_Plugins.setItem(i, 0, cms_name)
-            self.widget.show_Plugins.setItem(i, 1, poc_name)
-            self.widget.show_Plugins.setItem(i, 2, poc_referer)
-            self.widget.show_Plugins.setItem(i, 3, poc_descr)
-            self.widget.show_Plugins.setItem(i, 4, poc_file_name)
-            self.widget.show_Plugins.setItem(i, 5, exp_file_name)
+            id = QTableWidgetItem(str(single['id']))
+            cms_name = QTableWidgetItem(str(single['cms_name']))
+            vuln_name = QTableWidgetItem(str(single['vuln_name']))
+            vuln_identifier = QTableWidgetItem(str(single['vuln_identifier']))
+            vuln_referer = QTableWidgetItem(str(single['vuln_referer']))
+            vuln_description = QTableWidgetItem(str(single['vuln_description']))
+            vuln_file = QTableWidgetItem(str(single['vuln_file']))
+            vuln_author = QTableWidgetItem(str(single['vuln_author']))
+            vuln_solution = QTableWidgetItem(str(single['vuln_solution']))
+            self.widget.show_Plugins.setItem(i, 0, id)
+            self.widget.show_Plugins.setItem(i, 1, cms_name)
+            self.widget.show_Plugins.setItem(i, 2, vuln_name)
+            self.widget.show_Plugins.setItem(i, 3, vuln_identifier)
+            self.widget.show_Plugins.setItem(i, 4, vuln_referer)
+            self.widget.show_Plugins.setItem(i, 5, vuln_description)
+            self.widget.show_Plugins.setItem(i, 6, vuln_file)
+            self.widget.show_Plugins.setItem(i, 7, vuln_author)
+            self.widget.show_Plugins.setItem(i, 8, vuln_solution)
             i = i + 1
-        self.dialog.show()
         self.widget.show_Plugins_comboBox.currentIndexChanged.connect(self.show_plugins_go)  # comboBox事件选中触发刷新
     # 单击列表刷新显示控件
     def show_plugins_go(self):
         self.widget.show_Plugins.clearContents()
         cms_name = self.widget.show_Plugins_comboBox.currentText()  # 获取文本
         if cms_name == "ALL":
-            sql = "SELECT * from POC "
+            sql = "SELECT * from vuln_poc "
         else:
-            sql = "SELECT * from POC where cmsname = '%s'" % cms_name
-        cms_data = self.sql_search(sql)
+            sql = "SELECT * from vuln_poc where cms_name = '%s'" % cms_name
+        cms_data = self.sql_search(sql,'dict')
         i = 0
         self.widget.show_Plugins.setRowCount(len(cms_data))
         for single in cms_data:
-            cms_name = QTableWidgetItem(str(single[1]))
-            poc_file_name = QTableWidgetItem(str(single[2]))
-            exp_file_name = QTableWidgetItem(str(single[3]))
-            poc_name = QTableWidgetItem(str(single[4]))
-            poc_referer = QTableWidgetItem(str(single[5]))
-            poc_descr = QTableWidgetItem(str(single[6]))
-            self.widget.show_Plugins.setItem(i, 0, cms_name)
-            self.widget.show_Plugins.setItem(i, 1, poc_name)
-            self.widget.show_Plugins.setItem(i, 2, poc_referer)
-            self.widget.show_Plugins.setItem(i, 3, poc_descr)
-            self.widget.show_Plugins.setItem(i, 4, poc_file_name)
-            self.widget.show_Plugins.setItem(i, 5, exp_file_name)
+            id = QTableWidgetItem(str(single['id']))
+            cms_name = QTableWidgetItem(str(single['cms_name']))
+            vuln_name = QTableWidgetItem(str(single['vuln_name']))
+            vuln_identifier = QTableWidgetItem(str(single['vuln_identifier']))
+            vuln_referer = QTableWidgetItem(str(single['vuln_referer']))
+            vuln_description = QTableWidgetItem(str(single['vuln_description']))
+            vuln_file = QTableWidgetItem(str(single['vuln_file']))
+            vuln_author = QTableWidgetItem(str(single['vuln_author']))
+            vuln_solution = QTableWidgetItem(str(single['vuln_solution']))
+            self.widget.show_Plugins.setItem(i, 0, id)
+            self.widget.show_Plugins.setItem(i, 1, cms_name)
+            self.widget.show_Plugins.setItem(i, 2, vuln_name)
+            self.widget.show_Plugins.setItem(i, 3, vuln_identifier)
+            self.widget.show_Plugins.setItem(i, 4, vuln_referer)
+            self.widget.show_Plugins.setItem(i, 5, vuln_description)
+            self.widget.show_Plugins.setItem(i, 6, vuln_file)
+            self.widget.show_Plugins.setItem(i, 7, vuln_author)
+            self.widget.show_Plugins.setItem(i, 8, vuln_solution)
             i = i + 1
     # 重新加载插件
     def vuln_reload_Plugins(self):
@@ -606,7 +488,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             # 创建一个游标 curson
             cursor = conn.cursor()
             # 执行一条语句,创建 user表 如不存在创建
-            sql = "create table IF NOT EXISTS POC (id integer primary key autoincrement , cmsname varchar(30),pocfilename varchar(50),expfilename varchar(50),pocname  varchar(30),pocreferer varchar(50),pocdescription varchar(200),expdescription varchar(9000))"
+            sql = 'create table IF NOT EXISTS vuln_poc ("id" integer PRIMARY KEY AUTOINCREMENT,"cms_name" varchar(30),"vuln_file" varchar(50),"vuln_name" varchar(30),"vuln_author" varchar(50),"vuln_referer" varchar(50),"vuln_description" varchar(200),"vuln_identifier" varchar(100),"vuln_solution" varchar(500),  "ispoc" integer(1),"isexp" integer(1))'
             cursor.execute(sql)
             self.Ui.textEdit_log.append(
                 "<p style=\"color:green\">[%s]Success:创建数据库完成！</p>" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
@@ -626,58 +508,27 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                         poc_name_path = poc_file_dir+ "\\" + poc_file_name
                         poc_name_path = poc_name_path.replace("\\", "/")
                         # 判断是py文件在打开  文件存在
-                        if os.path.isfile(poc_name_path) and poc_file_name.endswith('.py') and poc_file_name[-7:]=='_poc.py':
-                            # print(poc_name_path)
+                        # print(poc_file_name[:8])
+                        if os.path.isfile(poc_name_path) and poc_file_name.endswith('.py') and len(poc_file_name)>=8 and poc_file_name[:8] =="Plugins_":
+                            print(poc_name_path)
                             try:
                                 nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(poc_name_path[:-3], poc_name_path).load_module()
                                 vuln_info = nnnnnnnnnnnn1.vuln_info()
                                 # 将数据插入到表中
                                 cursor.execute(
-                                    'insert into POC (cmsname, pocname,pocfilename,expfilename,pocreferer,pocdescription,expdescription) values ("%s","%s","%s","%s","%s","%s","%s")' % (
-                                        cms_name, vuln_info['name'], poc_file_name, '', vuln_info['referer'],
-                                        vuln_info['description'],''))
+                                    'insert into vuln_poc (cms_name, vuln_file,vuln_name,vuln_author,vuln_referer,vuln_description,vuln_identifier,vuln_solution,ispoc,isexp) values ("%s","%s","%s","%s","%s","%s","%s","%s","%s","%s")' % (
+                                        cms_name, poc_file_name,vuln_info['vuln_name'],vuln_info['vuln_author'] , vuln_info['vuln_referer'], vuln_info['vuln_description'],
+                                        vuln_info['vuln_identifier'],vuln_info['vuln_solution'],vuln_info['ispoc'],vuln_info['isexp']))
                             except Exception as  e:
                                 self.Ui.textEdit_log.append(
                                     "<p style=\"color:red\">[%s]Error:%s脚本执行错误！<br>[Exception]:<br>%s</p>" % (
                                         (time.strftime('%H:%M:%S', time.localtime(time.time()))), poc_file_name, e))
                                 continue
-                    conn.commit()  # 提交
-                    for poc_file_name in poc_file_name_list:
-                        poc_name_path = poc_file_dir + "\\" + poc_file_name
-                        poc_name_path = poc_name_path.replace("\\", "/")
-                        if os.path.isfile(poc_name_path) and poc_file_name.endswith(
-                                '.py') and poc_file_name[-7:] == '_exp.py':
-                            try:
-                                nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(poc_name_path[:-3],poc_name_path).load_module()
-                                exp_info = nnnnnnnnnnnn1.vuln_info()
-                                # print(exp_info)
-                                # 将数据插入到表中
-                                sql = "select *  from  POC where pocname='%s'"%(exp_info['name'])
-                                # print(sql)
-                                # 判断是否已有poc 有则修改 无则添加
-                                exp_result = self.sql_search(sql)
-                                if exp_result:
-                                    cursor.execute("UPDATE POC SET expfilename='%s' ,expdescription='%s' where pocname='%s'"%(poc_file_name,exp_info['description'],exp_info['name']))
-
-                                else:
-                                    cursor.execute(
-                                        'insert into POC (cmsname, pocname,pocfilename,expfilename,pocreferer,pocdescription,expdescription) values ("%s","%s","%s","%s","%s","%s","%s")' % (
-                                            cms_name, exp_info['name'], '',poc_file_name, exp_info['referer'],
-                                            '',exp_info['description']))
-                            except Exception as  e:
-                                self.Ui.textEdit_log.append(
-                                    "<p style=\"color:red\">[%s]Error:%s脚本执行错误！<br>[Exception]:<br>%s</p>" % (
-                                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), poc_file_name, e))
-                                continue
-
-                        else:
-                            pass
-                    conn.commit()  # 提交
-
+                            conn.commit()  # 提交
             # print(result)
-            cursor.execute("select count(*) from POC where pocfilename !=''")
+            cursor.execute("select count(ispoc) from vuln_poc where ispoc =1")
             poc_num = cursor.fetchall()
-            cursor.execute("select count(expfilename) from POC where expfilename !=''")
+            cursor.execute("select count(isexp) from vuln_poc where isexp =1")
             exp_num = cursor.fetchall()
             conn.close()
             self.Ui.textEdit_log.append(
@@ -725,17 +576,17 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         if self.Ui.tableWidget_vuln.selectedItems():
             url  = self.Ui.tableWidget_vuln.selectedItems()[0].text()
             poc_name= self.Ui.tableWidget_vuln.selectedItems()[1].text()
-            sql = "select * from POC where pocname='%s'"%(poc_name)
+            sql = "select * from vuln_poc where vuln_name='%s'"%(poc_name)
             exp_data = self.sql_search(sql,'dict')
             #print(exp_data)
             if len(exp_data):
                 # 根据文本查找索引设置选中
-                cms_index = self.Ui.vuln_type.findText(exp_data[0]['cmsname'], QtCore.Qt.MatchFixedString)
+                cms_index = self.Ui.vuln_type.findText(exp_data[0]['cms_name'], QtCore.Qt.MatchFixedString)
                 if cms_index >= 0:
                     # print(2)
                     self.Ui.vuln_type.setCurrentIndex(cms_index)
-                    self.change_exp_list(exp_data[0]['cmsname'])
-                    exp_index = self.Ui.vuln_name.findText(exp_data[0]['pocname'], QtCore.Qt.MatchFixedString)
+                    self.change_exp_list(exp_data[0]['cms_name'])
+                    exp_index = self.Ui.vuln_name.findText(exp_data[0]['vuln_name'], QtCore.Qt.MatchFixedString)
                     if cms_index >= 0:
                         self.Ui.vuln_name.setCurrentIndex(exp_index)
                     else:
@@ -755,6 +606,9 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             self.Ui.textEdit_log.append(
                 "<p style=\"color:red\">[%s]Error:请选择一个结果！</p>" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
     def exp_send(self,exp_type):
+        ip=''
+        port=8080
+        cmd=''
         url = self.Ui.vuln_lineEdit_url.text()
         if not url:
             box = QtWidgets.QMessageBox()
@@ -762,7 +616,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             return
         cms_name = self.Ui.vuln_type.currentText()
         exp_name =  self.Ui.vuln_name.currentText()
-        exp_file_name = self.sql_search("select expfilename from POC where pocname='%s' and cmsname='%s'"%(exp_name,cms_name))
+        exp_file_name = self.sql_search("select vuln_file from vuln_poc where vuln_name='%s' and cms_name='%s'"%(exp_name,cms_name))
         # print(exp_file_name)
         exp_path = plugins_dir_name+'/'+cms_name+'/'+exp_file_name[0][0]
         cookie= self.Ui.vuln_lineEdit_cookie.text()
@@ -776,20 +630,9 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             cmd = self.Ui.vuln_exp_input_cmd.text()
             self.Ui.vuln_exp_textEdit_log.append(
                 "[%s]命令执行:%s" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), cmd))
-            try:
-                nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(exp_path[:-3], exp_path).load_module()
-                nnnnnnnnnnnn1.run(self,url,heads_dict,cookie,cmd)
-            except Exception as  e:
-                self.Ui.textEdit_result.append(
-                    "[%s]Error:%s脚本执行错误！\n[Exception]:\n%s" % (
-                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), exp_path, e))
-                return
-        if exp_type=='shell':
+        elif exp_type=='shell':
             ip = self.Ui.vuln_exp_input_ip.text()
             port = self.Ui.vuln_exp_input_port.text()
-            shelltype = self.Ui.comboBox_type.currentText()
-            shellcmd = config_setup.get('Shell', shelltype)
-            shellcmd = shellcmd.replace('127.0.0.1',ip).replace('8888',port)
             if not re.match(r"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$", ip):
                 box = QtWidgets.QMessageBox()
                 box.warning(self, "提示", "请输入合法的IP地址！")
@@ -803,17 +646,25 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 box = QtWidgets.QMessageBox()
                 box.warning(self, "提示", "请输入合法的端口！")
                 return
+            self.Ui.vuln_exp_textEdit_log.append(
+                            "[%s]反弹Shell:%s:%s" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), ip,port))
+        # self.cal = Vuln_exp(exp_path,url,heads_dict,cookie,exp_type,cmd,ip,int(port))  # 创建一个线程
+        # self.cal._sum.connect(self.vuln_exp_log)  # 线程发过来的信号挂接到槽函数update_sum
+        # self.cal.start()  # 线程启动
+        self.cal = Vuln_exp(exp_path,url,heads_dict,cookie,exp_type,cmd,ip,port)  # 创建一个线程
+        self.cal._sum.connect(self.update_sum)  # 线程发过来的信号挂接到槽函数update_sum
+        self.Ui.vuln_exp_button_shell.setEnabled(False)  # 让按钮恢复可点击状态
+        self.Ui.vuln_exp_button_cmd.setEnabled(False)  # 让按钮恢复可点击状态
+        self.cal.start()  # 线程启动
 
-            try:
-                self.Ui.vuln_exp_textEdit_log.append(
-                            "[%s]反弹Shell:%s:%s %s" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), ip,port,shelltype))
-                nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(exp_path[:-3], exp_path).load_module()
-                nnnnnnnnnnnn1.run(self,url,heads_dict,cookie,shellcmd,ip,int(port))
-            except Exception as  e:
-                self.Ui.textEdit_result.append(
-                    "[%s]Error:%s脚本执行错误！\n[Exception]:\n%s" % (
-                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), exp_path, e))
-                return
+    def update_sum(self, r):
+        # print(r)
+        if len(r)==2:
+            self.vuln_exp_log(r.get('type'), r.get('value'))
+        else:
+            self.vuln_exp_log(r.get('type'), r.get('value'),r.get('color'))
+        self.Ui.vuln_exp_button_shell.setEnabled(True)  # 让按钮恢复可点击状态
+        self.Ui.vuln_exp_button_cmd.setEnabled(True)  # 让按钮恢复可点击状态
     # 关于
     def about(self):
         box = QtWidgets.QMessageBox()
@@ -859,7 +710,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         if type=="Debug" and self.Ui.vuln_scanner_debug.checkState() == Qt.Checked:
             self.Ui.textEdit_log.append(
                 "<p style=\"color:blue\">[%s]Debug:%s。</p>" % (time.strftime('%H:%M:%S'), text))
-        if type=='result':
+        if type=='Result':
             url = all[0]
             filename = all[1]
             pocmethods= all[2]
@@ -880,18 +731,19 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 self.Ui.tableWidget_vuln.setItem(row, 3, resultItem)
                 self.Ui.tableWidget_vuln.setItem(row, 2, filenameItem)
                 self.Ui.tableWidget_vuln.setItem(row, 4, payloadItem)
-        if type!="Debug" and type!='result':
+        if type!="Debug" and type!='Result':
             self.Ui.textEdit_log.append(
                 "<p style=\"color:%s\">[%s]%s:%s。</p>" % (color,time.strftime('%H:%M:%S'),type, text))
 
-    def vuln_exp_log(self, type, text='', color='black'):
-        if type=='result':
+    def vuln_exp_log(self, type,text='',color='black'):
+        # print(r)
+        if type=='Result':
             self.Ui.textEdit_result.setText(text)
             self.Ui.vuln_exp_textEdit_log.append(
                 "[%s]执行结果:%s" % (time.strftime('%H:%M:%S'),text))
         else:
             self.Ui.vuln_exp_textEdit_log.append(
-                "<p style=\"color:%s\">[%s]%s:%s。</p>" % (color, time.strftime('%H:%M:%S'), type, text))
+                "<div><p style=\"color:%s\">[%s]%s:%s。</p></div>" % (color, time.strftime('%H:%M:%S'), type, text))
     def sql_search(self,sql,type='list'):
         if type=='dict':
             conn = sqlite3.connect(DB_NAME)
@@ -915,7 +767,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         self.Ui.vuln_name.clear()
         for exp_methods in self.exp_cms_name_dict[exp_cms_name] :
             # print(exp_methods)
-            self.Ui.vuln_name.addItem(exp_methods['pocname'])
+            self.Ui.vuln_name.addItem(exp_methods['vuln_name'])
 
         self.change_exp_name_change()
         # print(exp_cms_name)
@@ -923,7 +775,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
     def change_exp_name_change(self):
         self.Ui.exp_tabWidget.setCurrentIndex(0)
         vuln_name_text = self.Ui.vuln_name.currentText()
-        sql =  "select expdescription from POC where pocname='%s'"%vuln_name_text
+        sql =  "select vuln_description from vuln_poc where vuln_name='%s'"%vuln_name_text
         expdescription = self.sql_search(sql)
         # print(expdescription[0][0])
         # pass
@@ -944,6 +796,9 @@ def check_update():
                 pass
     except:
         pass
+
+
+            
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindows()
