@@ -4,6 +4,7 @@ import configparser,importlib
 
 # import logging
 import sys, os, webbrowser
+sys.path.append('./modules')
 if hasattr(sys, 'frozen'):
     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
 from PyQt5 import QtWidgets, QtCore, QtGui
@@ -22,9 +23,9 @@ from modules.vuln_exp import Vuln_exp
 SETUP_DIR = frozen_dir.app_path()
 sys.path.append(SETUP_DIR)
 DB_NAME = 'VULN_DB.db'
-version = '1.3.1'
+version = '1.3.2'
 plugins_dir_name = 'Plugins/'
-update_time = '20210520'
+update_time = '20210523'
 # 禁用安全警告
 # time.strftime('%Y-%m-%d-%H.%M.%S', time.localtime(time.time()))
 requests.packages.urllib3.disable_warnings()
@@ -81,7 +82,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         self.url_list = []
         self.load_config()
         # 设置漏洞扫描表格属性  列宽度
-        self.Ui.tableWidget_vuln.setColumnWidth(0, 200)
+        self.Ui.tableWidget_vuln.setColumnWidth(0, 250)
         self.Ui.tableWidget_vuln.setColumnWidth(1, 200)
         self.Ui.tableWidget_vuln.setColumnWidth(2, 300)
         self.Ui.tableWidget_vuln.setColumnWidth(3, 80)
@@ -200,7 +201,9 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                     for cms in self.poc_cms_name_dict:
                         for poc in self.poc_cms_name_dict[cms]:
                             if poc['vuln_name'] ==item.value().text(0):
-                                poc['pocmethods'] = poc['vuln_file'].replace('.py','')
+                                poc['vuln_file'] = poc['vuln_file']
+                                poc['FofaQuery_link'] = poc['FofaQuery_link']
+                                poc['FofaQuery'] = poc['FofaQuery']
                                 all_data.append(poc)
             item = item.__iadd__(1)
         # print(all_data)
@@ -224,11 +227,11 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         #加载漏洞扫描模块
         try:
             # 列出所有数据
-            sql_poc = "SELECT cms_name,vuln_name,vuln_file from vuln_poc where ispoc !=''"
+            sql_poc = "SELECT cms_name,vuln_name,vuln_file,FofaQuery_link,FofaQuery from vuln_poc where ispoc !=''"
             poc_dict = self.sql_search(sql_poc,'dict')
             if len(poc_dict)>=1:
                 # print(self.poc_dict)
-                sql_exp = "SELECT cms_name,vuln_name,vuln_file,vuln_description from vuln_poc where isexp !=''"
+                sql_exp = "SELECT cms_name,vuln_name,vuln_file,vuln_description,FofaQuery_link,FofaQuery from vuln_poc where isexp !=''"
                 exp_dict = self.sql_search(sql_exp,'dict')
             else:
                 return
@@ -247,6 +250,8 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             poc_cms_sing['cms_name'] = cms['cms_name']
             poc_cms_sing['vuln_name'] = cms['vuln_name']
             poc_cms_sing['vuln_file'] = cms['vuln_file']
+            poc_cms_sing['FofaQuery_link'] = cms['FofaQuery_link']
+            poc_cms_sing['FofaQuery'] = cms['FofaQuery']
             self.poc_cms_name_dict[cms['cms_name']].append(poc_cms_sing)
         for cms in self.poc_cms_name_dict:
             # 设置root为self.treeWidget_Plugins的子树，故root是根节点
@@ -407,16 +412,21 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         i = 0
         self.widget.show_Plugins.setRowCount(len(values))
         sql2 = "SELECT distinct cms_name from vuln_poc"
+        sql_vuln_class = "SELECT distinct vuln_class from vuln_poc where vuln_class!='' and vuln_class not null"
         cms_name_data = self.sql_search(sql2)
+        vuln_class_data = self.sql_search(sql_vuln_class)
         # 添加查询列表
         for cms_name in cms_name_data:
-            self.widget.show_Plugins_comboBox.addItem(cms_name[0])
+            self.widget.show_Plugins_comboBox_cms_name.addItem(cms_name[0])
+        for vuln_class in vuln_class_data:
+                self.widget.show_Plugins_comboBox_vuln_class.addItem(vuln_class[0])
             # print(cms_name[0])
         for single in values:
             # print(single)
             id = QTableWidgetItem(str(single['id']))
             cms_name = QTableWidgetItem(str(single['cms_name']))
             vuln_name = QTableWidgetItem(str(single['vuln_name']))
+            vuln_class = QTableWidgetItem(str(single['vuln_class']))
             vuln_identifier = QTableWidgetItem(str(single['vuln_identifier']))
             vuln_referer = QTableWidgetItem(str(single['vuln_referer']))
             vuln_description = QTableWidgetItem(str(single['vuln_description']))
@@ -426,22 +436,29 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             self.widget.show_Plugins.setItem(i, 0, id)
             self.widget.show_Plugins.setItem(i, 1, cms_name)
             self.widget.show_Plugins.setItem(i, 2, vuln_name)
-            self.widget.show_Plugins.setItem(i, 3, vuln_identifier)
-            self.widget.show_Plugins.setItem(i, 4, vuln_referer)
-            self.widget.show_Plugins.setItem(i, 5, vuln_description)
-            self.widget.show_Plugins.setItem(i, 6, vuln_file)
-            self.widget.show_Plugins.setItem(i, 7, vuln_author)
-            self.widget.show_Plugins.setItem(i, 8, vuln_solution)
+            self.widget.show_Plugins.setItem(i, 3, vuln_class)
+            self.widget.show_Plugins.setItem(i, 4, vuln_identifier)
+            self.widget.show_Plugins.setItem(i, 5, vuln_referer)
+            self.widget.show_Plugins.setItem(i, 6, vuln_description)
+            self.widget.show_Plugins.setItem(i, 7, vuln_file)
+            self.widget.show_Plugins.setItem(i, 8, vuln_author)
+            self.widget.show_Plugins.setItem(i, 9, vuln_solution)
             i = i + 1
-        self.widget.show_Plugins_comboBox.currentIndexChanged.connect(self.show_plugins_go)  # comboBox事件选中触发刷新
+        self.widget.show_Plugins_comboBox_cms_name.currentIndexChanged.connect(self.show_plugins_go)  # comboBox事件选中触发刷新
+        self.widget.show_Plugins_comboBox_vuln_class.currentIndexChanged.connect(self.show_plugins_go)  # comboBox事件选中触发刷新
     # 单击列表刷新显示控件
     def show_plugins_go(self):
         self.widget.show_Plugins.clearContents()
-        cms_name = self.widget.show_Plugins_comboBox.currentText()  # 获取文本
-        if cms_name == "ALL":
+        cms_name = self.widget.show_Plugins_comboBox_cms_name.currentText()  # 获取文本
+        vuln_class = self.widget.show_Plugins_comboBox_vuln_class.currentText()  # 获取文本
+        if cms_name == "ALL" and vuln_class=="ALL":
             sql = "SELECT * from vuln_poc "
+        elif  cms_name == "ALL" and vuln_class!="ALL":
+            sql = "SELECT * from vuln_poc where vuln_class='%s'" % (vuln_class)
+        elif cms_name != "ALL" and vuln_class == "ALL":
+            sql = "SELECT * from vuln_poc where cms_name = '%s'" % (cms_name)
         else:
-            sql = "SELECT * from vuln_poc where cms_name = '%s'" % cms_name
+            sql = "SELECT * from vuln_poc where cms_name = '%s' and vuln_class='%s'" % (cms_name,vuln_class)
         cms_data = self.sql_search(sql,'dict')
         i = 0
         self.widget.show_Plugins.setRowCount(len(cms_data))
@@ -449,6 +466,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             id = QTableWidgetItem(str(single['id']))
             cms_name = QTableWidgetItem(str(single['cms_name']))
             vuln_name = QTableWidgetItem(str(single['vuln_name']))
+            vuln_class = QTableWidgetItem(str(single['vuln_class']))
             vuln_identifier = QTableWidgetItem(str(single['vuln_identifier']))
             vuln_referer = QTableWidgetItem(str(single['vuln_referer']))
             vuln_description = QTableWidgetItem(str(single['vuln_description']))
@@ -458,6 +476,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             self.widget.show_Plugins.setItem(i, 0, id)
             self.widget.show_Plugins.setItem(i, 1, cms_name)
             self.widget.show_Plugins.setItem(i, 2, vuln_name)
+            self.widget.show_Plugins.setItem(i, 2, vuln_class)
             self.widget.show_Plugins.setItem(i, 3, vuln_identifier)
             self.widget.show_Plugins.setItem(i, 4, vuln_referer)
             self.widget.show_Plugins.setItem(i, 5, vuln_description)
@@ -488,7 +507,8 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             # 创建一个游标 curson
             cursor = conn.cursor()
             # 执行一条语句,创建 user表 如不存在创建
-            sql = 'create table IF NOT EXISTS vuln_poc ("id" integer PRIMARY KEY AUTOINCREMENT,"cms_name" varchar(30),"vuln_file" varchar(50),"vuln_name" varchar(30),"vuln_author" varchar(50),"vuln_referer" varchar(50),"vuln_description" varchar(200),"vuln_identifier" varchar(100),"vuln_solution" varchar(500),  "ispoc" integer(1),"isexp" integer(1))'
+            sql ='CREATE TABLE `vuln_poc`  (`id` int(255) NULL DEFAULT NULL,`cms_name` varchar(255),`vuln_file` varchar(255),`vuln_name` varchar(255),`vuln_author` varchar(255),`vuln_referer` varchar(255),`vuln_description` varchar(255),`vuln_identifier` varchar(255),`vuln_solution` varchar(255),`ispoc` int(255) NULL DEFAULT NULL,`isexp` int(255) NULL DEFAULT NULL,`vuln_class` varchar(255),`FofaQuery_link` varchar(255),`target` varchar(1000),`FofaQuery` varchar(255))'
+            # sql = 'create table IF NOT EXISTS vuln_poc ("id" integer PRIMARY KEY AUTOINCREMENT,"cms_name" varchar(30),"vuln_file" varchar(50),"vuln_name" varchar(30),"vuln_author" varchar(50),"vuln_referer" varchar(50),"vuln_description" varchar(200),"vuln_identifier" varchar(100),"vuln_solution" varchar(500),  "ispoc" integer(1),"isexp" integer(1))'
             cursor.execute(sql)
             self.Ui.textEdit_log.append(
                 "<p style=\"color:green\">[%s]Success:创建数据库完成！</p>" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
@@ -497,6 +517,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 "<p style=\"color:red\">[%s]Error:数据框创建失败！<br>[Exception]:<br>%s</p>" % (time.strftime('%H:%M:%S', time.localtime(time.time())), e))
             return 0
         try:
+            id=1
             plugins_path = "Plugins"
             plugins_path = plugins_path.replace("\\", "/")
             for cms_name in os.listdir(plugins_path):  # 遍历目录名
@@ -510,15 +531,29 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                         # 判断是py文件在打开  文件存在
                         # print(poc_file_name[:8])
                         if os.path.isfile(poc_name_path) and poc_file_name.endswith('.py') and len(poc_file_name)>=8 and poc_file_name[:8] =="Plugins_":
-                            print(poc_name_path)
+                            # print(poc_name_path)
                             try:
                                 nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(poc_name_path[:-3], poc_name_path).load_module()
                                 vuln_info = nnnnnnnnnnnn1.vuln_info()
+                                if vuln_info.get('vuln_class'):
+                                    vuln_class =vuln_info.get('vuln_class')
+                                else:
+                                    vuln_class='未分类'
+                                if vuln_info.get('FofaQuery_link'):
+                                    FofaQuery_link =(vuln_info.get('FofaQuery_link'))
+                                else:
+                                    FofaQuery_link=''
+                                if vuln_info.get('FofaQuery'):
+                                    FofaQuery =vuln_info.get('FofaQuery')
+                                else:
+                                    FofaQuery=''
+                                insert_sql = 'insert into vuln_poc  (id,cms_name,vuln_file,vuln_name,vuln_author,vuln_referer,vuln_description,vuln_identifier,vuln_solution,ispoc,isexp,vuln_class,FofaQuery_link,FofaQuery,target) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+
                                 # 将数据插入到表中
-                                cursor.execute(
-                                    'insert into vuln_poc (cms_name, vuln_file,vuln_name,vuln_author,vuln_referer,vuln_description,vuln_identifier,vuln_solution,ispoc,isexp) values ("%s","%s","%s","%s","%s","%s","%s","%s","%s","%s")' % (
-                                        cms_name, poc_file_name,vuln_info['vuln_name'],vuln_info['vuln_author'] , vuln_info['vuln_referer'], vuln_info['vuln_description'],
-                                        vuln_info['vuln_identifier'],vuln_info['vuln_solution'],vuln_info['ispoc'],vuln_info['isexp']))
+                                cursor.execute(insert_sql, (
+                                        id,cms_name, poc_file_name,vuln_info['vuln_name'],vuln_info['vuln_author'] , vuln_info['vuln_referer'], vuln_info['vuln_description'],
+                                        vuln_info['vuln_identifier'],vuln_info['vuln_solution'],vuln_info['ispoc'],vuln_info['isexp'],vuln_class,FofaQuery_link,FofaQuery,'[]'))
+                                id=id+1
                             except Exception as  e:
                                 self.Ui.textEdit_log.append(
                                     "<p style=\"color:red\">[%s]Error:%s脚本执行错误！<br>[Exception]:<br>%s</p>" % (
@@ -538,7 +573,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 (time.strftime('%H:%M:%S', time.localtime(time.time()))), exp_num[0][0]))
 
             self.loadplugins()  # 调用加载插件
-
             box = QtWidgets.QMessageBox()
             box.information(self, "Load Plugins", "数据更新完成！\nPOC数量：%s\nEXP数量：%s" % (poc_num[0][0],exp_num[0][0]))
             # reboot = sys.executable
@@ -622,6 +656,8 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         cookie= self.Ui.vuln_lineEdit_cookie.text()
         heads = self.Ui.plainTextEdit_heads.toPlainText()
         heads_dict  = {}
+        if cookie:
+            heads_dict['Cookie'] = cookie
         heads = heads.split('\n')
         for head in heads:
             head = head.split(':')
@@ -651,7 +687,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         # self.cal = Vuln_exp(exp_path,url,heads_dict,cookie,exp_type,cmd,ip,int(port))  # 创建一个线程
         # self.cal._sum.connect(self.vuln_exp_log)  # 线程发过来的信号挂接到槽函数update_sum
         # self.cal.start()  # 线程启动
-        self.cal = Vuln_exp(exp_path,url,heads_dict,cookie,exp_type,cmd,ip,port)  # 创建一个线程
+        self.cal = Vuln_exp(exp_path,url,heads_dict,exp_type,cmd,ip,port)  # 创建一个线程
         self.cal._sum.connect(self.update_sum)  # 线程发过来的信号挂接到槽函数update_sum
         self.Ui.vuln_exp_button_shell.setEnabled(False)  # 让按钮恢复可点击状态
         self.Ui.vuln_exp_button_cmd.setEnabled(False)  # 让按钮恢复可点击状态
@@ -713,7 +749,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         if type=='Result':
             url = all[0]
             filename = all[1]
-            pocmethods= all[2]
             poc_name =  all[3]
             self.Ui.textEdit_log.append(
                 "<p style=\"color:green\">[%s]Result:%s----%s----%s。</p>" % (
