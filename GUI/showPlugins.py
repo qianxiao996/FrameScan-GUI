@@ -55,35 +55,7 @@ class Ui_Form(object):
         self.show_Plugins.setToolTip("")
         self.show_Plugins.setStatusTip("")
         self.show_Plugins.setAutoFillBackground(False)
-        self.show_Plugins.setStyleSheet("\n"
-"/**********表头**********/\n"
-"QHeaderView{\n"
-"        border: none;\n"
-"        background:  rgb(240, 240, 240);\n"
-"        min-height: 30px;\n"
-"}\n"
-"QHeaderView::section:horizontal {\n"
-"        border: none;\n"
-"        padding-left: 5px;\n"
-"}\n"
-"QTableView::item {\n"
-"        padding-left: 5px;\n"
-"        padding-right: 5px;\n"
-"        border: none;\n"
-"}\n"
-"/**********表格选中颜色**********/\n"
-"QTableView::item:selected {\n"
-"color:rgb(0, 0, 0) ;\n"
-"        background:  rgb(240, 240, 240);\n"
-"}\n"
-"QTableView::item:selected:!active {\n"
-"        color:rgb(0, 0, 0) ;\n"
-"}\n"
-"\n"
-"QTableView::indicator {\n"
-"       /* width: 20px;*/\n"
-"        height: 20px;\n"
-"}")
+        self.show_Plugins.setStyleSheet("")
         self.show_Plugins.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.show_Plugins.setShowGrid(True)
         self.show_Plugins.setGridStyle(QtCore.Qt.SolidLine)

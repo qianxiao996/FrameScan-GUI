@@ -23,9 +23,9 @@ from modules.vuln_exp import Vuln_exp
 SETUP_DIR = frozen_dir.app_path()
 sys.path.append(SETUP_DIR)
 DB_NAME = 'VULN_DB.db'
-version = '1.3.2'
+version = '1.3.3'
 plugins_dir_name = 'Plugins/'
-update_time = '20210523'
+update_time = '20210524'
 # 禁用安全警告
 # time.strftime('%Y-%m-%d-%H.%M.%S', time.localtime(time.time()))
 requests.packages.urllib3.disable_warnings()
@@ -399,7 +399,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         self.form2 = QtWidgets.QWidget()
         self.widget = Ui_Form()
         self.widget.setupUi(self.form2)
-
+        self.form2.setStyleSheet(qss_style)
         self.form2.show()
         self.widget.show_Plugins.setColumnWidth(0, 70)
         self.widget.show_Plugins.setColumnWidth(7, 150)
@@ -593,6 +593,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             return
         else:
             try:
+                global qss_style
                 filename = config_setup.get('QSS_List', q.text())
                 # print(filename)
                 config_setup.set("QSS_Setup", "QSS", filename)
