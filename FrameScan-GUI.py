@@ -23,9 +23,9 @@ from modules.vuln_exp import Vuln_exp
 SETUP_DIR = frozen_dir.app_path()
 sys.path.append(SETUP_DIR)
 DB_NAME = 'VULN_DB.db'
-version = '1.3.3'
+version = '1.3.4'
 plugins_dir_name = 'Plugins/'
-update_time = '20210524'
+update_time = '20210525'
 # 禁用安全警告
 # time.strftime('%Y-%m-%d-%H.%M.%S', time.localtime(time.time()))
 requests.packages.urllib3.disable_warnings()
@@ -86,7 +86,8 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         self.Ui.tableWidget_vuln.setColumnWidth(1, 200)
         self.Ui.tableWidget_vuln.setColumnWidth(2, 300)
         self.Ui.tableWidget_vuln.setColumnWidth(3, 80)
-        #选项
+
+        # #选项
         othersmenubar = self.menuBar()  # 获取窗体的菜单栏
         others = othersmenubar.addMenu("选项")
         for i in ["关于",'更新','意见反馈']:
