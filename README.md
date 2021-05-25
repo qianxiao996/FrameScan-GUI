@@ -24,7 +24,7 @@ FrameScan-GUI是一款python3和Pyqt编写的具有图形化界面的cms漏洞�
 ```python
 # -*- coding: UTF-8 -*-
 #!/usr/bin/python
-import requests,time
+import requests
 def vuln_info():
     info={
         'vuln_name': 'POC测试漏洞',  #漏洞名称
@@ -40,40 +40,46 @@ def vuln_info():
         
         #header', 'body', 'title', 'banner','port','banner','service','protocol','server'
         
-        'ispoc':1, #是否有poc
-        'isexp':1  #是否有exp
+        'ispoc':1, #是否有poc  1为有 0为无
+        'isexp':1  #是否有exp   1为有 0为无
     }
     return info
 # url：url  hostname：主机地址  port：端口  scheme：服务  heads：http自定义头信息
 def do_poc(url,hostname,port,scheme,heads={}):
-    # time.sleep(20)
+    try:
     # 返回参数
-    #参数一为返回的类型，参数二结果，参数三为Payload  参数四为输出的颜色（可为空）
-    #Result为结果
+    #Result返回是否存在，
+    #Result_Info为返回的信息，可以为Paylaod 
     #Debug debug信息 默认不会显示，勾选显示调试信息会输出此结果
-    #其他均会输出
-    result = {"type":'Result', "value":"不存在", "payload":"payload","color":"black"}
-    result['value'] = '存在'
-    result['payload']= 'payload'
+    #Error_Info无论何时都会输出
+        result = {"Result":False,"Result_Info":"payload","Debug_Info":"","Error_Info":""}
+        result['Result_Info']= 'payload'
+        result['Debug_Info']  = 'ddd'
+    except Exception as e:
+        result['Debug_Info'] = str(e)+str(e.__traceback__.tb_lineno)+'行'
     return result
     
 # url:url   heads:自定义请求头 exp_type:两个选项（cmd,shell） exp_cmd：命令执行的命令 lhost：反弹shell的IP lport：反弹shell的端口
 def do_exp(url,heads={},exp_type='cmd',exp_cmd='whoami',lhost='127.0.0.1',lport=8888):
+    try:
     # 返回参数
-    # time.sleep(22)
-    # 参数一为返回的类型，参数二为返回的值，参数三为输出的颜色
-    result = {"type":'Result', "value":"root", "color":"black"}
-    #命令执行
-    if exp_type=='cmd':
-        result['value'] = "root"
-        return result
-    #反弹shell    
-    if exp_type=='shell':
-        result['type'] = "log"
-        result['value'] = "反弹成功"
-        result['color'] = "green"
-        return result
-
+    #Result返回是否成功，
+    #Result_Info为返回的信息，可以为Paylaod 
+    #Debug debug信息 默认不会显示，勾选显示调试信息会输出此结果
+    #Error_Info无论何时都会输出
+        result = {"Result":False,"Result_Info":"payload","Debug_Info":"","Error_Info":""}
+        #命令执行
+        if exp_type=='cmd':
+            result['Result'] = True
+            result['Result_Info'] = "root"
+        #反弹shell    
+        if exp_type=='shell':
+            result['Result'] = True
+            result['Result_Info'] = "反弹成功"
+        result['Debug_Info'] = "1"
+    except Exception as e:
+        result['Debug_Info'] = str(e)+str(e.__traceback__.tb_lineno)+'行'
+    return result
 
 ```
 

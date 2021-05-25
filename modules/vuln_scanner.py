@@ -179,7 +179,6 @@ class Vuln_scanner:
                     fofa =  all[5]
                     check_fofa = all[6]
                     timeout = int(self.Main_Windows.Ui.comboBox_timeout.currentText())
-                    result={"type":"Result","value":"不存在"}
                     _url = urlparse(url)
                     hostname = _url.hostname
                     port = _url.port
@@ -206,16 +205,8 @@ class Vuln_scanner:
                                 with eventlet.Timeout(timeout, False):
                                     nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(filename[:-3], filename).load_module()
                                     result = nnnnnnnnnnnn1.do_poc(url,hostname,port,scheme,heads_dict)
-                                    if len(result) == 3:
-                                        self.Main_Windows.vuln_scanner_log(result.get("type"), result.get("value"),
-                                                                           result.get("payload"), all)
-                                    if len(result) == 4:
-                                        self.Main_Windows.vuln_scanner_log(result.get("type"), result.get("value"),
-                                                                           result.get("payload"), all,
-                                                                           result.get("color"))
-                                    else:
-                                        self.Main_Windows.vuln_scanner_log(result.get("type"), result.get("value"),
-                                                                           '', all)
+                                    #存在
+                                    self.scan_result_out(result,all)
                                     continue
                                 self.Main_Windows.Ui.textEdit_log.append(
                                     "<p style=\"color:red\">[%s]Error:%s脚本运行超时！</p>" % (
@@ -242,18 +233,8 @@ class Vuln_scanner:
                                     nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(filename[:-3], filename).load_module()
                                     result = nnnnnnnnnnnn1.do_poc(url,hostname,port,scheme,heads_dict)
                                     # print(result)
-                                    if len(result) == 3:
-                                        self.Main_Windows.vuln_scanner_log(result.get("type"), result.get("value"),
-                                                                           result.get("payload"), all)
-                                    if len(result) == 4:
-                                        self.Main_Windows.vuln_scanner_log(result.get("type"), result.get("value"),
-                                                                           result.get("payload"), all,
-                                                                           result.get("color"))
-                                    else:
-                                        self.Main_Windows.vuln_scanner_log(result.get("type"), result.get("value"),
-                                                                           '', all)
+                                    self.scan_result_out(result,all)
                                     continue
-
                                 except Exception as  e:
                                     self.Main_Windows.Ui.textEdit_log.append(
                                         "<p style=\"color:red\">[%s]Error:%s脚本执行错误！<br>[Exception]:<br>%s</p>" % (
@@ -272,6 +253,17 @@ class Vuln_scanner:
                     "<p style=\"color:red\">[%s]Error:%s脚本执行错误！<br>[Exception]:<br>%s</p>" % (
                         (time.strftime('%H:%M:%S', time.localtime(time.time()))), filename, e))
                 continue
+    def scan_result_out(self,result,all):
+        if result.get('Result'):
+            self.Main_Windows.vuln_scanner_log("Result", True, result.get("Result_Info"), all)
+        # 不存在
+        else:
+            self.Main_Windows.vuln_scanner_log("Result", False, result.get("Result_Info"), all)
+        if result.get('Error_Info'):
+            self.Main_Windows.vuln_scanner_log("Error", True, result.get("Error_Info"), all)
+        if result.get('Debug_Info'):
+            self.Main_Windows.vuln_scanner_log("Debug", True, result.get("Debug_Info"), all)
+
     def port_scanner(self,host,port,timeout):
         #返回0不存活 1存活
         try:

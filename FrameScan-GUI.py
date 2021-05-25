@@ -23,7 +23,7 @@ from modules.vuln_exp import Vuln_exp
 SETUP_DIR = frozen_dir.app_path()
 sys.path.append(SETUP_DIR)
 DB_NAME = 'VULN_DB.db'
-version = '1.3.4'
+version = '1.3.5'
 plugins_dir_name = 'Plugins/'
 update_time = '20210525'
 # 禁用安全警告
@@ -695,12 +695,16 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         self.Ui.vuln_exp_button_cmd.setEnabled(False)  # 让按钮恢复可点击状态
         self.cal.start()  # 线程启动
 
-    def update_sum(self, r):
-        # print(r)
-        if len(r)==2:
-            self.vuln_exp_log(r.get('type'), r.get('value'))
+    def update_sum(self, result):
+        if result.get('Result'):
+            self.vuln_exp_log("Result", True, result.get("Result_Info"))
+        # 不存在
         else:
-            self.vuln_exp_log(r.get('type'), r.get('value'),r.get('color'))
+            self.vuln_exp_log("Result", False, result.get("Result_Info"))
+        if result.get('Error_Info'):
+            self.vuln_exp_log("Error", False, result.get("Error_Info"))
+        if result.get('Debug_Info'):
+            self.vuln_exp_log("Debug", False, result.get("Debug_Info"))
         self.Ui.vuln_exp_button_shell.setEnabled(True)  # 让按钮恢复可点击状态
         self.Ui.vuln_exp_button_cmd.setEnabled(True)  # 让按钮恢复可点击状态
     # 关于
@@ -743,44 +747,57 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
     def file_save(self, filename):
         fileName, filetype = QFileDialog.getSaveFileName(self, (r"保存文件"), (filename),r"All files(*.*)")
         return fileName
-    def vuln_scanner_log(self,type,text='',payload='',all=['','','',''],color='black'):
+
+
+    def vuln_scanner_log(self,type,flag=False,Info='',all=['','','','']):
         # print(type,text)
-        if type=="Debug" and self.Ui.vuln_scanner_debug.checkState() == Qt.Checked:
+        if type=="Error":
             self.Ui.textEdit_log.append(
-                "<p style=\"color:blue\">[%s]Debug:%s。</p>" % (time.strftime('%H:%M:%S'), text))
-        if type=='Result':
+                "<p style=\"color:red\">[%s]Error:<br>Filename:%s<br>Error-Info:%s。</p>" % (time.strftime('%H:%M:%S'), all[1], Info))
+        elif type=="Debug" and self.Ui.vuln_scanner_debug.checkState() == Qt.Checked:
+            self.Ui.textEdit_log.append(
+                "<p style=\"color:blue\">[%s]Debug:<br>Filename:%s<br>Debug-Info:%s。</p>" % (time.strftime('%H:%M:%S'), all[1], Info))
+        elif type=='Result' and flag:
             url = all[0]
             filename = all[1]
             poc_name =  all[3]
             self.Ui.textEdit_log.append(
                 "<p style=\"color:green\">[%s]Result:%s----%s----%s。</p>" % (
-                    (time.strftime('%H:%M:%S', time.localtime(time.time()))), url, poc_name,text))
-            if text != '不存在' and text != '':
-                row = self.Ui.tableWidget_vuln.rowCount()  # 获取行数
-                self.Ui.tableWidget_vuln.setRowCount(row + 1)
-                urlItem = QTableWidgetItem(url)
-                nameItem = QTableWidgetItem(poc_name)
-                payloadItem = QTableWidgetItem(payload)
-                resultItem = QTableWidgetItem(text)
-                filenameItem = QTableWidgetItem(filename)
-                self.Ui.tableWidget_vuln.setItem(row, 0, urlItem)
-                self.Ui.tableWidget_vuln.setItem(row, 1, nameItem)
-                self.Ui.tableWidget_vuln.setItem(row, 3, resultItem)
-                self.Ui.tableWidget_vuln.setItem(row, 2, filenameItem)
-                self.Ui.tableWidget_vuln.setItem(row, 4, payloadItem)
-        if type!="Debug" and type!='Result':
+                    (time.strftime('%H:%M:%S', time.localtime(time.time()))), url, poc_name,"存在"))
+            row = self.Ui.tableWidget_vuln.rowCount()  # 获取行数
+            self.Ui.tableWidget_vuln.setRowCount(row + 1)
+            urlItem = QTableWidgetItem(url)
+            nameItem = QTableWidgetItem(poc_name)
+            payloadItem = QTableWidgetItem(Info)
+            resultItem = QTableWidgetItem("存在")
+            filenameItem = QTableWidgetItem(filename)
+            self.Ui.tableWidget_vuln.setItem(row, 0, urlItem)
+            self.Ui.tableWidget_vuln.setItem(row, 1, nameItem)
+            self.Ui.tableWidget_vuln.setItem(row, 3, resultItem)
+            self.Ui.tableWidget_vuln.setItem(row, 2, filenameItem)
+            self.Ui.tableWidget_vuln.setItem(row, 4, payloadItem)
+        elif type == 'Result' and not flag:
             self.Ui.textEdit_log.append(
-                "<p style=\"color:%s\">[%s]%s:%s。</p>" % (color,time.strftime('%H:%M:%S'),type, text))
+                "<p style=\"color:black\">[%s]Result:%s----%s----%s。</p>" % (time.strftime('%H:%M:%S'),all[0], all[3], "不存在"))
 
-    def vuln_exp_log(self, type,text='',color='black'):
+    def vuln_exp_log(self, type,flag=False,Info=''):
+        if type == "Error":
+            self.Ui.vuln_exp_textEdit_log.append(
+                "<p style=\"color:red\">[%s]Error:<br>Error-Info:%s。</p>" % (
+                time.strftime('%H:%M:%S'), Info))
+        elif type == "Debug" and self.Ui.vuln_exp_debug.checkState() == Qt.Checked:
+            self.Ui.vuln_exp_textEdit_log.append(
+                "<p style=\"color:blue\">[%s]Debug:<br>Debug-Info:%s。</p>" % (
+                time.strftime('%H:%M:%S'), Info))
+
         # print(r)
-        if type=='Result':
-            self.Ui.textEdit_result.setText(text)
+        elif type=='Result' and flag:
+            self.Ui.textEdit_result.setText(Info)
             self.Ui.vuln_exp_textEdit_log.append(
-                "[%s]执行结果:%s" % (time.strftime('%H:%M:%S'),text))
-        else:
+                "[%s]执行结果:%s" % (time.strftime('%H:%M:%S'),Info))
+        elif type == 'Result' and not flag:
             self.Ui.vuln_exp_textEdit_log.append(
-                "<div><p style=\"color:%s\">[%s]%s:%s。</p></div>" % (color, time.strftime('%H:%M:%S'), type, text))
+                "<div><p style=\"color:black\">[%s]%s:%s。</p></div>" % (time.strftime('%H:%M:%S'),"Result", "执行失败"))
     def sql_search(self,sql,type='list'):
         if type=='dict':
             conn = sqlite3.connect(DB_NAME)
