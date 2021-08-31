@@ -129,7 +129,6 @@ QToolButton:pressed
 QPushButton
 {
     border: 1px solid;
-    width: 75px;
     height: 25px;
     /*背景颜色*/  
     background-color:rgb(225, 225, 225);
@@ -140,7 +139,6 @@ QPushButton
 /*按钮停留态*/
 QPushButton:hover
 {
-    width: 75px;
     height: 25px;
      /* 控件最小宽度 */  
     min-width:200px;  

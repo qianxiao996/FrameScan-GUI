@@ -1,71 +1,69 @@
+import importlib
 import json
-import time,threading,queue,importlib
+import queue
+import sys
+import threading
+import time
 from socket import *
-from urllib.parse import urlparse,sys
-sys.path.append('./modules')
+from urllib.parse import urlparse
+
+sys.path.append('./Modules')
 import BaseInfo
 import CyberCalculate
-import requests
-from PyQt5.QtCore import *
 import eventlet
-
-from PyQt5.QtWidgets import QTableWidgetItem
-
-
-class Vuln_scanner:
-    def __init__(self,Main_Windows,plugins_dir_name):
-        self.Main_Windows = Main_Windows
+from PyQt5.QtCore import QThread, pyqtSignal
+class Vuln_Scanner(QThread):
+    _data = pyqtSignal(dict)  # 信号类型 str  更新table
+    _log = pyqtSignal(str)  # 信号类型 str 更新日志
+    def __init__(self,plugins_dir_name,logger,timeout,jump_url,jump_fofa,threadnum,heads,target,poc_data,parent=None):
+        super(Vuln_Scanner,self).__init__(parent)
+        self.timeout = timeout
+        self.vuln_portQueue = queue.Queue()
         self.plugins_dir_name =plugins_dir_name
-    def start(self):
+        self.logger  =logger
+        self.jump_url =jump_url
+        self.jump_fofa =jump_fofa
+        self.threadnum =threadnum
+        self.heads =heads
+        self.target =target
+        self.poc_data =poc_data
+    def run(self):
         #获取是否跳过fofa检测
-        
-        if self.Main_Windows.Ui.jump_fofa.checkState() == Qt.Checked:
+
+        if self.jump_fofa:
             check_fofa ="1"
         else:
             check_fofa="0"
-
-        threadnum = int(self.Main_Windows.Ui.threadsnum.currentText())
-        heads = self.Main_Windows.Ui.vuln_scanner_textEdit_heads.toPlainText()
-        heads_dict  = {}
-        heads = heads.split('\n')
+        heads = self.heads.splitlines()
+        self.heads={}
         for head in heads:
             head = head.split(':')
-            heads_dict[head[0].strip()] = head[1].strip()
-        self.Main_Windows.Ui.textEdit_log.clear()
-        target = []  # 存放扫描的URL
-        if self.Main_Windows.url_list:
-            target = self.Main_Windows.url_list
-        else:
-            url = self.Main_Windows.Ui.lineEdit_vuln_url.text()
-            if 'http://' in url or 'https://' in url:
-                target.append(url.strip())
-        if not target:
-            self.Main_Windows.Ui.textEdit_log.append(
-                "<p style=\"color:black\">[%s]Info:未获取到URL地址。</p>" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
-            return 0
-        poc_data = self.Main_Windows.get_methods() #得到选中的数据
+            self.heads[head[0].strip()] = head[1].strip()
+
+
+        if not self.target:
+            self._log.emit('未获取到URL地址')
+            self._log.emit("扫描结束")
+
+            return
+
         # print(poc_data)
-        if not poc_data:
-            self.Main_Windows.Ui.textEdit_log.append(
-                "<p style=\"color:black\">[%s]Info:未选择插件。</p>" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
-            return 0
+        if not self.poc_data:
+            self._log.emit("未选择插件。")
+            self._log.emit("扫描结束。")
+
+            return
         else:
-            self.Main_Windows.Ui.textEdit_log.append(
-                "[%s]Info:共加载%s个插件。" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), len(poc_data)))
-            self.Main_Windows.Ui.textEdit_log.append(
-                "<p style=\"color:black\">[%s]Info:共获取到%s个URL地址。</p>" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), len(target)))
-            self.Main_Windows.Ui.textEdit_log.append(
-                "<p style=\"color:black\">[%s]Info:正在创建队列...</p>" % ((time.strftime('%H:%M:%S', time.localtime(time.time())))))
-            thread = threading.Thread(target=self.add_queue, args=(target,poc_data,threadnum,heads,check_fofa))
-            thread.setDaemon(True)  # 设置为后台线程，这里默认是False，设置为True之后则主线程不用等待子线程
-            thread.start()
-    def add_queue(self,target,poc_data,threadnum,heads_dict,check_fofa):
+            self._log.emit("共加载%s个插件。" % (len(self.poc_data)))
+            self._log.emit("共获取到%s个URL地址。" % (len(self.target)))
+            self._log.emit( "正在创建队列...")
+            self.add_queue(check_fofa)
+    def add_queue(self,check_fofa):
         # print(poc_data)
-        portQueue = queue.Queue()  # 待检测端口队列，会在《Python常用操作》一文中更新用法
         num = 0
-        if self.Main_Windows.Ui.jump_url.checkState() != Qt.Checked:
-            num= len(target)
-            for u in target:
+        if not self.jump_url:
+            num= len(self.target)
+            for u in self.target:
                 _url = urlparse(u)
                 hostname = _url.hostname
                 port = _url.port
@@ -78,17 +76,16 @@ class Vuln_scanner:
                     u = scheme + '://' + hostname +'/'
                 else:
                     u = scheme + '://' + hostname + ':' + str(port) + '/'
-                for xuanzhong_data in poc_data:
+                for xuanzhong_data in self.poc_data:
                     # print(xuanzhong_data)
                     filename =self.plugins_dir_name+'/' + xuanzhong_data['cms_name'] + '/' + xuanzhong_data['vuln_file']
                     #url  filename heads poc fofa_link  fofa  check_fofa
-                    portQueue.put(u + '$$$' + filename + '$$$' + json.dumps(heads_dict)+'$$$'+xuanzhong_data['vuln_name'] +'$$$'+xuanzhong_data['FofaQuery_link'] +'$$$'+xuanzhong_data['FofaQuery']+'$$$'+check_fofa)
+                    self.vuln_portQueue.put(u + '$$$' + filename + '$$$' + json.dumps(self.heads)+'$$$'+xuanzhong_data['vuln_name'] +'$$$'+xuanzhong_data['FofaQuery_link'] +'$$$'+xuanzhong_data['FofaQuery']+'$$$'+check_fofa)
 
-        if self.Main_Windows.Ui.jump_url.checkState() == Qt.Checked:
-            self.Main_Windows.Ui.textEdit_log.append(
-                "<p style=\"color:black\">[%s]Info:正在进行地址存活检测...</p>" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
+        elif self.jump_url:
+            self._log.emit("正在进行地址存活检测...")
             false_url =[]
-            for u in target:
+            for u in self.target:
                 _url = urlparse(u)
                 hostname = _url.hostname
                 port = _url.port
@@ -103,15 +100,15 @@ class Vuln_scanner:
                     u = scheme + '://' + hostname + ':' + str(port) + '/'
                 try:
                     if u not in false_url:
-                        time22 = int(self.Main_Windows.Ui.comboBox_timeout.currentText())
+                        time22 =self.timeout
                         result = self.port_scanner(hostname,port,time22)
                         if result:
-                            for xuanzhong_data in poc_data:
+                            for xuanzhong_data in self.poc_data:
                                 # print(poc_data)
                                 filename = self.plugins_dir_name + '/' + xuanzhong_data['cms_name'] + '/' + \
                                            xuanzhong_data['vuln_file']
-                                portQueue.put(
-                                    u + '$$$' + filename + '$$$' + json.dumps(heads_dict) + '$$$' + xuanzhong_data[
+                                self.vuln_portQueue.put(
+                                    u + '$$$' + filename + '$$$' + json.dumps(self.heads) + '$$$' + xuanzhong_data[
                                         'vuln_name'] + '$$$' + xuanzhong_data['FofaQuery_link'] + '$$$' +
                                     xuanzhong_data[
                                         'FofaQuery'] + '$$$' + check_fofa)
@@ -119,70 +116,63 @@ class Vuln_scanner:
                             num += 1
                         else:
                             false_url.append(u)
-                            self.Main_Windows.Ui.textEdit_log.append(
-                                "<p style=\"color:black\">[%s]Info:%s----无法访问。</p>" % (
-                                    (time.strftime('%H:%M:%S', time.localtime(time.time()))), u))
+                            self._log.emit("%s----无法访问。"%u)
 
                     else:
                         continue
                 except Exception as  e:
+                    self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
                     false_url.append(u)
-                    self.Main_Windows.Ui.textEdit_log.append(
-                        "<p style=\"color:black\">[%s]Info:%s----无法访问。</p>" % (
-                            (time.strftime('%H:%M:%S', time.localtime(time.time()))), u))
+                    self._log.emit("%s----无法访问。" %u)
 
                     continue
                     # 限制线程数小于队列大小
-        self.Main_Windows.Ui.textEdit_log.append(
-                "<p style=\"color:black\">[%s]Info:共获取到%s个有效URL地址。</p>" % ((time.strftime('%H:%M:%S', time.localtime(time.time()))), num))
-        if threadnum > portQueue.qsize():
-            threadnum = portQueue.qsize()
+        self._log.emit("共获取到%s个有效URL地址。"%num)
+        if self.threadnum > self.vuln_portQueue.qsize():
+            self.threadnum = self.vuln_portQueue.qsize()
         # print(portQueue.qsize())
         if num==0:
-            self.Main_Windows.Ui.textEdit_log.append(
-                "[%s]End:扫描结束。" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
+            self._log.emit("扫描结束。")
             return
         else:
-            self.Main_Windows.Ui.textEdit_log.append(
-                "[%s]Start:扫描开始..." % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
-            self.Main_Windows.Ui.action_vuln_import.setEnabled(False)
-            self.Main_Windows.Ui.pushButton_vuln_file.setEnabled(False)
-            self.Main_Windows.Ui.action_vuln_start.setEnabled(False)
-            self.Main_Windows.Ui.pushButton_vuln_start.setEnabled(False)
-            for i in range(threadnum):
-                thread = threading.Thread(target=self.vuln_scan, args=(portQueue, threadnum))
+            self._log.emit("扫描开始...")
+            self.thread_list=[]
+            for i in range(self.threadnum):
+                thread = threading.Thread(target=self.vuln_scan, args=())
                 thread.setDaemon(True)  # 设置为后台线程，这里默认是False，设置为True之后则主线程不用等待子线程
-                thread.start()
-    def vuln_scan(self, portQueue, threadnum):
+                self.thread_list.append(thread)
+
+            for i in self.thread_list:
+                i.start()
+            for i in self.thread_list:
+                i.join()
+            self._log.emit("扫描结束!")
+
+
+    def vuln_scan(self):
         # print(portQueue.queue)  #输出所有队列
 
         while 1:
             try:
-                if portQueue.empty() :  # 队列空就结束
-                    time.sleep(int(self.Main_Windows.Ui.comboBox_timeout.currentText()))
-                    self.Main_Windows.Ui.pushButton_vuln_file.setEnabled(True)
-                    self.Main_Windows.Ui.pushButton_vuln_start.setEnabled(True)
+                if self.vuln_portQueue.empty() :  # 队列空就结束
                     return
                 else:
                     # url  filename heads vuln_name fofa_link  fofa  check_fofa
-                    all = portQueue.get().split('$$$')  # 从队列中取出 #0
+                    all = self.vuln_portQueue.get().split('$$$')  # 从队列中取出 #0
                     url = all[0]
                     filename = all[1]
-                    heads_list= json.loads(all[2])
-                    heads_dict={}
-                    for head in heads_list:
-                        head = head.split(':')
-                        heads_dict[head[0].strip()] = head[1].strip()
-                    # print(heads_dict)
+                    heads_dict= json.loads(all[2])
                     vuln_name =all[3]
                     fofa_link = all[4]
                     fofa =  all[5]
                     check_fofa = all[6]
-                    timeout = int(self.Main_Windows.Ui.comboBox_timeout.currentText())
+                    timeout = self.timeout
                     _url = urlparse(url)
                     hostname = _url.hostname
                     port = _url.port
                     scheme = _url.scheme
+                    self.logger.info("Scanner:"+url+" "+vuln_name)
+                    self._log.emit("正在扫描【%s】" % vuln_name)
                     if port is None and scheme == 'https':
                         port = 443
                     elif port is None:
@@ -208,20 +198,16 @@ class Vuln_scanner:
                                     #存在
                                     self.scan_result_out(result,all)
                                     continue
-                                self.Main_Windows.Ui.textEdit_log.append(
-                                    "<p style=\"color:red\">[%s]Error:%s脚本运行超时！</p>" % (
-                                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), filename))
+                                self._log.emit("Error:%s脚本运行超时！" % filename)
                                 continue
-                            except:
-                                self.Main_Windows.Ui.textEdit_log.append(
-                                    "<p style=\"color:red\">[%s]Error:%s----%s----%s。</p>" % (
-                                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), url, vuln_name, '脚本运行超时'))
+                            except Exception as e:
+                                self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
+                                self._log.emit(
+                                    "Error:%s----%s----%s。" % (url, vuln_name, '脚本运行超时'))
                                 continue
                             #进行扫描
                         else:
-                            self.Main_Windows.Ui.textEdit_log.append(
-                                    "<p style=\"color:black\">[%s]Info:%s----%s----%s。</p>" % (
-                                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), url, vuln_name, 'FoFA信息不匹配'))
+                            self._log.emit("%s----%s----%s。" % (url, vuln_name, 'FoFA信息不匹配'))
 
                     else:
                         #超时限制
@@ -236,33 +222,29 @@ class Vuln_scanner:
                                     self.scan_result_out(result,all)
                                     continue
                                 except Exception as  e:
-                                    self.Main_Windows.Ui.textEdit_log.append(
-                                        "<p style=\"color:red\">[%s]Error:%s脚本执行错误！<br>[Exception]:<br>%s</p>" % (
-                                            (time.strftime('%H:%M:%S', time.localtime(time.time()))), filename, e))
+                                    self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
+                                    self._log.emit(
+                                        "Error:%s脚本执行错误！<br>[Exception]:<br>%s" % (filename, e))
                                     continue
-                            self.Main_Windows.Ui.textEdit_log.append(
-                                "<p style=\"color:red\">[%s]Error:%s脚本运行超时！</p>" % (
-                                    (time.strftime('%H:%M:%S', time.localtime(time.time()))), filename))
-                        except:
-                            self.Main_Windows.Ui.textEdit_log.append(
-                                "<p style=\"color:red\">[%s]Error:%s----%s----%s。</p>" % (
-                                    (time.strftime('%H:%M:%S', time.localtime(time.time()))), url, vuln_name, '脚本运行超时'))
+                            self._log.emit(
+                                "Error:%s脚本运行超时！" % (filename))
+                        except Exception as e:
+                            self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
+                            self._log.emit(
+                                "Error:%s----%s----%s。" % (url, vuln_name, '脚本运行超时'))
                             continue
             except Exception as e:
-                self.Main_Windows.Ui.textEdit_log.append(
-                    "<p style=\"color:red\">[%s]Error:%s脚本执行错误！<br>[Exception]:<br>%s</p>" % (
-                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), filename, e))
+                self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
+                self._log.emit(
+                    "Error:%s脚本执行错误！<br>[Exception]:<br>%s" % (filename, str(e)))
                 continue
     def scan_result_out(self,result,all):
-        if result.get('Result'):
-            self.Main_Windows.vuln_scanner_log("Result", True, result.get("Result_Info"), all)
-        # 不存在
-        else:
-            self.Main_Windows.vuln_scanner_log("Result", False, result.get("Result_Info"), all)
-        if result.get('Error_Info'):
-            self.Main_Windows.vuln_scanner_log("Error", True, result.get("Error_Info"), all)
-        if result.get('Debug_Info'):
-            self.Main_Windows.vuln_scanner_log("Debug", True, result.get("Debug_Info"), all)
+        result['url'] = all[0]
+        result['poc_file'] = all[1]
+        result['poc_name'] = all[3]
+        self._data.emit(result)
+
+
 
     def port_scanner(self,host,port,timeout):
         #返回0不存活 1存活
@@ -276,7 +258,8 @@ class Vuln_scanner:
                 return 1
             else:
                 return 0
-        except:
+        except Exception as e:
+             self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
              return 0
         finally:
             try:

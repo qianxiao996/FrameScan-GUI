@@ -1,11 +1,13 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
+import ssl
 from urllib.parse import urlparse
 
-import requests, json, re
-import urllib3
 import chardet
-import ssl
+import re
+import requests
+import urllib3
+
 ssl._create_default_https_context = ssl._create_unverified_context
 requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS += 'HIGH:!DH:!aNULL'
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -81,7 +83,8 @@ def http_info(url):
             #print(dir(res))
 
     except Exception as e:
-        print(e)
+        pass
+        # print(e)
     return response
 
 if __name__ == '__main__':

@@ -57,7 +57,7 @@ QTabBar::tab {
 		border-top-left-radius: 4px;
 		border-top-right-radius: 4px;
 		color: rgb(175, 175, 175);
-		background: rgb(255, 255, 255, 30);
+		background: rgba(255, 255, 255, 30);
 		height: 28px;
 		min-width: 85px;
 		margin-right: 5px;
@@ -65,7 +65,7 @@ QTabBar::tab {
 		padding-right: 5px;
 }
 QTabBar::tab:hover {
-		background: rgb(255, 255, 255, 40);
+		background: rgba(255, 255, 255, 40);
 }
 /********标签白色蓝底*****/
 QTabBar::tab:selected {
@@ -255,7 +255,7 @@ QSpinBox::up-button:!enabled {
         background: transparent;
 }
 QSpinBox::up-button:enabled:hover {
-        background: rgb(255, 255, 255, 30);
+        background: rgba(255, 255, 255, 30);
 }
 QSpinBox::down-button {
         width: 18px;
@@ -269,7 +269,7 @@ QSpinBox::down-button:!enabled {
         background: transparent;
 }
 QSpinBox::down-button:enabled:hover {
-        background: rgb(255, 255, 255, 30);
+        background: rgba(255, 255, 255, 30);
 }
 
 /**********标签**********/
@@ -346,7 +346,7 @@ QToolButton#nsccButton{
 }
 QToolButton#nsccButton:hover{
 		color: rgb(217, 218, 218);
-		background: rgb(255, 255, 255, 20);
+		background: rgba(255, 255, 255, 20);
 }
 
 QToolButton#transferButton{
@@ -360,14 +360,13 @@ QToolButton#transferButton{
 }
 QToolButton#transferButton:hover{
 		color: rgb(217, 218, 218);
-		background: rgb(255, 255, 255, 20);
+		background: rgba(255, 255, 255, 20);
 }
 
 /**********按钮**********/
 QPushButton{
 		border-radius: 4px;
 		border: none;
-		width: 75px;
 		height: 25px;
 }
 QPushButton:enabled {
