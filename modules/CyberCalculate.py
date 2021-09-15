@@ -1,9 +1,11 @@
 # coding:utf-8
 import json
-import os
 import re
 import traceback
+
 import ProbeDefine
+
+
 # from app import app
 
 
@@ -538,7 +540,7 @@ if __name__ == '__main__':
 	#      "device_type": "\u8ba1\u7b97\u673a\u7ec8\u7aef", "os_score": 93, "device": "\u8ba1\u7b97\u673a\u7ec8\u7aef",
 	#      "ip_str": "39.105.85.18", "os": "Linux 4.4",
 	#      "cpes": ["cpe:/a:igor_sysoev:nginx:1.10.3", "cpe:/o:linux:linux_kernel"], "manufacturer": ""}
-	szRule = 'body="getExpireDateofDays"'
+	szRule = 'body="JavaScript"'
 	oOperand= {"data" : {'body': u'\r\n<script language="JavaScript"> \r\n    var authen_result =\'YES\';\r\n    if(authen_result==\'YES\' ){\r\n        window.document.location = \'/license!getExpireDateOfDays.action\';\r\n    }else{\r\n   \t\twindow.document.location = \'/license!reReadLicense.action\';\r\n        //window.document.location = \'/modules/sys/license_upload.jsp\';\r\n    }\r\n</script>', 'service': u'http', 'title': '1', 'protocal': u'http', 'header': 'Apache-Coyote/1.1JSESSIONID=7B8B9B3F38A24C41D943511AD4DD6D80; Path=/text/html;charset=utf-8340Fri, 29 Jan 2021 06:18:27 GMT', 'port': 81}}
 	oCyberCalc = CyberCalculate(szHayStack=oOperand, szRule=szRule, szSplit='=')
 	blMatch = oCyberCalc.Calculate()

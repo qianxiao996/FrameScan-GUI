@@ -6,7 +6,7 @@ QWidget{
     background-color: #C8F5F5F5;
 }
 
-QFrame, QLabel, QToolTip {
+QFrame, QToolTip {
     border: 1px solid #8D8D91;
     border-radius: 5px;
     padding: 1px;
@@ -14,7 +14,7 @@ QFrame, QLabel, QToolTip {
 }
  QLabel {
     border: 0px solid #8D8D91;
-    padding: 2px;
+    padding: 0px;
     background:transparent;
 }
 

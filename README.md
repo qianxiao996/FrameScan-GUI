@@ -37,9 +37,7 @@ def vuln_info():
         'vuln_solution':'''修复建议。''',
         'FofaQuery_link':'/', #此处的路径会加在url拼接访问，进行FofaQuery的条件匹配 此处为all为全部页面都检测
         'FofaQuery':'title="百度"',#header="JSESSIONID" || body="Struts Problem Report" || body="There is no Action mapped for namespace" || body="No result defined for action and result input" || header="Servlet" || header="JBoss",port="60001"
-        
         #header', 'body', 'title', 'banner','port','banner','service','protocol','server'
-        
         'ispoc':1, #是否有poc  1为有 0为无
         'isexp':1  #是否有exp   1为有 0为无
     }
@@ -52,15 +50,24 @@ def do_poc(url,hostname,port,scheme,heads={}):
     #Result_Info为返回的信息，可以为Paylaod 
     #Debug debug信息 默认不会显示，勾选显示调试信息会输出此结果
     #Error_Info无论何时都会输出
-        result = {"Result":False,"Result_Info":"payload","Debug_Info":"","Error_Info":""}
+        result = {"Result":True,"Result_Info":"payload","Debug_Info":"","Error_Info":""}
         result['Result_Info']= 'payload'
         result['Debug_Info']  = 'ddd'
+        result['Error_Info'] = "dsaaaaaaaa"
     except Exception as e:
-        result['Debug_Info'] = str(e)+str(e.__traceback__.tb_lineno)+'行'
+        result['Error_Info'] = str(e)+str(e.__traceback__.tb_lineno)+'行'
     return result
     
-# url:url   heads:自定义请求头 exp_type:两个选项（cmd,shell） exp_cmd：命令执行的命令 lhost：反弹shell的IP lport：反弹shell的端口
-def do_exp(url,heads={},exp_type='cmd',exp_cmd='whoami',lhost='127.0.0.1',lport=8888):
+    # {
+    #     "type":"cmd",  #cmd,shell,uploadfile
+    #     "command":"whoami",  #cmd命令
+    #     "reverse_ip":"127.0.0.1", #反弹shell的ip
+    #     "reverse_port":"8888", #反弹shell的端口
+    #     "filename":"conf.php", #写入文件的名字
+    #     "filename_contents":"shell内容", #shell文件内容
+    # }
+# url:url   hostname：主机地址  port：端口  scheme：服务  heads:自定义请求头 
+def do_exp(url,hostname,port,scheme,heads={},exp_data={}):
     try:
     # 返回参数
     #Result返回是否成功，
@@ -69,18 +76,23 @@ def do_exp(url,heads={},exp_type='cmd',exp_cmd='whoami',lhost='127.0.0.1',lport=
     #Error_Info无论何时都会输出
         result = {"Result":False,"Result_Info":"payload","Debug_Info":"","Error_Info":""}
         #命令执行
-        if exp_type=='cmd':
+        if exp_data['type']=='cmd':
             result['Result'] = True
             result['Result_Info'] = "root"
         #反弹shell    
-        if exp_type=='shell':
+        if exp_data['type']=='shell':
             result['Result'] = True
             result['Result_Info'] = "反弹成功"
+        #上传文件    
+        if exp_data['type']=='uploadfile':
+            result['Result'] = True
+            result['Result_Info'] = "上传成功"
+
+        # 
         result['Debug_Info'] = "1"
     except Exception as e:
-        result['Debug_Info'] = str(e)+str(e.__traceback__.tb_lineno)+'行'
+        result['Error_Info'] = str(e)+str(e.__traceback__.tb_lineno)+'行'
     return result
-
 ```
 
 插件目录下
@@ -95,8 +107,4 @@ def do_exp(url,heads={},exp_type='cmd',exp_cmd='whoami',lhost='127.0.0.1',lport=
 
 ## 警告！
 **请勿用于非法用途！否则自行承担一切后果**
-
-```
-pyinstaller -F FrameScan-GUI.py -i main.ico  --hidden-import eventlet.hubs.epolls --hidden-import eventlet.hubs.kqueue    --hidden-import  eventlet.hubs.selects --hidden-import dns --hidden-import dns.dnssec --hidden-import dns.e164  --hidden-import dns.hash  --hidden-import dns.namedict  --hidden-import   dns.tsigkeyring --hidden-import dns.update --hidden-import dns.version --hidden-import dns.zone -w
-```
 

@@ -1,0 +1,74 @@
+2021-08-31 14:46:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1390 Timestamp: 2021-08-31 14:46:42
+2021-08-31 14:46:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1392 ErrorMessage: TypeError: invalid result from Vuln_Scanner.run()
+
+2021-08-31 14:46:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1393 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x000002089CF13708>>
+2021-08-31 14:46:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1394 excType: <class 'TypeError'>
+2021-08-31 14:46:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1395 excValue: invalid result from Vuln_Scanner.run()
+2021-08-31 14:46:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1396 tb: None
+2021-08-31 14:51:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1390 Timestamp: 2021-08-31 14:51:24
+2021-08-31 14:51:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1392 ErrorMessage: TypeError: invalid result from Vuln_Scanner.run()
+
+2021-08-31 14:51:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1393 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x000002A837FA3708>>
+2021-08-31 14:51:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1394 excType: <class 'TypeError'>
+2021-08-31 14:51:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1395 excValue: invalid result from Vuln_Scanner.run()
+2021-08-31 14:51:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1396 tb: None
+2021-08-31 14:54:01 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1390 Timestamp: 2021-08-31 14:54:01
+2021-08-31 14:54:01 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1392 ErrorMessage: TypeError: invalid result from Vuln_Scanner.run()
+
+2021-08-31 14:54:01 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1393 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x000001440DBC5708>>
+2021-08-31 14:54:01 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1394 excType: <class 'TypeError'>
+2021-08-31 14:54:01 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1395 excValue: invalid result from Vuln_Scanner.run()
+2021-08-31 14:54:01 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1396 tb: None
+2021-08-31 14:55:43 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 188 Scanner:http://ddd/ POC≤‚ ‘¬©∂¥
+2021-08-31 14:55:53 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 188 Scanner:http://ddd/ POC≤‚ ‘¬©∂¥
+2021-08-31 14:56:00 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 188 Scanner:http://ddd/ POC≤‚ ‘¬©∂¥
+2021-08-31 14:56:11 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 287 [Errno 11001] getaddrinfo failed----280––
+2021-08-31 15:05:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1384 Timestamp: 2021-08-31 15:05:36
+2021-08-31 15:05:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1386 ErrorMessage: Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 1415, in <module>
+    window = MainWindows()
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 74, in __init__
+    self.load_exp_plugins()
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 523, in load_exp_plugins
+    for exp_methods in list(self.exp_cms_name_dict.values())[0]:
+IndexError: list index out of range
+
+2021-08-31 15:05:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1387 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x000001EF9DEC8AF8>>
+2021-08-31 15:05:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1388 excType: <class 'IndexError'>
+2021-08-31 15:05:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1389 excValue: list index out of range
+2021-08-31 15:05:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1390 tb: <traceback object at 0x000001EFA42C7FC8>
+2021-08-31 15:06:21 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 188 Scanner:http://dd/ POC≤‚ ‘¬©∂¥
+2021-08-31 15:06:31 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 188 Scanner:http://dd/ POC≤‚ ‘¬©∂¥
+2021-08-31 15:07:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1384 Timestamp: 2021-08-31 15:07:33
+2021-08-31 15:07:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1386 ErrorMessage: Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 1436, in <module>
+    window = MainWindows()
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 74, in __init__
+    self.load_exp_plugins()
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 523, in load_exp_plugins
+    for exp_methods in list(self.exp_cms_name_dict.values())[0]:
+IndexError: list index out of range
+
+2021-08-31 15:07:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1387 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x0000016C68F98C18>>
+2021-08-31 15:07:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1388 excType: <class 'IndexError'>
+2021-08-31 15:07:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1389 excValue: list index out of range
+2021-08-31 15:07:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1390 tb: <traceback object at 0x0000016C6F39D0C8>
+2021-08-31 15:16:32 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 188 Scanner:http://ddd/ POC≤‚ ‘¬©∂¥
+2021-08-31 15:16:32 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 188 Scanner:http://ddd/ phpmyadminŒ¥ ⁄»®
+2021-08-31 15:16:32 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 188 Scanner:http://ddd/ EDR÷’∂ÀºÏ≤‚œµÕ≥RCE
+2021-08-31 15:29:34 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 168 Scanner:http://dddd/ POC≤‚ ‘¬©∂¥
+2021-08-31 15:29:34 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 168 Scanner:http://dddd/ phpmyadminŒ¥ ⁄»®
+2021-08-31 15:29:34 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 168 Scanner:http://dddd/ EDR÷’∂ÀºÏ≤‚œµÕ≥RCE
+2021-08-31 15:30:34 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 168 Scanner:http://ddd/ POC≤‚ ‘¬©∂¥
+2021-08-31 15:35:09 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 168 Scanner:http://dddd/ POC≤‚ ‘¬©∂¥
+2021-08-31 15:35:09 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 168 Scanner:http://dddd/ phpmyadminŒ¥ ⁄»®
+2021-08-31 15:35:09 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 168 Scanner:http://dddd/ EDR÷’∂ÀºÏ≤‚œµÕ≥RCE
+2021-08-31 15:38:14 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://ddd/ POC≤‚ ‘¬©∂¥
+2021-08-31 15:38:14 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://ddd/ phpmyadminŒ¥ ⁄»®
+2021-08-31 15:38:14 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://ddd/ EDR÷’∂ÀºÏ≤‚œµÕ≥RCE
+2021-08-31 16:14:20 - C:\Users\QIANXI~1\AppData\Local\Temp\_MEI97322\FrameScan-GUI.py - INFO - 174 Scanner:http://baidu.com/ POC≤‚ ‘¬©∂¥
+2021-08-31 16:14:20 - C:\Users\QIANXI~1\AppData\Local\Temp\_MEI97322\FrameScan-GUI.py - INFO - 174 Scanner:http://baidu.com/ phpmyadminŒ¥ ⁄»®
+2021-08-31 16:14:20 - C:\Users\QIANXI~1\AppData\Local\Temp\_MEI97322\FrameScan-GUI.py - INFO - 174 Scanner:http://baidu.com/ EDR÷’∂ÀºÏ≤‚œµÕ≥RCE
+2021-08-31 16:14:27 - C:\Users\QIANXI~1\AppData\Local\Temp\_MEI97322\FrameScan-GUI.py - INFO - 174 Scanner:http://baidu.com/ POC≤‚ ‘¬©∂¥
+2021-08-31 16:14:27 - C:\Users\QIANXI~1\AppData\Local\Temp\_MEI97322\FrameScan-GUI.py - INFO - 174 Scanner:http://baidu.com/ phpmyadminŒ¥ ⁄»®
+2021-08-31 16:14:27 - C:\Users\QIANXI~1\AppData\Local\Temp\_MEI97322\FrameScan-GUI.py - INFO - 174 Scanner:http://baidu.com/ EDR÷’∂ÀºÏ≤‚œµÕ≥RCE

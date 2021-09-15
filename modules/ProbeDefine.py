@@ -1,5 +1,4 @@
 # coding=utf-8
-import sys
 
 
 PROBE_SCAN_TYPE_COUNTS = 3
