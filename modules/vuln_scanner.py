@@ -3,7 +3,6 @@ import json
 import queue
 import sys
 import threading
-import time
 from socket import *
 from urllib.parse import urlparse
 
@@ -28,6 +27,7 @@ class Vuln_Scanner(QThread):
         self.target =target
         self.poc_data =poc_data
     def run(self):
+        # print(self.poc_data)
         #获取是否跳过fofa检测
 
         if self.jump_fofa:
@@ -44,60 +44,57 @@ class Vuln_Scanner(QThread):
         if not self.target:
             self._log.emit('未获取到URL地址')
             self._log.emit("扫描结束")
-
             return
-
         # print(poc_data)
         if not self.poc_data:
             self._log.emit("未选择插件。")
             self._log.emit("扫描结束。")
-
             return
         else:
             self._log.emit("共加载%s个插件。" % (len(self.poc_data)))
             self._log.emit("共获取到%s个URL地址。" % (len(self.target)))
             self._log.emit( "正在创建队列...")
             self.add_queue(check_fofa)
+    def get_port(self,url):
+        _url = urlparse(url)
+        # print(_url)
+        hostname = _url.hostname
+        port = _url.port
+        scheme = _url.scheme
+        if port is None and scheme == 'https':
+            port = 443
+        elif port is None:
+            port = 80
+
+        if scheme == "http" and port == 80 or scheme == "https" and port == 443:
+            url = scheme + '://' + hostname + '/'
+        else:
+            url = scheme + '://' + hostname + ':' + str(port) + '/'
+        if 'http://' not in url.lower() and 'http' not in url.lower():
+            url =  'http://' + hostname + ':' + str(port) + '/'
+        return url,hostname,port,scheme
+
     def add_queue(self,check_fofa):
-        # print(poc_data)
+        # print(self.poc_data)
         num = 0
         if not self.jump_url:
             num= len(self.target)
             for u in self.target:
-                _url = urlparse(u)
-                hostname = _url.hostname
-                port = _url.port
-                scheme = _url.scheme
-                if port is None and scheme == 'https':
-                    port = 443
-                elif port is None:
-                    port = 80
-                if scheme=="http" and port == 80 or scheme=="https" and port == 443:
-                    u = scheme + '://' + hostname +'/'
-                else:
-                    u = scheme + '://' + hostname + ':' + str(port) + '/'
+                hostname_port_scheme = self.get_port(u)
+                url =  hostname_port_scheme[0]
                 for xuanzhong_data in self.poc_data:
                     # print(xuanzhong_data)
                     filename =self.plugins_dir_name+'/' + xuanzhong_data['cms_name'] + '/' + xuanzhong_data['vuln_file']
                     #url  filename heads poc fofa_link  fofa  check_fofa
-                    self.vuln_portQueue.put(u + '$$$' + filename + '$$$' + json.dumps(self.heads)+'$$$'+xuanzhong_data['vuln_name'] +'$$$'+xuanzhong_data['FofaQuery_link'] +'$$$'+xuanzhong_data['FofaQuery']+'$$$'+check_fofa)
+                    self.vuln_portQueue.put(url + '$$$' + filename + '$$$' + json.dumps(self.heads)+'$$$'+xuanzhong_data['cms_name']+"$$$"+xuanzhong_data['vuln_name'] +'$$$'+xuanzhong_data['FofaQuery_type']+'$$$'+xuanzhong_data['FofaQuery_link'] +'$$$'+xuanzhong_data['FofaQuery_rule']+'$$$'+check_fofa)
 
         elif self.jump_url:
             self._log.emit("正在进行地址存活检测...")
             false_url =[]
             for u in self.target:
-                _url = urlparse(u)
-                hostname = _url.hostname
-                port = _url.port
-                scheme = _url.scheme
-                if port is None and scheme == 'https':
-                    port = 443
-                    u = scheme + '://' + hostname + '/'
-                elif port is None:
-                    port = 80
-                    u = scheme + '://' + hostname + '/'
-                else:
-                    u = scheme + '://' + hostname + ':' + str(port) + '/'
+                hostname_port_scheme = self.get_port(u)
+                hostname = hostname_port_scheme[1]
+                port = hostname_port_scheme[2]
                 try:
                     if u not in false_url:
                         time22 =self.timeout
@@ -109,10 +106,9 @@ class Vuln_Scanner(QThread):
                                            xuanzhong_data['vuln_file']
                                 self.vuln_portQueue.put(
                                     u + '$$$' + filename + '$$$' + json.dumps(self.heads) + '$$$' + xuanzhong_data[
-                                        'vuln_name'] + '$$$' + xuanzhong_data['FofaQuery_link'] + '$$$' +
-                                    xuanzhong_data[
-                                        'FofaQuery'] + '$$$' + check_fofa)
-
+                                        'cms_name'] + "$$$" + xuanzhong_data['vuln_name'] + '$$$' + xuanzhong_data[
+                                        'FofaQuery_type']+'$$$' + xuanzhong_data[
+                                        'FofaQuery_link'] + '$$$' + xuanzhong_data['FofaQuery_rule'] + '$$$' + check_fofa)
                             num += 1
                         else:
                             false_url.append(u)
@@ -157,36 +153,56 @@ class Vuln_Scanner(QThread):
                 if self.vuln_portQueue.empty() :  # 队列空就结束
                     return
                 else:
-                    # url  filename heads vuln_name fofa_link  fofa  check_fofa
+                    # url  filename heads cms_name  vuln_name fofa_type fofa_link  fofa_rule  check_fofa
                     all = self.vuln_portQueue.get().split('$$$')  # 从队列中取出 #0
                     url = all[0]
                     filename = all[1]
                     heads_dict= json.loads(all[2])
-                    vuln_name =all[3]
-                    fofa_link = all[4]
-                    fofa =  all[5]
-                    check_fofa = all[6]
+                    cms_name =all[3]
+                    vuln_name =all[4]
+                    fofa_type = all[5]
+                    fofa_link = all[6]
+                    fofa_rule =  all[7]
+                    check_fofa = all[8]
                     timeout = self.timeout
-                    _url = urlparse(url)
-                    hostname = _url.hostname
-                    port = _url.port
-                    scheme = _url.scheme
-                    self.logger.info("Scanner:"+url+" "+vuln_name)
-                    self._log.emit("正在扫描【%s】" % vuln_name)
-                    if port is None and scheme == 'https':
-                        port = 443
-                    elif port is None:
-                        port = 80
+                    hostname_port_scheme = self.get_port(url)
+                    url = hostname_port_scheme[0]
+                    hostname = hostname_port_scheme[1]
+                    port = hostname_port_scheme[2]
+                    scheme = hostname_port_scheme[3]
+                    self.logger.info("Scanner:"+url+" "+str(cms_name+"|"+vuln_name))
+                    self._log.emit("正在扫描【%s】" % str(cms_name+"|"+vuln_name))
                     if check_fofa=="1":
-                        if fofa and fofa_link!="all":
-                            fofa_url= url+'/'+fofa_link
-                        if fofa and fofa_link == "all":
-                            fofa_url = url
-                        fofaquery = fofa.lower()
-                        responce = BaseInfo.http_info(fofa_url)
-                        oOperand = {"data": responce}
-                        oCyberCalc = CyberCalculate.CyberCalculate(szHayStack=oOperand, szRule=fofaquery,szSplit='=')
-                        blMatch = oCyberCalc.Calculate()
+                        # print(fofa_type,fofa_link)
+                        if fofa_type=='http':
+                            if fofa_rule and fofa_link != "all":
+                                fofa_url = url + '/' + fofa_link
+                            elif fofa_rule and fofa_link == "all":
+                                fofa_url = url
+                            elif not fofa_rule:
+                                self._log.emit("FOFA规则不存在！ %s" % filename)
+                                continue
+                            fofaquery = fofa_rule.lower()
+                            responce = BaseInfo.http_info(fofa_url)
+                            oOperand = {"data": responce}
+                            oCyberCalc = CyberCalculate.CyberCalculate(szHayStack=oOperand, szRule=fofaquery,szSplit='=')
+                            blMatch = oCyberCalc.Calculate()
+
+                        elif fofa_type=='socket':
+                            # print(11)
+                            sk =socket(AF_INET, SOCK_STREAM)
+                            sk.settimeout(5)
+                            try:
+                                sk.connect((hostname, int(port)))
+                                blMatch=True
+                            except Exception:
+                                blMatch=False
+                            sk.close()
+
+                        else:
+                            self._log.emit("未知的FofaQuery_type！ %s" % filename)
+                            continue
+
                         # print(fofaquery[0])
                         if blMatch:
                             # 超时限制
@@ -203,11 +219,11 @@ class Vuln_Scanner(QThread):
                             except Exception as e:
                                 self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
                                 self._log.emit(
-                                    "Error:%s----%s----%s。" % (url, vuln_name, '脚本运行超时'))
+                                    "Error:%s----%s----%s。" % (url, cms_name+'|'+vuln_name, '脚本运行超时'))
                                 continue
                             #进行扫描
                         else:
-                            self._log.emit("%s----%s----%s。" % (url, vuln_name, 'FoFA信息不匹配'))
+                            self._log.emit("%s----%s----%s。" % (url, cms_name+'|'+vuln_name, 'FoFA信息不匹配'))
 
                     else:
                         #超时限制
@@ -231,7 +247,7 @@ class Vuln_Scanner(QThread):
                         except Exception as e:
                             self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
                             self._log.emit(
-                                "Error:%s----%s----%s。" % (url, vuln_name, '脚本运行超时'))
+                                "Error:%s----%s----%s。" % (url, cms_name+'|'+vuln_name, '脚本运行超时'))
                             continue
             except Exception as e:
                 self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
@@ -239,9 +255,11 @@ class Vuln_Scanner(QThread):
                     "Error:%s脚本执行错误！<br>[Exception]:<br>%s" % (filename, str(e)))
                 continue
     def scan_result_out(self,result,all):
+        # print(all,all[3])
         result['url'] = all[0]
         result['poc_file'] = all[1]
-        result['poc_name'] = all[3]
+        result['cms_name'] = all[3]
+        result['poc_name'] = all[4]
         self._data.emit(result)
 
 
