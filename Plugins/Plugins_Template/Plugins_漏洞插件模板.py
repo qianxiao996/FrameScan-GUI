@@ -11,8 +11,9 @@ def vuln_info():
         'vuln_identifier':'''漏洞编号。''',
         'vuln_class':'漏洞分类',#如：信息泄漏、远程命令执行、任意文件上传、SQL注入、XML注入、任意文件读取、本地文件包含、认证绕过/未认证、弱口令、目录遍历、其他、反序列化漏洞、OGNL表达式注入、SSRF、后门、任意文件下载、鉴权绕过、暴力破解、命令注入、路径泄露、XSS、远程文件包含、CSRF、任意文件包含、代码注入、任意文件写入、密码硬编码、文件包含、任意用户注册、缓冲区溢出、用户枚举漏洞、任意文件删除、任意页面上传、管理权限等
         'vuln_solution':'''修复建议。''',
+        'FofaQuery_type':'socket', #socket、http
         'FofaQuery_link':'/', #此处的路径会加在url拼接访问，进行FofaQuery的条件匹配 此处为all为全部页面都检测
-        'FofaQuery':'title="百度"',#header="JSESSIONID" || body="Struts Problem Report" || body="There is no Action mapped for namespace" || body="No result defined for action and result input" || header="Servlet" || header="JBoss",port="60001"
+        'FofaQuery_rule':'title="百度"',#header="JSESSIONID" || body="Struts Problem Report" || body="There is no Action mapped for namespace" || body="No result defined for action and result input" || header="Servlet" || header="JBoss",port="60001"
         #header', 'body', 'title', 'banner','port','banner','service','protocol','server'
         'ispoc':1, #是否有poc  1为有 0为无
         'isexp':1  #是否有exp   1为有 0为无
@@ -69,3 +70,13 @@ def do_exp(url,hostname,port,scheme,heads={},exp_data={}):
     except Exception as e:
         result['Error_Info'] = str(e)+str(e.__traceback__.tb_lineno)+'行'
     return result
+
+
+
+
+if __name__== '__main__':
+    url='http://127.0.0.1/'
+    # aa= do_exp(url,'','','','',exp_data)
+    # print(aa)
+    aa = do_poc(args.url,'','','',heads={})
+    print(aa)

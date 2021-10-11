@@ -21,7 +21,7 @@ QScrollBar:vertical
 }
 QScrollBar::handle:vertical
 {
-    background:rgb(225, 225, 225)/*darkgray*/;  /* 滚动条颜色*/
+    background:rgb(225, 225, 225);/*darkgray*/ /* 滚动条颜色*/
     border-radius:6px;  /* 滚动条圆角*/
     margin-left:0px;  /* 滚动条和滑轨之间的左间隙*/
     margin-right:1px;  /* 同理*/
@@ -34,7 +34,6 @@ QScrollBar::handle:vertical:hover  /* 鼠标放上滑块滑块变色*/
 QScrollBar::add-line:vertical  /* 下方箭头*/
 {
     height:15px;width:8px;  /* 设置箭头区域的宽高*/
-  /*  image:url('./pictures/down-arrow.jpg');  /* 自己在网上找的箭头图片。如果不需要箭头，可将引号里面的路径去除，设置为image:url('')即可*/
 }
 QScrollBar::sub-line:vertical  /* 上方箭头*/
 {
@@ -159,7 +158,6 @@ QPushButton:pressed
 }
 
 
-}
 QLineEdit {
         border-radius: 4px;
         height: 25px;

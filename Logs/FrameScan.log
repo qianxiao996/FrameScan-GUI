@@ -72,3 +72,336 @@ IndexError: list index out of range
 2021-08-31 16:14:27 - C:\Users\QIANXI~1\AppData\Local\Temp\_MEI97322\FrameScan-GUI.py - INFO - 174 Scanner:http://baidu.com/ POC≤‚ ‘¬©∂¥
 2021-08-31 16:14:27 - C:\Users\QIANXI~1\AppData\Local\Temp\_MEI97322\FrameScan-GUI.py - INFO - 174 Scanner:http://baidu.com/ phpmyadminŒ¥ ⁄»®
 2021-08-31 16:14:27 - C:\Users\QIANXI~1\AppData\Local\Temp\_MEI97322\FrameScan-GUI.py - INFO - 174 Scanner:http://baidu.com/ EDR÷’∂ÀºÏ≤‚œµÕ≥RCE
+2021-09-08 16:20:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1372 Timestamp: 2021-09-08 16:20:42
+2021-09-08 16:20:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1374 ErrorMessage: Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 74, in <lambda>
+    lambda: self.vuln_import_file(self.Ui.lineEdit_vuln_url, self.Ui.textEdit_log, 'vuln_scanner'))  # µº»Îµÿ÷∑
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 574, in vuln_import_file
+    self.domain_url_list
+AttributeError: 'MainWindows' object has no attribute 'domain_url_list'
+
+2021-09-08 16:20:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1375 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x00000250B7137168>>
+2021-09-08 16:20:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1376 excType: <class 'AttributeError'>
+2021-09-08 16:20:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1377 excValue: 'MainWindows' object has no attribute 'domain_url_list'
+2021-09-08 16:20:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1378 tb: <traceback object at 0x00000250B9599F88>
+2021-09-08 16:20:45 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1372 Timestamp: 2021-09-08 16:20:45
+2021-09-08 16:20:45 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1374 ErrorMessage: Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 74, in <lambda>
+    lambda: self.vuln_import_file(self.Ui.lineEdit_vuln_url, self.Ui.textEdit_log, 'vuln_scanner'))  # µº»Îµÿ÷∑
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 574, in vuln_import_file
+    self.domain_url_list
+AttributeError: 'MainWindows' object has no attribute 'domain_url_list'
+
+2021-09-08 16:20:45 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1375 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x00000250B7137168>>
+2021-09-08 16:20:45 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1376 excType: <class 'AttributeError'>
+2021-09-08 16:20:45 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1377 excValue: 'MainWindows' object has no attribute 'domain_url_list'
+2021-09-08 16:20:45 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1378 tb: <traceback object at 0x00000250B81B4588>
+2021-09-08 16:21:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://222.128.9.25:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://183.62.31.59:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://139.196.158.47/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://47.114.62.32:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://61.163.136.131:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://182.119.117.105:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://1.85.3.27:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://171.211.126.113:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:25 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://101.200.123.99:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://222.128.9.25:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://183.62.31.59:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://139.196.158.47/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://47.114.62.32:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://61.163.136.131:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://182.119.117.105:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:34 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://1.85.3.27:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:34 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://171.211.126.113:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:35 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://101.200.123.99:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://101.230.65.90:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://61.167.145.163:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://117.180.221.15:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:37 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://182.119.117.168:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:21:38 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://221.123.191.212/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:27:41 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://222.128.9.25:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:27:41 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://183.62.31.59:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:27:41 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://139.196.158.47/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:27:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://47.114.62.32:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:27:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://61.163.136.131:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:27:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://182.119.117.105:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:27:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://1.85.3.27:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:27:43 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://171.211.126.113:6868/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:27:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://1.1.1.1/ POC≤‚ ‘¬©∂¥
+2021-09-08 16:37:26 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1447 Timestamp: 2021-09-08 16:37:26
+2021-09-08 16:37:26 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1449 ErrorMessage: Traceback (most recent call last):
+  File "E:\Python\Python37-64\lib\configparser.py", line 845, in items
+    d.update(self._sections[section])
+KeyError: 'Proxy'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 1507, in <module>
+    window.load_proxy()
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 157, in load_proxy
+    for key, value in config_setup.items('Proxy'):
+  File "E:\Python\Python37-64\lib\configparser.py", line 848, in items
+    raise NoSectionError(section)
+configparser.NoSectionError: No section: 'Proxy'
+
+2021-09-08 16:37:26 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1450 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x000001FE2679A438>>
+2021-09-08 16:37:26 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1451 excType: <class 'configparser.NoSectionError'>
+2021-09-08 16:37:26 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1452 excValue: No section: 'Proxy'
+2021-09-08 16:37:26 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1453 tb: <traceback object at 0x000001FE28BD9348>
+2021-09-13 13:01:40 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://218.23.25.178:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:01:43 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://218.23.25.178:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:01:45 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://218.23.25.178:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:02:13 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://218.23.25.178:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:03:32 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://218.23.25.178:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:03:34 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://218.23.25.178:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:03:58 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://218.23.25.178:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:05:09 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 174 Scanner:http://218.23.25.178:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:10:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1447 Timestamp: 2021-09-13 13:10:23
+2021-09-13 13:10:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1449 ErrorMessage: Traceback (most recent call last):
+  File "D:\code\Python37\obj\FrameScan-GUI\Modules\Vuln_Scanner.py", line 60, in run
+    self.add_queue(check_fofa)
+  File "D:\code\Python37\obj\FrameScan-GUI\Modules\Vuln_Scanner.py", line 81, in add_queue
+    u = 'http://' + hostname + ':' + str(port) + '/'
+TypeError: can only concatenate str (not "NoneType") to str
+
+2021-09-13 13:10:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1450 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x0000021C9FB7A438>>
+2021-09-13 13:10:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1451 excType: <class 'TypeError'>
+2021-09-13 13:10:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1452 excValue: can only concatenate str (not "NoneType") to str
+2021-09-13 13:10:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1453 tb: <traceback object at 0x0000021CA1FC3108>
+2021-09-13 13:11:57 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1447 Timestamp: 2021-09-13 13:11:57
+2021-09-13 13:11:57 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1449 ErrorMessage: Traceback (most recent call last):
+  File "D:\code\Python37\obj\FrameScan-GUI\Modules\Vuln_Scanner.py", line 60, in run
+    self.add_queue(check_fofa)
+  File "D:\code\Python37\obj\FrameScan-GUI\Modules\Vuln_Scanner.py", line 83, in add_queue
+    u = 'http://' + hostname + ':' + str(port) + '/'
+TypeError: can only concatenate str (not "NoneType") to str
+
+2021-09-13 13:11:57 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1450 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x0000021792E2A438>>
+2021-09-13 13:11:57 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1451 excType: <class 'TypeError'>
+2021-09-13 13:11:57 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1452 excValue: can only concatenate str (not "NoneType") to str
+2021-09-13 13:11:57 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1453 tb: <traceback object at 0x0000021794A74108>
+2021-09-13 13:13:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1447 Timestamp: 2021-09-13 13:13:07
+2021-09-13 13:13:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1449 ErrorMessage: Traceback (most recent call last):
+  File "D:\code\Python37\obj\FrameScan-GUI\Modules\Vuln_Scanner.py", line 60, in run
+    self.add_queue(check_fofa)
+  File "D:\code\Python37\obj\FrameScan-GUI\Modules\Vuln_Scanner.py", line 84, in add_queue
+    u = 'http://' + hostname + ':' + str(port) + '/'
+TypeError: can only concatenate str (not "NoneType") to str
+
+2021-09-13 13:13:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1450 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x00000209875EA438>>
+2021-09-13 13:13:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1451 excType: <class 'TypeError'>
+2021-09-13 13:13:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1452 excValue: can only concatenate str (not "NoneType") to str
+2021-09-13 13:13:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1453 tb: <traceback object at 0x0000020989235088>
+2021-09-13 13:14:51 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://113.135.192.202:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://119.73.254.67:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://121.4.145.39:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.125:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:53 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.125:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:53 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.35:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:53 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.35:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:54 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.44:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:54 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.44:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:54 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.73:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:55 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.211.81:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:55 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.211.81:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:55 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://124.67.74.2:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:55 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://124.70.193.163:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:55 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://168.70.163.217:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:56 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.104.1.87:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:56 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.153.180.97:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:14:57 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.153.180.97:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:02 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://113.135.192.202:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:02 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://119.73.254.67:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:02 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://121.4.145.39:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:02 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.125:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:03 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.125:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:03 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.35:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:03 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.35:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:03 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.44:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:03 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.44:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:03 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.73:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:04 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.211.81:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:04 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.211.81:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:04 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://124.67.74.2:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:04 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://124.70.193.163:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:04 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://168.70.163.217:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:04 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.104.1.87:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:05 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.153.180.97:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:05 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.153.180.97:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:05 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.153.180.99:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:05 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.153.180.99:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:05 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://183.178.92.147:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:05 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://185.161.113.182:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:05 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://211.147.71.66:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:06 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://211.156.201.13:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:06 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://218.23.25.178:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:06 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://218.26.86.93:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://218.26.86.93:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://220.168.209.58:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://221.203.145.147:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:08 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://222.180.171.122:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:08 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://223.166.174.11:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:10 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://223.166.174.11:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:11 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://223.166.174.30:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:12 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://223.166.174.30:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:12 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://223.166.174.4:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:13 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://223.166.174.4:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:13 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://27.191.138.165:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:13 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://42.236.68.29:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:13 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://46.209.67.130:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:13 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://58.18.5.56:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:13 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://59.109.83.83:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:13 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://59.151.126.63:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:13 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://59.152.62.227:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:15 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://61.184.85.51:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:15 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://61.190.177.55:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:15 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://89.40.159.183:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:16 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://automation.rrk.ir:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:18 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://comext.aduana.cl:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:20 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://morojwa.ub.bw:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:16:20 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://oa.hnjtzy.com.cn:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:47 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://113.135.192.202:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:47 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://119.73.254.67:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:47 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://121.4.145.39:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:47 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.125:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:47 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.125:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:47 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.35:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:47 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.35:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.44:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.44:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.73:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.211.81:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.211.81:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://124.67.74.2:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://124.70.193.163:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://168.70.163.217:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.104.1.87:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.153.180.97:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:49 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.153.180.97:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:49 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.153.180.99:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:49 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.153.180.99:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:49 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://183.178.92.147:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:49 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://185.161.113.182:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:49 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://211.147.71.66:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:50 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://211.156.201.13:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:50 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://218.23.25.178:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:50 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://218.26.86.93:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:50 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://218.26.86.93:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:51 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://220.168.209.58:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:51 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://221.203.145.147:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:51 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://222.180.171.122:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:51 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://223.166.174.11:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:51 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://223.166.174.11:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://223.166.174.30:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://223.166.174.30:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:28:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://223.166.174.4:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:45 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://113.135.192.202:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:45 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://119.73.254.67:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:45 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://121.4.145.39:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:45 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.125:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:45 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.125:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:45 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.35:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:46 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.35:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:46 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.44:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:46 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.44:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:46 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.120.73:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:46 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.211.81:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:46 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://123.59.211.81:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:46 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://124.67.74.2:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:46 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://124.70.193.163:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:46 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://168.70.163.217:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:47 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.104.1.87:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:47 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.153.180.97:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:47 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.153.180.97:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.153.180.99:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://180.153.180.99:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://183.178.92.147:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://185.161.113.182:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-13 13:30:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 177 Scanner:http://211.147.71.66:7001/ Œ¥ ⁄»®∑√Œ 
+2021-09-17 15:19:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1500 Timestamp: 2021-09-17 15:19:36
+2021-09-17 15:19:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1502 ErrorMessage: Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 127, in proxy_setting
+    self.Proxy_WChild.lineEdit_proxy_username.setDisabled(True)
+AttributeError: 'Ui_Proxy' object has no attribute 'lineEdit_proxy_username'
+
+2021-09-17 15:19:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1503 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x000001F8D4119558>>
+2021-09-17 15:19:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1504 excType: <class 'AttributeError'>
+2021-09-17 15:19:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1505 excValue: 'Ui_Proxy' object has no attribute 'lineEdit_proxy_username'
+2021-09-17 15:19:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1506 tb: <traceback object at 0x000001F8D2A82548>
+2021-09-17 15:19:50 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1500 Timestamp: 2021-09-17 15:19:50
+2021-09-17 15:19:50 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1502 ErrorMessage: Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 127, in proxy_setting
+    self.Proxy_WChild.lineEdit_proxy_username.setDisabled(True)
+AttributeError: 'Ui_Proxy' object has no attribute 'lineEdit_proxy_username'
+
+2021-09-17 15:19:50 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1503 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x000001AFB96F9558>>
+2021-09-17 15:19:50 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1504 excType: <class 'AttributeError'>
+2021-09-17 15:19:50 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1505 excValue: 'Ui_Proxy' object has no attribute 'lineEdit_proxy_username'
+2021-09-17 15:19:50 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1506 tb: <traceback object at 0x000001AFB8413B88>
+2021-09-17 23:17:08 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 176 Scanner:https://60.31.255.173:9091/ CVE-2021-26084
+2021-09-17 23:17:11 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 176 Scanner:https://60.31.255.173:9091/ CVE-2021-26084
+2021-09-17 23:17:18 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 176 Scanner:https://60.31.255.173:9091/ reporter◊Èº˛RCE
+2021-09-17 23:24:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 176 Scanner:https://60.31.255.173:9091/ reporter◊Èº˛RCE
+2021-09-17 23:25:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 176 Scanner:https://60.31.255.173:9091/ reporter◊Èº˛RCE
+2021-09-17 23:26:15 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 176 Scanner:https://60.31.255.173:9091/ reporter◊Èº˛RCE
+2021-09-27 14:57:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1506 Timestamp: 2021-09-27 14:57:07
+2021-09-27 14:57:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1508 ErrorMessage: Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 1558, in <module>
+    window = MainWindows()
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 75, in __init__
+    self.load_exp_plugins()
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 624, in load_exp_plugins
+    exp_dict = self.sql_search(sql_exp, 'dict')
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 1396, in sql_search
+    cursor.execute(sql)
+sqlite3.OperationalError: no such table: vuln_poc
+
+2021-09-27 14:57:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1509 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x00000270FF6A9B88>>
+2021-09-27 14:57:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1510 excType: <class 'sqlite3.OperationalError'>
+2021-09-27 14:57:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1511 excValue: no such table: vuln_poc
+2021-09-27 14:57:07 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1512 tb: <traceback object at 0x00000270FFB0D308>
+2021-09-27 15:01:59 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1507 Timestamp: 2021-09-27 15:01:59
+2021-09-27 15:01:59 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1509 ErrorMessage: Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 1559, in <module>
+    window = MainWindows()
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 74, in __init__
+    self.load_vuln_plugins()
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 597, in load_vuln_plugins
+    poc_cms_sing['FofaQuery_type'] = cms['FofaQuery_type']
+KeyError: 'FofaQuery_type'
+
+2021-09-27 15:01:59 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1510 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x0000025468607B88>>
+2021-09-27 15:01:59 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1511 excType: <class 'KeyError'>
+2021-09-27 15:01:59 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1512 excValue: 'FofaQuery_type'
+2021-09-27 15:01:59 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1513 tb: <traceback object at 0x000002546AA76F88>
+2021-09-27 15:10:27 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 171 Scanner:http://127.0.0.1/ Confluence|CVE-2021-26084
+2021-09-27 15:20:53 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ Confluence|CVE-2021-26084
+2021-09-27 15:21:50 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ Confluence|CVE-2021-26084
+2021-09-27 15:23:10 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:23:10 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 250 name 'fofa' is not defined----184––
+2021-09-27 15:24:55 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:24:59 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:25:17 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:25:19 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:25:21 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:25:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:25:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:25:23 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:25:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:25:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:25:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:25:25 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:25:25 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:25:26 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:26:08 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:26:30 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:26:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:26:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:26:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:27:21 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:28:06 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:28:22 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:28:44 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-09-27 15:31:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ Confluence|CVE-2021-26084
+2021-09-27 15:31:58 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
