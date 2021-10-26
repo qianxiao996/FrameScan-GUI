@@ -405,3 +405,271 @@ KeyError: 'FofaQuery_type'
 2021-09-27 15:28:44 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
 2021-09-27 15:31:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ Confluence|CVE-2021-26084
 2021-09-27 15:31:58 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1:445/ test|POC≤‚ ‘¬©∂¥
+2021-10-10 10:22:30 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:https://178.63.57.142:8443/ Confluence|CVE-2021-26084
+2021-10-10 10:22:30 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:https://162.55.131.253/ Confluence|CVE-2021-26084
+2021-10-10 10:22:30 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://185.3.234.119:8090/ Confluence|CVE-2021-26084
+2021-10-10 10:22:32 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:https://37.48.92.193/ Confluence|CVE-2021-26084
+2021-10-10 10:22:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:https://178.63.57.142:8443/ Confluence|CVE-2021-26084
+2021-10-10 10:22:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:https://162.55.131.253/ Confluence|CVE-2021-26084
+2021-10-10 10:22:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:https://wiki.geneseo.edu/ Confluence|CVE-2021-26084
+2021-10-10 10:22:54 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://185.3.234.119:8090/ Confluence|CVE-2021-26084
+2021-10-10 10:22:55 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:https://wiki.hackdv.com/ Confluence|CVE-2021-26084
+2021-10-10 10:22:55 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:https://37.48.92.193/ Confluence|CVE-2021-26084
+2021-10-10 10:22:57 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://54.176.58.155:443/ Confluence|CVE-2021-26084
+2021-10-10 10:22:58 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://54.38.52.151:443/ Confluence|CVE-2021-26084
+2021-10-10 10:22:59 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:https://splashdocs.atlassian.net/ Confluence|CVE-2021-26084
+2021-10-10 10:22:59 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://3.218.212.77:443/ Confluence|CVE-2021-26084
+2021-10-10 10:23:00 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://87.233.234.198:443/ Confluence|CVE-2021-26084
+2021-10-10 10:23:00 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://15.206.66.143:8090/ Confluence|CVE-2021-26084
+2021-10-10 10:23:01 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://185.15.230.117:443/ Confluence|CVE-2021-26084
+2021-10-10 10:23:01 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://204.19.142.86:8090/ Confluence|CVE-2021-26084
+2021-10-10 10:23:02 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://109.235.63.189:8443/ Confluence|CVE-2021-26084
+2021-10-22 18:28:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1574 Timestamp: 2021-10-22 18:28:36
+2021-10-22 18:28:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1576 ErrorMessage: Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 841, in Server_ceshi
+    ua = {"Authorization": "Basic %s"%(base64.b64encode(user+":"+passwd))}
+  File "E:\Python\Python37-64\lib\base64.py", line 58, in b64encode
+    encoded = binascii.b2a_base64(s, newline=False)
+TypeError: a bytes-like object is required, not 'str'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 848, in Server_ceshi
+    box.warning(self, str(e))
+TypeError: warning(QWidget, str, str, buttons: Union[QMessageBox.StandardButtons, QMessageBox.StandardButton] = QMessageBox.Ok, defaultButton: QMessageBox.StandardButton = QMessageBox.NoButton): not enough arguments
+
+2021-10-22 18:28:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1577 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x0000028CBBB6CE58>>
+2021-10-22 18:28:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1578 excType: <class 'TypeError'>
+2021-10-22 18:28:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1579 excValue: warning(QWidget, str, str, buttons: Union[QMessageBox.StandardButtons, QMessageBox.StandardButton] = QMessageBox.Ok, defaultButton: QMessageBox.StandardButton = QMessageBox.NoButton): not enough arguments
+2021-10-22 18:28:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1580 tb: <traceback object at 0x0000028CBDFEA2C8>
+2021-10-23 17:30:41 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1574 Timestamp: 2021-10-23 17:30:41
+2021-10-23 17:30:41 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1576 ErrorMessage: Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 841, in Server_ceshi
+    ua = {"Authorization": "Basic %s"%(base64.b64encode(user+":"+passwd))}
+  File "E:\Python\Python37-64\lib\base64.py", line 58, in b64encode
+    encoded = binascii.b2a_base64(s, newline=False)
+TypeError: a bytes-like object is required, not 'str'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 848, in Server_ceshi
+    box.warning(self, str(e))
+TypeError: warning(QWidget, str, str, buttons: Union[QMessageBox.StandardButtons, QMessageBox.StandardButton] = QMessageBox.Ok, defaultButton: QMessageBox.StandardButton = QMessageBox.NoButton): not enough arguments
+
+2021-10-23 17:30:41 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1577 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x000001BCFC2EBE58>>
+2021-10-23 17:30:41 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1578 excType: <class 'TypeError'>
+2021-10-23 17:30:41 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1579 excValue: warning(QWidget, str, str, buttons: Union[QMessageBox.StandardButtons, QMessageBox.StandardButton] = QMessageBox.Ok, defaultButton: QMessageBox.StandardButton = QMessageBox.NoButton): not enough arguments
+2021-10-23 17:30:41 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1580 tb: <traceback object at 0x000001BCFE76B208>
+2021-10-23 17:31:21 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1574 Timestamp: 2021-10-23 17:31:21
+2021-10-23 17:31:21 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1576 ErrorMessage: Traceback (most recent call last):
+  File "E:\Python\Python37-64\lib\site-packages\urllib3\connection.py", line 160, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "E:\Python\Python37-64\lib\site-packages\urllib3\util\connection.py", line 80, in create_connection
+    raise err
+  File "E:\Python\Python37-64\lib\site-packages\urllib3\util\connection.py", line 70, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] ”…”⁄ƒø±Íº∆À„ª˙ª˝º´æ‹æ¯£¨Œﬁ∑®¡¨Ω”°£
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Python\Python37-64\lib\site-packages\urllib3\connectionpool.py", line 603, in urlopen
+    chunked=chunked)
+  File "E:\Python\Python37-64\lib\site-packages\urllib3\connectionpool.py", line 355, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "E:\Python\Python37-64\lib\http\client.py", line 1229, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "E:\Python\Python37-64\lib\http\client.py", line 1275, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "E:\Python\Python37-64\lib\http\client.py", line 1224, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "E:\Python\Python37-64\lib\http\client.py", line 1016, in _send_output
+    self.send(msg)
+  File "E:\Python\Python37-64\lib\http\client.py", line 956, in send
+    self.connect()
+  File "E:\Python\Python37-64\lib\site-packages\urllib3\connection.py", line 183, in connect
+    conn = self._new_conn()
+  File "E:\Python\Python37-64\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x0000020657545080>: Failed to establish a new connection: [WinError 10061] ”…”⁄ƒø±Íº∆À„ª˙ª˝º´æ‹æ¯£¨Œﬁ∑®¡¨Ω”°£
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Python\Python37-64\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "E:\Python\Python37-64\lib\site-packages\urllib3\connectionpool.py", line 641, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "E:\Python\Python37-64\lib\site-packages\urllib3\util\retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=8088): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000020657545080>: Failed to establish a new connection: [WinError 10061] ”…”⁄ƒø±Íº∆À„ª˙ª˝º´æ‹æ¯£¨Œﬁ∑®¡¨Ω”°£'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 842, in Server_ceshi
+    req = requests.get(server,headers=ua,timeout=5,verify=False)
+  File "E:\Python\Python37-64\lib\site-packages\requests\api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+  File "E:\Python\Python37-64\lib\site-packages\requests\api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "E:\Python\Python37-64\lib\site-packages\requests\sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "E:\Python\Python37-64\lib\site-packages\requests\sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "E:\Python\Python37-64\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=8088): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000020657545080>: Failed to establish a new connection: [WinError 10061] ”…”⁄ƒø±Íº∆À„ª˙ª˝º´æ‹æ¯£¨Œﬁ∑®¡¨Ω”°£'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 848, in Server_ceshi
+    box.warning(self, str(e))
+TypeError: warning(QWidget, str, str, buttons: Union[QMessageBox.StandardButtons, QMessageBox.StandardButton] = QMessageBox.Ok, defaultButton: QMessageBox.StandardButton = QMessageBox.NoButton): not enough arguments
+
+2021-10-23 17:31:21 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1577 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x00000206550A9E58>>
+2021-10-23 17:31:21 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1578 excType: <class 'TypeError'>
+2021-10-23 17:31:21 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1579 excValue: warning(QWidget, str, str, buttons: Union[QMessageBox.StandardButtons, QMessageBox.StandardButton] = QMessageBox.Ok, defaultButton: QMessageBox.StandardButton = QMessageBox.NoButton): not enough arguments
+2021-10-23 17:31:21 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1580 tb: <traceback object at 0x0000020657534408>
+2021-10-25 15:53:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1578 Timestamp: 2021-10-25 15:53:42
+2021-10-25 15:53:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1580 ErrorMessage: Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 1630, in <module>
+    window = MainWindows()
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 92, in __init__
+    self.Ui.action_vuln_reload_update.triggered.connect(self.vuln_reload_update)  # ≤Âº˛Õ¯¬ÁºÏ≤È∏¸–¬
+AttributeError: 'MainWindows' object has no attribute 'vuln_reload_update'
+
+2021-10-25 15:53:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1581 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x0000024EC3157E58>>
+2021-10-25 15:53:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1582 excType: <class 'AttributeError'>
+2021-10-25 15:53:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1583 excValue: 'MainWindows' object has no attribute 'vuln_reload_update'
+2021-10-25 15:53:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1584 tb: <traceback object at 0x0000024EC4DB4208>
+2021-10-25 15:59:11 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1582 Timestamp: 2021-10-25 15:59:11
+2021-10-25 15:59:11 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1584 ErrorMessage: Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 1634, in <module>
+    window = MainWindows()
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 75, in __init__
+    self.load_config()
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 323, in load_config
+    plugins_version = config_setup.get('Server', 'server')
+NameError: name 'config_setup' is not defined
+
+2021-10-25 15:59:11 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1585 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x0000025BF0C7AEE8>>
+2021-10-25 15:59:11 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1586 excType: <class 'NameError'>
+2021-10-25 15:59:11 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1587 excValue: name 'config_setup' is not defined
+2021-10-25 15:59:11 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1588 tb: <traceback object at 0x0000025BF30D5AC8>
+2021-10-25 16:19:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1595 Timestamp: 2021-10-25 16:19:42
+2021-10-25 16:19:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1597 ErrorMessage: Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 857, in Server_ceshi
+    box = QtWidgets.QMessageBox(self.Server_widget)
+TypeError: arguments did not match any overloaded call:
+  QMessageBox(parent: QWidget = None): argument 1 has unexpected type 'Ui_Server'
+  QMessageBox(QMessageBox.Icon, str, str, buttons: Union[QMessageBox.StandardButtons, QMessageBox.StandardButton] = QMessageBox.NoButton, parent: QWidget = None, flags: Union[Qt.WindowFlags, Qt.WindowType] = Qt.Dialog|Qt.MSWindowsFixedSizeDialogHint): argument 1 has unexpected type 'Ui_Server'
+
+2021-10-25 16:19:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1598 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x000002A70582BEE8>>
+2021-10-25 16:19:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1599 excType: <class 'TypeError'>
+2021-10-25 16:19:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1600 excValue: arguments did not match any overloaded call:
+  QMessageBox(parent: QWidget = None): argument 1 has unexpected type 'Ui_Server'
+  QMessageBox(QMessageBox.Icon, str, str, buttons: Union[QMessageBox.StandardButtons, QMessageBox.StandardButton] = QMessageBox.NoButton, parent: QWidget = None, flags: Union[Qt.WindowFlags, Qt.WindowType] = Qt.Dialog|Qt.MSWindowsFixedSizeDialogHint): argument 1 has unexpected type 'Ui_Server'
+2021-10-25 16:19:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1601 tb: <traceback object at 0x000002A7074AA648>
+2021-10-25 16:19:43 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 1595 Timestamp: 2021-10-25 16:19:43
+2021-10-25 16:19:43 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1597 ErrorMessage: Traceback (most recent call last):
+  File "D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py", line 857, in Server_ceshi
+    box = QtWidgets.QMessageBox(self.Server_widget)
+TypeError: arguments did not match any overloaded call:
+  QMessageBox(parent: QWidget = None): argument 1 has unexpected type 'Ui_Server'
+  QMessageBox(QMessageBox.Icon, str, str, buttons: Union[QMessageBox.StandardButtons, QMessageBox.StandardButton] = QMessageBox.NoButton, parent: QWidget = None, flags: Union[Qt.WindowFlags, Qt.WindowType] = Qt.Dialog|Qt.MSWindowsFixedSizeDialogHint): argument 1 has unexpected type 'Ui_Server'
+
+2021-10-25 16:19:43 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1598 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows object at 0x000002A70582BEE8>>
+2021-10-25 16:19:43 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1599 excType: <class 'TypeError'>
+2021-10-25 16:19:43 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1600 excValue: arguments did not match any overloaded call:
+  QMessageBox(parent: QWidget = None): argument 1 has unexpected type 'Ui_Server'
+  QMessageBox(QMessageBox.Icon, str, str, buttons: Union[QMessageBox.StandardButtons, QMessageBox.StandardButton] = QMessageBox.NoButton, parent: QWidget = None, flags: Union[Qt.WindowFlags, Qt.WindowType] = Qt.Dialog|Qt.MSWindowsFixedSizeDialogHint): argument 1 has unexpected type 'Ui_Server'
+2021-10-25 16:19:43 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 1601 tb: <traceback object at 0x000002A7074CE448>
+2021-10-25 18:20:51 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ Confluence|CVE-2021-26084
+2021-10-25 18:20:55 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ Confluence|CVE-2021-26084
+2021-10-25 18:20:55 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 258 source code string cannot contain null bytes----252––
+2021-10-25 18:21:31 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ Confluence|CVE-2021-26084
+2021-10-25 18:21:34 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ Confluence|CVE-2021-26084
+2021-10-25 18:21:34 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 258 source code string cannot contain null bytes----252––
+2021-10-25 18:21:41 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ FortiOS|SSL_VPN»Œ“‚Œƒº˛∂¡»°
+2021-10-25 18:22:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ Confluence|CVE-2021-26084
+2021-10-25 18:22:39 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ Confluence|CVE-2021-26084
+2021-10-25 18:22:39 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 258 source code string cannot contain null bytes----252––
+2021-10-25 18:23:31 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ Confluence|CVE-2021-26084
+2021-10-25 18:23:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ Confluence|CVE-2021-26084
+2021-10-25 18:23:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 273 name 'os' is not defined----251––
+2021-10-25 18:24:06 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ Confluence|CVE-2021-26084
+2021-10-25 18:24:08 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ Confluence|CVE-2021-26084
+2021-10-25 18:24:08 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 273 local variable 'result' referenced before assignment----270––
+2021-10-25 18:25:27 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ Confluence|CVE-2021-26084
+2021-10-25 18:25:30 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ Confluence|CVE-2021-26084
+2021-10-25 18:26:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ Confluence|CVE-2021-26084
+2021-10-25 18:26:27 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ Confluence|CVE-2021-26084
+2021-10-25 18:39:42 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 18:39:51 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 18:40:00 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://127.0.0.1/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:12:44 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:12:44 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 227 dynamic module does not define module export function (PyInit_/Plugins/Vuln_Plugins//test/Plugins_test)----218––
+2021-10-25 19:12:47 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:12:47 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 227 dynamic module does not define module export function (PyInit_/Plugins/Vuln_Plugins//test/Plugins_test)----218––
+2021-10-25 19:12:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:12:52 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 255 dynamic module does not define module export function (PyInit_/Plugins/Vuln_Plugins//test/Plugins_test)----247––
+2021-10-25 19:13:31 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:13:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:13:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 265 dynamic module does not define module export function (PyInit_/Plugins/Vuln_Plugins//test/Plugins_test)----257––
+2021-10-25 19:13:43 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:13:43 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 265 dynamic module does not define module export function (PyInit_/Plugins/Vuln_Plugins//test/Plugins_test)----257––
+2021-10-25 19:13:43 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:13:43 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 265 dynamic module does not define module export function (PyInit_/Plugins/Vuln_Plugins//test/Plugins_test)----257––
+2021-10-25 19:13:44 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:13:44 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 265 dynamic module does not define module export function (PyInit_/Plugins/Vuln_Plugins//test/Plugins_test)----257––
+2021-10-25 19:13:46 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:13:47 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:13:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:13:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:13:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:14:31 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dd/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:14:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dd/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:18:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:26:05 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://adadad/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:26:10 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://adadad/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:26:10 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 275 source code string cannot contain null bytes----253––
+2021-10-25 19:28:15 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://adada/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:28:19 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://adada/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:28:19 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 275 'NoneType' object has no attribute 'loader'----265––
+2021-10-25 19:30:11 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:31:13 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dasds/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:31:30 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 280 module './Plugins/Vuln_Plugins//test/Plugins_test' has no attribute 'do_poc'----276––
+2021-10-25 19:33:58 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dadd/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:34:11 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 280 module 'Plugins_test' has no attribute 'do_poc'----276––
+2021-10-25 19:35:16 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dsadasdasdsad/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:35:30 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 282 module 'Plugins_test' has no attribute 'vuln_info'----276––
+2021-10-25 19:36:24 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dsadasdasdsad/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:38:34 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dasdsad/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:38:36 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 266 module 'Plugins_test' has no attribute 'vuln_info'----260––
+2021-10-25 19:39:30 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dsadasd/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:40:29 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dsadasd/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:40:31 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 277 'NoneType' object has no attribute 'loader'----267––
+2021-10-25 19:42:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dad/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:42:48 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 282 local variable 'nnnnnnnnnnnn1' referenced before assignment----278––
+2021-10-25 19:43:39 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dsad/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:44:59 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dsadas/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:45:04 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dsadas/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:45:04 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 272 dynamic module does not define module export function (PyInit_/Plugins/Vuln_Plugins//test/Plugins_test)----264––
+2021-10-25 19:46:11 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dsadasd/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:46:43 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dsadasd/ test|POC≤‚ ‘¬©∂¥
+2021-10-25 19:47:19 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://dsadasd/ test|POC≤‚ ‘¬©∂¥
+2021-10-26 19:45:16 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-26 19:45:16 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 244 local variable 'nnnnnnnnnnnn1' referenced before assignment----237––
+2021-10-26 19:48:12 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-26 19:48:12 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 287 local variable 'nnnnnnnnnnnn1' referenced before assignment----283––
+2021-10-26 19:48:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-26 19:48:33 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 288 [Errno 2] No such file or directory: './Plugins/Vuln_Plugins//test/Plugins_test'----261––
+2021-10-26 19:49:32 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-26 19:51:46 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-26 20:10:55 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-26 20:11:11 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥
+2021-10-26 20:11:21 - D:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 173 Scanner:http://baidu.com/ test|POC≤‚ ‘¬©∂¥

@@ -1,8 +1,8 @@
 import importlib
 import json
 import queue
-import sys
-import threading
+import sys,os
+import threading,platform
 from socket import *
 from urllib.parse import urlparse
 
@@ -209,7 +209,37 @@ class Vuln_Scanner(QThread):
                             try:
                                 eventlet.monkey_patch(thread=False, time=True)
                                 with eventlet.Timeout(timeout, False):
-                                    nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(filename[:-3], filename).load_module()
+
+                                    if os.path.isfile(filename+'.py'):
+                                        filename=filename+'.py'
+                                        nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(
+                                            os.path.splitext(filename)[0],filename).load_module()
+                                    elif os.path.isfile(filename+'.pyc'):
+                                        filename = filename + '.pyc'
+                                        module_spec = importlib.util.spec_from_file_location(filename[:-4],
+                                                                                             filename)
+                                        nnnnnnnnnnnn1 = importlib.util.module_from_spec(module_spec)
+                                        module_spec.loader.exec_module(nnnnnnnnnnnn1)
+                                    else:
+                                        sysstr = platform.system()
+                                        if (sysstr == "Windows"):
+                                            filename = filename + '.pyd'
+                                        elif (sysstr == "Linux"):
+                                            filename = filename + '.so'
+                                        loader_details = (
+                                            importlib.machinery.ExtensionFileLoader,
+                                            importlib.machinery.EXTENSION_SUFFIXES
+                                        )
+                                        tools_finder = importlib.machinery.FileFinder(
+                                            os.path.dirname(filename), loader_details)
+                                        # print("FileFinder: ", tools_finder)
+                                        toolbox_specs = tools_finder.find_spec(
+                                            os.path.basename(os.path.splitext(filename)[0]))
+                                        # print("find_spec: ", toolbox_specs)
+                                        nnnnnnnnnnnn1 = importlib.util.module_from_spec(toolbox_specs)
+                                        # print("module: ", nnnnnnnnnnnn1)
+                                        toolbox_specs.loader.exec_module(nnnnnnnnnnnn1)
+                                        # print("导入成功 path_import(): ", nnnnnnnnnnnn1)
                                     result = nnnnnnnnnnnn1.do_poc(url,hostname,port,scheme,heads_dict)
                                     #存在
                                     self.scan_result_out(result,all)
@@ -231,10 +261,36 @@ class Vuln_Scanner(QThread):
                             eventlet.monkey_patch(thread=False,time=True)
                             with eventlet.Timeout(timeout,False):
                                 try:
-                                    # print(url)
-                                    nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(filename[:-3], filename).load_module()
-                                    result = nnnnnnnnnnnn1.do_poc(url,hostname,port,scheme,heads_dict)
+                                    # print(filename+'.py')
+                                    if os.path.isfile(filename+'.py'):
+                                        filename=filename+'.py'
+                                        nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(
+                                            os.path.splitext(filename)[0],filename).load_module()
+                                    elif  os.path.isfile(filename+'.pyd'):
+                                        filename = filename + '.pyd'
+                                        loader_details = (
+                                            importlib.machinery.ExtensionFileLoader,
+                                            importlib.machinery.EXTENSION_SUFFIXES
+                                        )
+                                        tools_finder = importlib.machinery.FileFinder(
+                                            os.path.dirname(filename), loader_details)
+                                        # print("FileFinder: ", tools_finder)
+                                        toolbox_specs = tools_finder.find_spec(
+                                            os.path.basename(os.path.splitext(filename)[0]))
+                                        # print("find_spec: ", toolbox_specs)
+                                        nnnnnnnnnnnn1 = importlib.util.module_from_spec(toolbox_specs)
+                                        # print("module: ", nnnnnnnnnnnn1)
+                                        toolbox_specs.loader.exec_module(nnnnnnnnnnnn1)
+                                        # print("导入成功 path_import(): ", nnnnnnnnnnnn1)
+                                        # print("导入成功 path_import(): ", nnnnnnnnnnnn1)
+                                    elif os.path.isfile(filename+'.pyc'):
+                                        filename = filename + '.pyc'
+                                        module_spec = importlib.util.spec_from_file_location(filename[:-4],
+                                                                                             filename)
+                                        nnnnnnnnnnnn1 = importlib.util.module_from_spec(module_spec)
+                                        module_spec.loader.exec_module(nnnnnnnnnnnn1)
                                     # print(result)
+                                    result = nnnnnnnnnnnn1.do_poc(url,hostname,port,scheme,heads_dict)
                                     self.scan_result_out(result,all)
                                     continue
                                 except Exception as  e:
