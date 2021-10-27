@@ -41,13 +41,13 @@ import webbrowser
 SETUP_DIR = frozen_dir.app_path()
 sys.path.append(SETUP_DIR)
 DB_NAME = './Conf/DB.db'
-version = '1.3.9'
+version = '1.4.0'
 vuln_plugins_dir = './Plugins/Vuln_Plugins/'
 exp_plugins_dir = './Plugins/Exp_Plugins/'
 log_file_dir = './Logs/'
 config_file_dir = './Conf/config.ini'
 vuln_plugins_template = './Plugins/Plugins_Template/Plugins_漏洞插件模板.py'
-update_time = '2021/10/26'
+update_time = '2021/10/27'
 requests.packages.urllib3.disable_warnings()
 sysstr = platform.system()
 if (sysstr == "Windows"):
@@ -986,11 +986,18 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             reply = QMessageBox.question(window, '插件删除', "数据库已删除，是否删除本地文件", QMessageBox.Yes | QMessageBox.No,
                                          QMessageBox.Yes)
             if reply == QMessageBox.Yes:
-                os.remove(filename)
-                if not os.path.exists(filename):
-                    box.information(self, "Success", "文件删除成功！")
-                else:
-                    box.information(self, "Success", "文件删除失败，请手动删除！")
+                try:
+                    remove_file=''
+                    if os.path.isfile(filename + '.py'):
+                        os.remove(filename + '.py')
+                        remove_file = filename + '.py'
+                    if os.path.isfile(filename +houzhui):
+                        os.remove(filename+houzhui)
+                        remove_file += "\n"+filename + '.py'
+                    box.information(self, "Success", remove_file+"\n文件删除成功！")
+                    self.vuln_reload_Plugins()
+                except Exception as e:
+                    pass
             else:
                 pass
 
@@ -1061,7 +1068,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         if id:
             sql = 'SELECT distinct * from vuln_poc where id=' + id
             cms_name_data = self.sql_search(sql, 'dict')
-            plugins = vuln_plugins_dir + cms_name_data[0]['cms_name'] + '/' + cms_name_data[0]['vuln_file']
+            plugins = vuln_plugins_dir + cms_name_data[0]['cms_name'] + '/' + cms_name_data[0]['vuln_file']+'.py'
             if os.path.splitext(plugins)[-1] !='.py':
                 box = QtWidgets.QMessageBox()
                 box.information(self, "Error", "此插件非py脚本格式！")
@@ -1128,7 +1135,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                     # print(id_values[0][0])
                     # 将数据插入到表中
                     cursor.execute(insert_sql, (
-                    str(int(id_values[0][0]) + 1), cms_name, fine_name, vuln_info['vuln_name'],
+                    str(int(id_values[0][0]) + 1), cms_name, fine_name[:-3], vuln_info['vuln_name'],
                     vuln_info['vuln_author'],
                     vuln_info['vuln_referer'], vuln_info['vuln_description'],
                     vuln_info['vuln_identifier'], vuln_info['vuln_solution'], vuln_info['ispoc'],
