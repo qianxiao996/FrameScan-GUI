@@ -1,9 +1,12 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
+import base64
 import configparser
 import datetime
 import importlib
+import json
 import os
+import platform
 import socket
 import sys
 import traceback
@@ -25,6 +28,7 @@ from Gui.Vuln_Plugins import Ui_Form_Vuln
 from Gui.Vuln_Info import Ui_From_Vuln_Info
 from Gui.Vuln_Edit import Ui_Form_Vuln_Edit
 from Gui.Proxy import Ui_Proxy
+from Gui.Server import Ui_Server
 import pyperclip
 import frozen_dir
 from Modules.Vuln_Scanner import Vuln_Scanner
@@ -37,14 +41,21 @@ import webbrowser
 SETUP_DIR = frozen_dir.app_path()
 sys.path.append(SETUP_DIR)
 DB_NAME = './Conf/DB.db'
-version = '1.3.8'
+version = '1.4.0'
 vuln_plugins_dir = './Plugins/Vuln_Plugins/'
 exp_plugins_dir = './Plugins/Exp_Plugins/'
 log_file_dir = './Logs/'
 config_file_dir = './Conf/config.ini'
 vuln_plugins_template = './Plugins/Plugins_Template/Plugins_漏洞插件模板.py'
-update_time = '20210927'
+update_time = '2021/10/27'
 requests.packages.urllib3.disable_warnings()
+sysstr = platform.system()
+if (sysstr == "Windows"):
+    houzhui = '.pyd'
+elif (sysstr == "Linux"):
+    houzhui = '.so'
+plugins_ext = ['.py', '.pyc']
+plugins_ext.append(houzhui)
 
 
 class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
@@ -74,6 +85,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         self.load_vuln_plugins()
         self.load_exp_plugins()
         self.load_options_menu()
+        self.load_server()
 
         # 漏洞扫描
         self.Ui.pushButton_vuln_file.clicked.connect(
@@ -86,6 +98,8 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
 
         # 插件管理（漏洞）
         self.Ui.action_vuln_reload.triggered.connect(self.vuln_reload_Plugins)  # 重新加载插件
+        self.Ui.action_vuln_reload_update.triggered.connect(self.vuln_reload_update)  # 插件网络检查更新
+        self.Ui.action_vuln_update.triggered.connect(self.Show_Server_Widget) # 插件更新设置
         self.Ui.action_vuln_showplubins.triggered.connect(self.vuln_ShowPlugins)  # 查看插件
 
         # 选项
@@ -302,23 +316,28 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
 
     def change_exp_combox(self):
         exp_name_text = self.Ui.vuln_exp_comboBox_shell.currentText()
-        f = open(exp_plugins_dir + '/' + exp_name_text, 'r', encoding='utf-8')
-        data = f.read()
-        f.close()
-        self.Ui.vuln_exp_textEdit_shell.setPlainText(data)
-        self.Ui.vuln_exp_lineEdit_filename.setText(exp_name_text)
+        if exp_name_text:
+            f = open(exp_plugins_dir + '/' + exp_name_text, 'r', encoding='utf-8')
+            data = f.read()
+            f.close()
+            self.Ui.vuln_exp_textEdit_shell.setPlainText(data)
+            self.Ui.vuln_exp_lineEdit_filename.setText(exp_name_text)
+        else:
+            pass
 
     def load_config(self):
         global config_setup
         global qss_style
+        global plugins_version
         # 实例化configParser对象
         config_setup = configparser.ConfigParser()
         # -read读取ini文件
         config_setup.read(config_file_dir, encoding='utf-8')
+        plugins_version = config_setup.get('Plugins', 'version')
+        # print(plugins_version)
         if 'QSS_Setup' not in config_setup:  # 如果分组type不存在则插入type分组
             config_setup.add_section('QSS_Setup')
             config_setup.set("QSS_Setup", "QSS", 'default.qss')
-            config_setup.write(open(config_file_dir, "r+", encoding="utf-8"))  # r+模式
             qss_Setup = 'default.qss'
         else:
             qss_Setup = config_setup.get('QSS_Setup', 'QSS')
@@ -327,6 +346,13 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             f.close()
         self.setStyleSheet(qss_style)
 
+    def load_server(self):
+        global Server_address
+        global Server_user
+        global Server_passwd
+        Server_address =  config_setup.get('Server', 'server')
+        Server_user =  config_setup.get('Server', 'user')
+        Server_passwd =  config_setup.get('Server', 'passwd')
     def change_pifu(self, text):
         othersmenubar = self.menuBar()  # 获取窗体的菜单栏
         #
@@ -660,8 +686,10 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                     if file[0] != ".":
                         self.Ui.vuln_exp_comboBox_shell.addItem(file)
             self.change_exp_combox()
-        except:
-            self.vuln_reload_Plugins()
+        except Exception as e:
+            box = QtWidgets.QMessageBox()
+            box.warning(self, "提示", "数据文件错误：\n%s" % e)
+            # self.vuln_reload_Plugins()
 
     # 初始化加载note插件
     def Show_Plugins_info(self):
@@ -716,7 +744,11 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                         time.strftime('%H:%M:%S', time.localtime(time.time()))))
                 f = open(filename, 'r', encoding='utf-8')
                 for line in f.readlines():
-                    url_list.append(line.strip())
+                    if "https://" in line.lower() or 'http://' in line.lower():
+                        url_list.append(line.strip())
+                    else:
+                        url_list.append('htttp://'+line.strip())
+
                 textEdit_log_obj.append(
                     "<a  style=\"color:black\">[%s]Info:读取完成，共加载%s条。</a>" % (
                         (time.strftime('%H:%M:%S', time.localtime(time.time()))), len(url_list)))
@@ -798,6 +830,110 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                             "[%s]Faile:没有结果！" % (time.strftime('%H:%M:%S', time.localtime(time.time()))))
                 except:
                     pass
+    def vuln_reload_update(self):
+        box = QtWidgets.QMessageBox()
+        try:
+            ua = {"Authorization": "Basic %s"%(base64.b64encode((Server_user+":"+Server_passwd).encode())).decode()}
+            req = requests.get(Server_address+'update.json',headers=ua,timeout=5,verify=False)
+            if req.status_code==200:
+                dic_data = json.loads(req.text)
+                if int(plugins_version.replace('.', ''))< int(dic_data.get('version').replace('.', '')):
+                    reply = QMessageBox.question(self, '插件更新',
+                                                 "当前插件版本：v%s\n最新插件版本：v%s\n更新日志:\n%s\n检测到插件库已更新，是否立即更新?" % (plugins_version, dic_data.get('version'), dic_data.get('description')),
+                                                 QMessageBox.Yes | QMessageBox.No,
+                                                 QMessageBox.Yes)
+                    if reply == QMessageBox.Yes:
+                        box.warning(self, "提示", "插件不会删除原有的插件，若完整更新，请手动删除插件目录！")
+                        sysstr = platform.system()
+                        if (sysstr == "Windows"):
+                            houzhui ='.pyd'
+                        elif (sysstr == "Linux"):
+                            houzhui ='.so'
+                        else:
+                            houzhui='.pyc'
+                        for cms in dic_data.get('data'):
+                            cms_path = vuln_plugins_dir+'/'+cms
+                            # 判断结果
+                            if not os.path.exists(cms_path):
+                                # 如果不存在则创建目录 # 创建目录操作函数
+                                os.makedirs(cms_path)
+                            for poc in dic_data.get('data').get(cms):
+
+                                req = requests.get(Server_address +cms+'/'+poc+ houzhui, headers=ua, timeout=5, verify=False)
+                                if req.status_code == 200:
+                                    f=open(vuln_plugins_dir+'/'+cms+'/'+poc+ houzhui,'wb')
+                                    f.write(req.content)
+                                    f.close()
+                                    # print(poc+houzhui)
+                                else:
+                                    req = requests.get(Server_address +cms+'/'+poc + '.pyc', headers=ua, timeout=5,
+                                                       verify=False)
+                                    if req.status_code == 200:
+                                        f = open(vuln_plugins_dir + '/' + cms + '/' + poc + '.pyc', 'wb')
+                                        f.write(req.content)
+                                        f.close()
+                                        # print(poc+'.py')
+                                    else:
+                                        req = requests.get(Server_address + cms + '/' + poc + '.py', headers=ua,
+                                                           timeout=5,
+                                                           verify=False)
+                                        if req.status_code == 200:
+                                            f = open(vuln_plugins_dir + '/' + cms + '/' + poc + '.py', 'wb')
+                                            f.write(req.content)
+                                            f.close()
+                                        else:
+                                            box.warning(self, "警告",'插件%s丢失!'%(cms+'|'+poc))
+
+                        config_setup.set("Plugins", "version",  dic_data.get('version'))
+                        box.information(self, "插件更新", "插件更新完成,当前版本：v"+ dic_data.get('version'))
+                        self.vuln_reload_Plugins()
+                else:
+                    box.information(self, "插件更新", "当前插件版本：v%s\n最新插件版本：v%s\n已是最新版本" % (plugins_version, dic_data.get('version')))
+            elif req.status_code==404:
+                box.warning(self, "提示", "服务器json文件丢失，请检查！")
+            else:
+                box.warning(self, "提示", "服务器连接失败，请检查！")
+        except Exception as  e:
+            box.warning(self, "提示", str(e))
+
+
+    def Show_Server_Widget(self):
+        self.form_server = QtWidgets.QWidget()
+        self.Server_widget = Ui_Server()
+        self.Server_widget.setupUi(self.form_server)
+        self.form_server.setStyleSheet(qss_style)
+        self.form_server.setWindowIcon(QtGui.QIcon('Conf/main.png'))
+        self.Server_widget.lineEdit_server.setText( config_setup.get('Server', 'server'))
+        self.Server_widget.lineEdit_user.setText( config_setup.get('Server', 'user'))
+        self.Server_widget.lineEdit_passwd.setText( config_setup.get('Server', 'passwd'))
+        self.form_server.show()
+        self.Server_widget.pushButton_ceshi.clicked.connect(self.Server_ceshi)
+        self.Server_widget.pushButton_save.clicked.connect(self.Server_save)
+    def Server_ceshi(self):
+        box = QtWidgets.QMessageBox()
+        try:
+            server =  self.Server_widget.lineEdit_server.text()
+            user =  self.Server_widget.lineEdit_user.text()
+            passwd =  self.Server_widget.lineEdit_passwd.text()
+            ua = {"Authorization": "Basic %s"%(base64.b64encode((user+":"+passwd).encode())).decode()}
+            req = requests.get(server,headers=ua,timeout=5,verify=False)
+            if req.status_code==200:
+                box.information(self, "提示", "连接成功！")
+            else:
+                box.warning(self, "提示", "连接失败！")
+        except Exception as  e:
+            box.warning(self, "提示", str(e))
+    def Server_save(self):
+        server =  self.Server_widget.lineEdit_server.text()
+        user =  self.Server_widget.lineEdit_user.text()
+        passwd =  self.Server_widget.lineEdit_passwd.text()
+        config_setup.set("Server", "server", server)
+        config_setup.set("Server", "user", user)
+        config_setup.set("Server", "passwd", passwd)
+        box = QtWidgets.QMessageBox()
+        box.information(self, "提示", "保存成功！")
+        self.form_server.close()
+
 
     # 显示插件
     def vuln_ShowPlugins(self):
@@ -850,11 +986,18 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             reply = QMessageBox.question(window, '插件删除', "数据库已删除，是否删除本地文件", QMessageBox.Yes | QMessageBox.No,
                                          QMessageBox.Yes)
             if reply == QMessageBox.Yes:
-                os.remove(filename)
-                if not os.path.exists(filename):
-                    box.information(self, "Success", "文件删除成功！")
-                else:
-                    box.information(self, "Success", "文件删除失败，请手动删除！")
+                try:
+                    remove_file=''
+                    if os.path.isfile(filename + '.py'):
+                        os.remove(filename + '.py')
+                        remove_file = filename + '.py'
+                    if os.path.isfile(filename +houzhui):
+                        os.remove(filename+houzhui)
+                        remove_file += "\n"+filename + '.py'
+                    box.information(self, "Success", remove_file+"\n文件删除成功！")
+                    self.vuln_reload_Plugins()
+                except Exception as e:
+                    pass
             else:
                 pass
 
@@ -925,6 +1068,14 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         if id:
             sql = 'SELECT distinct * from vuln_poc where id=' + id
             cms_name_data = self.sql_search(sql, 'dict')
+            plugins = vuln_plugins_dir + cms_name_data[0]['cms_name'] + '/' + cms_name_data[0]['vuln_file']+'.py'
+            if os.path.splitext(plugins)[-1] !='.py':
+                box = QtWidgets.QMessageBox()
+                box.information(self, "Error", "此插件非py脚本格式！")
+                return
+            f = open(plugins, 'r', encoding='utf-8')
+            data = f.read()
+            f.close()
             self.form3_vuln_edit = QtWidgets.QWidget()
             self.widget_vuln_edit = Ui_Form_Vuln_Edit()
             self.widget_vuln_edit.setupUi(self.form3_vuln_edit)
@@ -933,10 +1084,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             self.form3_vuln_edit.show()
             self.widget_vuln_edit.comboBox_vuln_cms.addItem(cms_name_data[0]['cms_name'])
             self.highlighter = PythonHighlighter(self.widget_vuln_edit.vuln_exp_textEdit_shell.document())
-            plugins = vuln_plugins_dir + cms_name_data[0]['cms_name'] + '/' + cms_name_data[0]['vuln_file']
-            f = open(plugins, 'r', encoding='utf-8')
-            data = f.read()
-            f.close()
             self.widget_vuln_edit.vuln_exp_textEdit_shell.setText(data)
             self.widget_vuln_edit.label_vuln_id.setText(id)
             self.widget_vuln_edit.lineEdit_vuln_file.setText(cms_name_data[0]['vuln_file'])
@@ -988,7 +1135,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                     # print(id_values[0][0])
                     # 将数据插入到表中
                     cursor.execute(insert_sql, (
-                    str(int(id_values[0][0]) + 1), cms_name, fine_name, vuln_info['vuln_name'],
+                    str(int(id_values[0][0]) + 1), cms_name, fine_name[:-3], vuln_info['vuln_name'],
                     vuln_info['vuln_author'],
                     vuln_info['vuln_referer'], vuln_info['vuln_description'],
                     vuln_info['vuln_identifier'], vuln_info['vuln_solution'], vuln_info['ispoc'],
@@ -1092,37 +1239,49 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         try:
             id = 1
             all_plugins = self.get_dir_file(vuln_plugins_dir)
+            # print(all_plugins)
+            go_load_plugins=[] #存放已经加载的模块
+
             for poc in all_plugins:
                 try:
-                    nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(poc['poc_file_path'][:-3],
-                                                                         poc['poc_file_path']).load_module()
-                    vuln_info = nnnnnnnnnnnn1.vuln_info()
-                    if vuln_info.get('vuln_class'):
-                        vuln_class = vuln_info.get('vuln_class')
-                    else:
-                        vuln_class = '未分类'
-                    if vuln_info.get('FofaQuery_type'):
-                        FofaQuery_type = vuln_info.get('FofaQuery_type')
-                    else:
-                        FofaQuery_type = 'http'
-                    if vuln_info.get('FofaQuery_link'):
-                        FofaQuery_link = (vuln_info.get('FofaQuery_link'))
-                    else:
-                        FofaQuery_link = '/'
+                    if  os.path.splitext(poc['poc_file_name'])[-1]  in plugins_ext:
+                        if os.path.splitext(poc['poc_file_name'])[-1] == '.py':
+                            nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(os.path.splitext(poc['poc_file_name'])[0],
+                                                                             poc['poc_file_path']).load_module()
+                        elif os.path.splitext(poc['poc_file_name'])[-1] in ['.pyc','.pyd','.so']:
+                            if os.path.splitext(poc['poc_file_name'])[0] in go_load_plugins:
+                                continue
+                            module_spec = importlib.util.spec_from_file_location(os.path.splitext(poc['poc_file_name'])[0], poc['poc_file_path'])
+                            nnnnnnnnnnnn1 = importlib.util.module_from_spec(module_spec)
+                            module_spec.loader.exec_module(nnnnnnnnnnnn1)
+                        vuln_info = nnnnnnnnnnnn1.vuln_info()
+                        if vuln_info.get('vuln_class'):
+                            vuln_class = vuln_info.get('vuln_class')
+                        else:
+                            vuln_class = '未分类'
+                        if vuln_info.get('FofaQuery_type'):
+                            FofaQuery_type = vuln_info.get('FofaQuery_type')
+                        else:
+                            FofaQuery_type = 'http'
+                        if vuln_info.get('FofaQuery_link'):
+                            FofaQuery_link = (vuln_info.get('FofaQuery_link'))
+                        else:
+                            FofaQuery_link = '/'
 
-                    if vuln_info.get('FofaQuery_rule'):
-                        FofaQuery_rule = vuln_info.get('FofaQuery_rule')
-                    else:
-                        FofaQuery_rule = ''
-                    insert_sql = 'insert into vuln_poc  (id,cms_name,vuln_file,vuln_name,vuln_author,vuln_referer,vuln_description,vuln_identifier,vuln_solution,ispoc,isexp,vuln_class,FofaQuery_type,FofaQuery_link,FofaQuery_rule) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+                        if vuln_info.get('FofaQuery_rule'):
+                            FofaQuery_rule = vuln_info.get('FofaQuery_rule')
+                        else:
+                            FofaQuery_rule = ''
+                        insert_sql = 'insert into vuln_poc  (id,cms_name,vuln_file,vuln_name,vuln_author,vuln_referer,vuln_description,vuln_identifier,vuln_solution,ispoc,isexp,vuln_class,FofaQuery_type,FofaQuery_link,FofaQuery_rule) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
 
-                    # 将数据插入到表中
-                    cursor.execute(insert_sql, (
-                        id, poc['cms_name'], poc['poc_file_name'], vuln_info['vuln_name'], vuln_info['vuln_author'],
-                        vuln_info['vuln_referer'], vuln_info['vuln_description'],
-                        vuln_info['vuln_identifier'], vuln_info['vuln_solution'], vuln_info['ispoc'],
-                        vuln_info['isexp'], vuln_class, FofaQuery_type,FofaQuery_link, FofaQuery_rule))
-                    id = id + 1
+                        # 将数据插入到表中
+                        cursor.execute(insert_sql, (
+                            id, poc['cms_name'], os.path.splitext(poc['poc_file_name'])[0], vuln_info['vuln_name'], vuln_info['vuln_author'],
+                            vuln_info['vuln_referer'], vuln_info['vuln_description'],
+                            vuln_info['vuln_identifier'], vuln_info['vuln_solution'], vuln_info['ispoc'],
+                            vuln_info['isexp'], vuln_class, FofaQuery_type,FofaQuery_link, FofaQuery_rule))
+                        id = id + 1
+                        go_load_plugins.append(os.path.splitext(poc['poc_file_name'])[0])
                 except Exception as  e:
                     print(str(e))
                     self.Ui.textEdit_log.append(
@@ -1537,11 +1696,14 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 # print(path,dirs,poc_methos_list)
                 # print(poc_file_name_list)
                 for poc_file_name in poc_file_name_list:
+                    if '__pycache__' in poc_file_dir:
+                        continue
+                    # print(poc_file_name)
                     poc_name_path = poc_file_dir + "\\" + poc_file_name
                     poc_name_path = poc_name_path.replace("\\", "/")
                     # 判断是py文件在打开  文件存在
                     # print(poc_file_name[:8])
-                    if os.path.isfile(poc_name_path) and poc_file_name.endswith('.py') and len(
+                    if os.path.isfile(poc_name_path) and (os.path.splitext(poc_name_path)[1] in ['.pyd','.pyc','.so','.py'] )and len(
                             poc_file_name) >= 8 and poc_file_name[:8] == "Plugins_":
                         single_plugins = {}
                         single_plugins['cms_name'] = cms_name

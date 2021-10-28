@@ -1,34 +1,3 @@
-# FrameScan-GUI
-
-## 工具简介
-FrameScan-GUI是一款python3和Pyqt编写的具有图形化界面的cms漏洞检测框架，是[FrameScan](https://github.com/qianxiao996/FrameScan) 的加强版。支持多种检测方式，支持大多数CMS，可以自定义CMS类型及自行编写POC。旨在帮助有安全经验的安全工程师对已知的应用快速发现漏洞。
-### 下载地址：
-
-https://github.com/qianxiao996/FrameScan-GUI/releases
-
-## 支持平台
-
-- Windows  
-- Linux
-
-
-## 使用方法
-
-下载本项目，运行exe即可。
-
-![image-20210523151118942](./img/1.png)
-
-![2](./img/2.jpg)
-
-![image-20211026211155449](./img/3.png)
-
-## 插件模板
-
-以下为插件模板，请尽量规范编写。脚本中为示例代码。
-
-```python
-# -*- coding: UTF-8 -*-
-#!/usr/bin/python
 import requests
 def vuln_info():
     info={
@@ -103,75 +72,9 @@ def do_exp(url,hostname,port,scheme,heads={},exp_data={}):
 
 
 
-if __name__== '__main__':
-    url='http://127.0.0.1/'
-    # aa= do_exp(url,'','','','',exp_data)
-    # print(aa)
-    aa = do_poc(args.url,'','','',heads={})
-    print(aa)
-
-```
-
-插件目录下
-
-插件前缀为"Plugins_ "，请规范编写
-
-## 插件获取
-
-插件为内部使用。需要请编写插件联系作者交换。
-
-邮箱地址：qianxiao996@126.com
-
-## 打包pyd  so
-
-```
-# python3 setup.py build_ext --inplace
-```
-
-setup.py
-
-```
-# -*- coding:utf-8 -*-
-# @Time      :2020/4/20
-from distutils.core import setup
-from Cython.Build import cythonize
-
-setup(
-    name='Plugins_test',
-    ext_modules=cythonize("Plugins_test.py"),
-)
-
-# python3 setup.py build_ext --inplace
-```
-
-# 环境安装
-
-本程序采用python3.7+pyqt5开发。
-
-```
-Pysocks
-PyQt5
-requests
-pyperclip
-chardet
-eventlet
-```
-
-## PyQt5
-
-采用命令安装，Win+R，输入CMD，打开命令框，输入以下命令。后面是豆瓣的镜像地址，是为了加快下载速度。
-
-```
-pip install PyQt5 -i https://pypi.douban.com/simple
-```
-
-安装Qt的工具包
-
-```
-pip install PyQt5-tools -i https://pypi.douban.com/simple
-```
-
-# 警告！
-
-**请勿用于非法用途！否则自行承担一切后果**
-
+# if __name__== '__main__':
+#     url='http://127.0.0.1/'
+#     # aa= do_exp(url,'','','','',exp_data)
+#     # print(aa)
+#     aa = do_poc(args.url,'','','',heads={})
+#     print(aa)
