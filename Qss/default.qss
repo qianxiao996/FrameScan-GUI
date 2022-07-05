@@ -1,0 +1,175 @@
+
+/**********表头**********/
+QHeaderView{
+        border: none;
+        background: rgb(57, 58, 60);
+        min-height: 30px;
+}
+QHeaderView::section:horizontal {
+        border: none;
+        padding-left: 5px;
+}
+/*滑动条*/
+QScrollBar:vertical  
+{
+	width:15px;
+    border-radius:7px;  /* 滚动条的滑轨的圆角*/
+   /* background:blue; */ /* 滚动条的滑轨的背景颜色*/
+    padding-top:14px;  /* 滚动条上部增加padding*/
+    padding-bottom:14px;  /* 同理*/
+ 
+}
+QScrollBar::handle:vertical
+{
+    background:rgb(225, 225, 225);/*darkgray*/ /* 滚动条颜色*/
+    border-radius:6px;  /* 滚动条圆角*/
+    margin-left:0px;  /* 滚动条和滑轨之间的左间隙*/
+    margin-right:1px;  /* 同理*/
+}
+QScrollBar::handle:vertical:hover  /* 鼠标放上滑块滑块变色*/
+{
+    background:gray;
+    border-radius:6px;
+}
+QScrollBar::add-line:vertical  /* 下方箭头*/
+{
+    height:15px;width:8px;  /* 设置箭头区域的宽高*/
+}
+QScrollBar::sub-line:vertical  /* 上方箭头*/
+{
+    height:14px;width:8px;
+   /* image:url('');  /* 这里设置为空，方便和下箭头对比
+*/}
+QScrollBar::add-line:vertical:hover  /* 鼠标放到下箭头箭头变成其他图片*/
+{
+    height:14px;width:8px;
+   /* image:url('./pictures/down-down-arrow.jpg');*/
+    subcontrol-position:bottom;
+}
+QScrollBar::sub-line:vertical:hover  /* 鼠标放到上箭头箭头变成其他图片*/
+{
+    height:14px;width:8px;
+    /*image:url('');  *//* 这里设置为空，方便和下箭头对比*/
+    subcontrol-position:top;
+}
+QScrollBar::add-page:vertical  /* 滑块已经经过的滑轨区域的颜色，若没有这里的设置，该区域会呈现网格状，不美观
+*/{
+    background:green;
+}
+QScrollBar::sub-page:vertical  /*  滑块还没经过的滑轨区域的颜色，若没有这里的设置，该区域会呈现网格状，不美观
+*/{
+    background:red; 
+}
+
+/**********表头**********/
+QHeaderView{
+        border: none;
+        background: rgb(57, 58, 60);
+        min-height: 30px;
+}
+QHeaderView::section:horizontal {
+        border: none;
+        padding-left: 5px;
+}
+QTableView::item {
+        padding-left: 5px;
+        padding-right: 5px;
+    	border: none;
+}
+/**********表格选中颜色**********/
+QTableView::item:selected {
+color:rgb(0, 0, 0) ;
+        background:  rgb(240, 240, 240);
+}
+QTableView::item:selected:!active {
+        color:rgb(0, 0, 0) ;
+}
+
+QTableView::indicator {
+       /* width: 20px;*/
+        height: 20px;
+}
+/*QToolButton*/
+/*按钮普通态*/
+QToolButton
+{
+    border: 1px solid;
+    height: 25px;
+    /*背景颜色*/  
+    background-color:rgb(225, 225, 225);
+    /*边框圆角半径为8像素*/ 
+    border-radius:3px;
+}
+ 
+/*按钮停留态*/
+QToolButton:hover
+{
+    width: 75px;
+    height: 25px;
+     /* 控件最小宽度 */  
+    min-width:200px;  
+    /*背景颜色*/  
+    background-color:rgb(170, 170, 255);
+   color:white;
+}
+ 
+/*按钮按下态*/
+QToolButton:pressed
+{
+    /*背景颜色*/  
+    background-color:rgb(14 , 135 , 228);
+    /*左内边距为2像素，让按下时字向右移动3像素*/  
+    padding-left:2px;
+    /*上内边距为2像素，让按下时字向下移动3像素*/  
+    padding-top:2px;
+}
+
+/*按钮普通态*/
+QPushButton
+{
+    border: 1px solid;
+    height: 25px;
+    /*背景颜色*/  
+    background-color:rgb(225, 225, 225);
+    /*边框圆角半径为8像素*/ 
+    border-radius:3px;
+}
+ 
+/*按钮停留态*/
+QPushButton:hover
+{
+    height: 25px;
+     /* 控件最小宽度 */  
+    min-width:200px;  
+    /*背景颜色*/  
+    background-color:rgb(170, 170, 255);
+   color:white;
+}
+ 
+/*按钮按下态*/
+QPushButton:pressed
+{
+    /*背景颜色*/  
+    background-color:rgb(14 , 135 , 228);
+    /*左内边距为2像素，让按下时字向右移动3像素*/  
+    padding-left:2px;
+    /*上内边距为2像素，让按下时字向下移动3像素*/  
+    padding-top:2px;
+}
+
+
+QLineEdit {
+        border-radius: 4px;
+        height: 25px;
+        border: 1px solid rgb(100, 100, 100);
+        background: rgb(255, 255, 255)
+}
+QLineEdit:enabled {
+        color: rgb(175, 175, 175);
+}
+QLineEdit:enabled:hover, QLineEdit:enabled:focus {
+        color:rgb(255, 85, 255)
+}
+QLineEdit:!enabled {
+        color: rgb(155, 155, 155);
+}
