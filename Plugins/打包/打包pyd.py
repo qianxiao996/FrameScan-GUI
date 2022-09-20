@@ -4,8 +4,8 @@ from distutils.core import setup
 from Cython.Build import cythonize
 
 setup(
-    name='Plugins_session_UploadFile',
-    ext_modules=cythonize("Plugins_session_UploadFile.py"),
+    name='Plugins_test',
+    ext_modules=cythonize("D:\\code\\Python37\\obj\\FrameScan-GUI\\Plugins\\Vuln_Plugins\\test"),
 )
 
 # python3 setup.py build_ext --inplace

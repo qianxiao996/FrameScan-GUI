@@ -1,27 +1,30 @@
+import inspect
 import os
-
 import eventlet
-import importlib
 from urllib.parse import urlparse
-import platform
 from PyQt5.QtCore import QThread, pyqtSignal
 import frozen_dir
+import Public
 SETUP_DIR = frozen_dir.app_path()
+
 
 class Vuln_Exp(QThread):
     """该线程用于计算耗时的累加操作"""
     _data = pyqtSignal(dict)  # 信号类型 str
-    def __init__(self,exp_path,url,heads_dict,exp_data,parent=None):
-        super(Vuln_Exp,self).__init__(parent)
+
+    def __init__(self, exp_path, url, heads_dict, exp_data, plugins_temp_data,parent=None):
+        super(Vuln_Exp, self).__init__(parent)
         self.exp_path = exp_path
         self.url = url
         self.heads_dict = heads_dict
         self.exp_data = exp_data
+        self.plugins_temp_data =plugins_temp_data
+
 
     def run(self):
         try:
             eventlet.monkey_patch(time=True)
-            with eventlet.Timeout(20,False):
+            with eventlet.Timeout(20, False):
                 try:
                     _url = urlparse(self.url)
                     hostname = _url.hostname
@@ -31,55 +34,55 @@ class Vuln_Exp(QThread):
 
                     if port is None and scheme == 'https':
                         port = 443
-                        url = scheme + '://' + hostname +'/'+path
                     elif port is None:
                         port = 80
-                        url = scheme + '://' + hostname + '/'+path
+                    if (scheme == "http" and port == 80) or (scheme == "https" and port == 443):
+                        url = scheme + '://' + hostname + path
                     else:
-                        url = scheme + '://' + hostname + ':' + str(port) + '/'+path
-                    # print(url)
-                    if os.path.isfile(self.exp_path + '.py'):
-                        self.exp_path = self.exp_path + '.py'
-                        nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(
-                            os.path.splitext(self.exp_path)[0], self.exp_path).load_module()
-                    elif os.path.isfile(self.exp_path + '.pyc'):
-                        self.exp_path = self.exp_path + '.pyc'
-                        module_spec = importlib.util.spec_from_file_location(self.exp_path[:-4],
-                                                                             self.exp_path)
-                        nnnnnnnnnnnn1 = importlib.util.module_from_spec(module_spec)
-                        module_spec.loader.exec_module(nnnnnnnnnnnn1)
+                        url = scheme + '://' + hostname + ':' + str(port) + path
+                    if 'http://' not in url.lower() and 'http' not in url.lower():
+                        url = 'http://' + hostname + ':' + str(port) + path
+                    file_path = SETUP_DIR+"/"+os.path.splitext(self.exp_path)[0]
+                    nnnnnnnnnnnn1 = Public.get_obj_by_path(file_path)
+                    if nnnnnnnnnnnn1:
+                        Function_Out = getattr(self, 'scan_log_out')  # 以字符串的形式执行函数
+                        result = nnnnnnnnnnnn1.do_exp(url,hostname,port,scheme,self.heads_dict,self.exp_data,Function_Out,self.plugins_temp_data)
+                        result['exp_type'] = 'result'
+                        self._data.emit(result)  # 计算结果完成后，发送结果
+                        return
                     else:
-                        sysstr = platform.system()
-                        if (sysstr == "Windows"):
-                            self.exp_path = SETUP_DIR + "/" + self.exp_path + '.pyd'
-
-                            # self.exp_path = self.exp_path + '.pyd'
-                        elif (sysstr == "Linux"):
-                            self.exp_path = self.exp_path + '.so'
-                        loader_details = (
-                            importlib.machinery.ExtensionFileLoader,
-                            importlib.machinery.EXTENSION_SUFFIXES
-                        )
-                        tools_finder = importlib.machinery.FileFinder(
-                            os.path.dirname(self.exp_path), loader_details)
-                        # print("FileFinder: ", tools_finder)
-                        toolbox_specs = tools_finder.find_spec(
-                            os.path.basename(os.path.splitext(self.exp_path)[0]))
-                        # print("find_spec: ", toolbox_specs)
-                        nnnnnnnnnnnn1 = importlib.util.module_from_spec(toolbox_specs)
-                        # print("module: ", nnnnnnnnnnnn1)
-                        toolbox_specs.loader.exec_module(nnnnnnnnnnnn1)
-                        # print("导入成功 path_import(): ", nnnnnnnnnnnn1)
-
-                    vuln_info = nnnnnnnnnnnn1.do_exp(url,hostname,port,scheme,self.heads_dict,self.exp_data)
-                    # print(vuln_info)
-                    self._data.emit((vuln_info))  # 计算结果完成后，发送结果
-                    return
+                        self.scan_log_out("Error", file_path + " 该模块未找到！")
                 except Exception as  e:
-                    self._data.emit({'Error_Info':str(e)})
+                    self._update_log(str(e), 'Error')
                     return
-            self._data.emit({'Error_Info':str(e)})
+            self._update_log('执行超时！')
             return
         except Exception as e:
-            self._data.emit({'Error_Info':str(e)})
+            self._update_log(str(e), 'Error')
             return
+
+    def _update_log(self, info, log_type='Info'):
+        result = {"exp_type": "exp_log", "log_info": str(info), "log_type": log_type}
+        self._data.emit(result)
+
+
+
+    def scan_log_out(self, log_type="Debug", log_info=""):
+        caller = inspect.stack()
+        file_path = caller[1][1]
+        file_path =os.path.splitext(file_path)[0]
+        nnnnnnnnnnnn1 = Public.get_obj_by_path(file_path)
+        if nnnnnnnnnnnn1:
+            vuln_info = nnnnnnnnnnnn1.vuln_info()
+            result = {
+                "url": vuln_info.get('vuln_name'),
+                "poc_file": file_path,
+                "cms_name": vuln_info.get('cms_name'),
+                'poc_name': vuln_info.get('vuln_name'),
+                'exp_type': "exp_log",
+                'log_info': str(log_info),
+                'log_type': str(log_type)
+            }
+            self._data.emit(result)
+        else:
+            self.scan_log_out("Error", file_path + " 该模块未找到！")

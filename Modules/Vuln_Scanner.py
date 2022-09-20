@@ -1,26 +1,23 @@
-import importlib
+import frozen_dir
+SETUP_DIR = frozen_dir.app_path()
 import json
 import queue
-import sys, os
-import threading, platform
+import os
+import threading
 from socket import *
 from urllib.parse import urlparse
-import frozen_dir
-
-SETUP_DIR = frozen_dir.app_path()
-sys.path.append('./Modules')
+import inspect
+import Public
 import BaseInfo
 import CyberCalculate
 import eventlet
 from PyQt5.QtCore import QThread, pyqtSignal
 
-
 class Vuln_Scanner(QThread):
     _data = pyqtSignal(dict)  # 信号类型 str  更新table
-    _log = pyqtSignal(str)  # 信号类型 str 更新日志
 
     def __init__(self, plugins_dir_name, logger, timeout, jump_url, jump_fofa, threadnum, heads, target, poc_data,
-                 parent=None):
+                 plugins_temp_data, parent=None):
         super(Vuln_Scanner, self).__init__(parent)
         self.timeout = timeout
         self.vuln_portQueue = queue.Queue()
@@ -32,6 +29,7 @@ class Vuln_Scanner(QThread):
         self.heads = heads
         self.target = target
         self.poc_data = poc_data
+        self.plugins_temp_data = plugins_temp_data
 
     def run(self):
         # print(self.poc_data)
@@ -48,18 +46,18 @@ class Vuln_Scanner(QThread):
             self.heads[head[0].strip()] = head[1].strip()
 
         if not self.target:
-            self._log.emit('未获取到URL地址')
-            self._log.emit("扫描结束")
+            self._update_log('未获取到URL地址')
+            self._update_log("扫描结束")
             return
         # print(poc_data)
         if not self.poc_data:
-            self._log.emit("未选择插件。")
-            self._log.emit("扫描结束。")
+            self._update_log("未选择插件。")
+            self._update_log("扫描结束。")
             return
         else:
-            self._log.emit("共加载%s个插件。" % (len(self.poc_data)))
-            self._log.emit("共获取到%s个URL地址。" % (len(self.target)))
-            self._log.emit("正在创建队列...")
+            self._update_log("共加载%s个插件。" % (len(self.poc_data)))
+            self._update_log("共获取到%s个URL地址。" % (len(self.target)))
+            self._update_log("正在创建队列...")
             self.add_queue(check_fofa)
 
     def get_port(self, url):
@@ -96,6 +94,10 @@ class Vuln_Scanner(QThread):
                     filename = self.plugins_dir_name + '/' + xuanzhong_data['cms_name'] + '/' + xuanzhong_data[
                         'vuln_file']
                     # url  filename heads poc fofa_link  fofa  check_fofa
+                    if not xuanzhong_data.get('FofaQuery_type'):
+                        xuanzhong_data['FofaQuery_type'] = 'socket'
+                    if not xuanzhong_data.get('FofaQuery_link'):
+                        xuanzhong_data['FofaQuery_link'] = '/'
                     self.vuln_portQueue.put(
                         url + '$$$' + filename + '$$$' + json.dumps(self.heads) + '$$$' + xuanzhong_data[
                             'cms_name'] + "$$$" + xuanzhong_data['vuln_name'] + '$$$' + xuanzhong_data[
@@ -103,7 +105,7 @@ class Vuln_Scanner(QThread):
                             'FofaQuery_rule'] + '$$$' + check_fofa)
 
         elif self.jump_url:
-            self._log.emit("正在进行地址存活检测...")
+            self._update_log("正在进行地址存活检测...")
             false_url = []
             for u in self.target:
                 hostname_port_scheme = self.get_port(u)
@@ -127,26 +129,26 @@ class Vuln_Scanner(QThread):
                             num += 1
                         else:
                             false_url.append(u)
-                            self._log.emit("%s----无法访问。" % u)
+                            self._update_log("%s----无法访问。" % u)
 
                     else:
                         continue
                 except Exception as  e:
                     self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
                     false_url.append(u)
-                    self._log.emit("%s----无法访问。" % u)
+                    self._update_log("%s----无法访问。" % u)
 
                     continue
                     # 限制线程数小于队列大小
-        self._log.emit("共获取到%s个有效URL地址。" % num)
+        self._update_log("共获取到%s个有效URL地址。" % num)
         if self.threadnum > self.vuln_portQueue.qsize():
             self.threadnum = self.vuln_portQueue.qsize()
         # print(portQueue.qsize())
         if num == 0:
-            self._log.emit("扫描结束。")
+            self._update_log("扫描结束。")
             return
         else:
-            self._log.emit("扫描开始...")
+            self._update_log("扫描开始...")
             self.thread_list = []
             for i in range(self.threadnum):
                 thread = threading.Thread(target=self.vuln_scan, args=())
@@ -157,7 +159,9 @@ class Vuln_Scanner(QThread):
                 i.start()
             for i in self.thread_list:
                 i.join()
-            self._log.emit("扫描结束!")
+            self._update_log("扫描结束!")
+
+
 
     def vuln_scan(self):
         # print(portQueue.queue)  #输出所有队列
@@ -185,7 +189,7 @@ class Vuln_Scanner(QThread):
                     port = hostname_port_scheme[2]
                     scheme = hostname_port_scheme[3]
                     self.logger.info("Scanner:" + url + " " + str(cms_name + "|" + vuln_name))
-                    self._log.emit("正在扫描【%s】" % str(cms_name + "|" + vuln_name))
+                    self._update_log("正在扫描【%s】" % str(cms_name + "|" + vuln_name))
                     if check_fofa == "1":
                         # print(fofa_type,fofa_link)
                         if fofa_type == 'http':
@@ -194,7 +198,7 @@ class Vuln_Scanner(QThread):
                             elif fofa_rule and fofa_link == "all":
                                 fofa_url = url
                             elif not fofa_rule:
-                                self._log.emit("FOFA规则不存在！ %s" % filename)
+                                self._update_log("FOFA规则不存在！ %s" % filename)
                                 continue
                             fofaquery = fofa_rule.lower()
                             responce = BaseInfo.http_info(fofa_url)
@@ -215,7 +219,7 @@ class Vuln_Scanner(QThread):
                             sk.close()
 
                         else:
-                            self._log.emit("未知的FofaQuery_type！ %s" % filename)
+                            self._update_log("未知的FofaQuery_type！ %s" % filename)
                             continue
 
                         # print(fofaquery[0])
@@ -224,52 +228,18 @@ class Vuln_Scanner(QThread):
                             try:
                                 eventlet.monkey_patch(thread=False, time=True)
                                 with eventlet.Timeout(timeout, False):
-
-                                    if os.path.isfile(filename + '.py'):
-                                        filename = filename + '.py'
-                                        nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(
-                                            os.path.splitext(filename)[0], filename).load_module()
-                                    elif os.path.isfile(filename + '.pyc'):
-                                        filename = filename + '.pyc'
-                                        module_spec = importlib.util.spec_from_file_location(filename[:-4],
-                                                                                             filename)
-                                        nnnnnnnnnnnn1 = importlib.util.module_from_spec(module_spec)
-                                        module_spec.loader.exec_module(nnnnnnnnnnnn1)
-                                    else:
-                                        sysstr = platform.system()
-                                        if (sysstr == "Windows"):
-                                            filename = SETUP_DIR + "/" + filename + '.pyd'
-                                            # filename = filename + '.pyd'
-                                        elif (sysstr == "Linux"):
-                                            filename = filename + '.so'
-                                        loader_details = (
-                                            importlib.machinery.ExtensionFileLoader,
-                                            importlib.machinery.EXTENSION_SUFFIXES
-                                        )
-                                        tools_finder = importlib.machinery.FileFinder(
-                                            os.path.dirname(filename), loader_details)
-                                        # print("FileFinder: ", tools_finder)
-                                        toolbox_specs = tools_finder.find_spec(
-                                            os.path.basename(os.path.splitext(filename)[0]))
-                                        # print("find_spec: ", toolbox_specs)
-                                        nnnnnnnnnnnn1 = importlib.util.module_from_spec(toolbox_specs)
-                                        # print("module: ", nnnnnnnnnnnn1)
-                                        toolbox_specs.loader.exec_module(nnnnnnnnnnnn1)
-                                        # print("导入成功 path_import(): ", nnnnnnnnnnnn1)
-                                    result = nnnnnnnnnnnn1.do_poc(url, hostname, port, scheme, heads_dict)
-                                    # 存在
-                                    self.scan_result_out(result, all)
+                                    self.scan_gogogogo(filename, url, hostname, port, scheme, heads_dict)
                                     continue
-                                self._log.emit("Error:%s脚本运行超时！" % filename)
+                                self._update_log("Error:%s脚本运行超时！" % filename)
                                 continue
                             except Exception as e:
                                 self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
-                                self._log.emit(
+                                self._update_log(
                                     "Error:%s----%s----%s。" % (url, cms_name + '|' + vuln_name, '脚本运行超时'))
                                 continue
                             # 进行扫描
                         else:
-                            self._log.emit("%s----%s----%s。" % (url, cms_name + '|' + vuln_name, 'FoFA信息不匹配'))
+                            self._update_log("%s----%s----%s。" % (url, cms_name + '|' + vuln_name, 'FoFA信息不匹配'))
 
                     else:
                         # 超时限制
@@ -277,71 +247,86 @@ class Vuln_Scanner(QThread):
                             eventlet.monkey_patch(thread=False, time=True)
                             with eventlet.Timeout(timeout, False):
                                 try:
-                                    self.logger.error('行' + filename)
-
-                                    if os.path.isfile(filename + '.py'):
-                                        filename = filename + '.py'
-                                        nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(
-                                            os.path.splitext(filename)[0], filename).load_module()
-                                    elif os.path.isfile(filename + '.pyc'):
-                                        filename = filename + '.pyc'
-                                        module_spec = importlib.util.spec_from_file_location(filename[:-4],
-                                                                                             filename)
-                                        nnnnnnnnnnnn1 = importlib.util.module_from_spec(module_spec)
-                                        module_spec.loader.exec_module(nnnnnnnnnnnn1)
-                                    else:
-                                        sysstr = platform.system()
-                                        if (sysstr == "Windows"):
-                                            filename = SETUP_DIR + "/" + filename + '.pyd'
-                                            # filename = filename + '.pyd'
-                                        elif (sysstr == "Linux"):
-                                            filename = filename + '.so'
-                                        loader_details = (
-                                            importlib.machinery.ExtensionFileLoader,
-                                            importlib.machinery.EXTENSION_SUFFIXES
-                                        )
-                                        tools_finder = importlib.machinery.FileFinder(
-                                            os.path.dirname(filename), loader_details)
-                                        # print("FileFinder: ", tools_finder)
-                                        # self.logger.error('行' + os.path.dirname(filename))
-                                        # self.logger.error('行' + os.path.basename(os.path.splitext(filename)[0]))
-                                        toolbox_specs = tools_finder.find_spec(
-                                            os.path.basename(os.path.splitext(filename)[0]))
-                                        # print("find_spec: ", toolbox_specs)
-                                        nnnnnnnnnnnn1 = importlib.util.module_from_spec(toolbox_specs)
-                                        # print("module: ", nnnnnnnnnnnn1)
-                                        toolbox_specs.loader.exec_module(nnnnnnnnnnnn1)
-                                        # print("导入成功 path_import(): ", nnnnnnnnnnnn1)
-                                        # print("导入成功 path_import(): ", nnnnnnnnnnnn1)
-
-                                    # print(result)
-                                    result = nnnnnnnnnnnn1.do_poc(url, hostname, port, scheme, heads_dict)
-                                    self.scan_result_out(result, all)
+                                    self.scan_gogogogo(filename, url, hostname, port, scheme, heads_dict)
                                     continue
                                 except Exception as  e:
                                     self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
-                                    self._log.emit(
+                                    self._update_log(
                                         "Error:%s脚本执行错误！<br>[Exception]:<br>%s" % (filename, e))
                                     continue
-                            self._log.emit(
-                                "Error:%s脚本运行超时！" % (filename))
+                            self._update_log("Error:%s脚本运行超时！" % (filename))
                         except Exception as e:
                             self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
-                            self._log.emit(
+                            self._update_log(
                                 "Error:%s----%s----%s。" % (url, cms_name + '|' + vuln_name, '脚本运行超时'))
                             continue
             except Exception as e:
                 self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
-                self._log.emit(
+                self._update_log(
                     "Error:%s脚本执行错误！<br>[Exception]:<br>%s" % (filename, str(e)))
                 continue
 
-    def scan_result_out(self, result, all):
-        # print(all,all[3])
-        result['url'] = all[0]
-        result['poc_file'] = all[1]
-        result['cms_name'] = all[3]
-        result['poc_name'] = all[4]
+    def scan_gogogogo(self, filename, url, hostname, port, scheme, heads_dict):
+        filename = (SETUP_DIR + filename)
+        nnnnnnnnnnnn1 = Public.get_obj_by_path(filename)
+        if nnnnnnnnnnnn1:
+            vuln_info = nnnnnnnnnnnn1.vuln_info()
+            temp_cms_name = os.path.dirname(filename + ".py")  # 先获取文件路径
+            cms_name = os.path.basename(temp_cms_name)
+
+            poc_info = {
+                'url': url,
+                'path': filename,
+                'cms_name': cms_name
+            }
+            Function_Out = getattr(self, 'scan_log_out')  # 以字符串的形式执行函数
+            result = nnnnnnnnnnnn1.do_poc(url, hostname, port, scheme, heads_dict, Function_Out, self.plugins_temp_data)
+            if not result:
+                result = {"Result": False, "Result_Info": ""}
+            self.scan_result_out(result, vuln_info, poc_info)
+        else:
+            self.scan_log_out("Error",filename+" 该模块未找到！")
+
+
+    def _update_log(self, info):
+        result = {"type": "log", "log_info": str(info)}
+        self._data.emit(result)
+
+    def scan_log_out(self, log_type='Debug', log_info=""):
+        caller = inspect.stack()
+        caller_methos = caller[1].frame
+        # 获取所有请求值
+        localvars = caller_methos.f_locals
+        file_path = caller[1][1]
+        file_path =  os.path.splitext(file_path)[0]
+        nnnnnnnnnnnn1 = Public.get_obj_by_path(file_path)
+        if nnnnnnnnnnnn1:
+            vuln_info = nnnnnnnnnnnn1.vuln_info()
+            temp_cms_name = os.path.dirname(file_path + ".py")  # 先获取文件路径
+            cms_name = os.path.basename(temp_cms_name)
+            result = {
+                "url": localvars.get('url'),
+                "poc_file": file_path,
+                "cms_name": cms_name,
+                'poc_name': vuln_info.get('vuln_name'),
+                'type': "poc_log",
+                'log_info': str(log_info),
+                'log_type': str(log_type)
+            }
+            self._data.emit(result)
+        else:
+            self.scan_log_out("Error", file_path + " 该模块未找到！")
+
+    def scan_result_out(self, result_dict, vuln_info, poc_info):
+        result = {
+            "type": "result",
+            'result': result_dict.get('Result'),
+            'result_info': result_dict.get('Result_Info'),
+            'url': poc_info['url'],
+            'poc_file': poc_info['path'],
+            'cms_name': poc_info.get('cms_name'),
+            'poc_name': vuln_info.get('vuln_name')
+        }
         self._data.emit(result)
 
     def port_scanner(self, host, port, timeout):
