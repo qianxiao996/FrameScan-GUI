@@ -1,4 +1,4 @@
-import frozen_dir
+from Modules  import frozen_dir
 SETUP_DIR = frozen_dir.app_path()
 import json
 import queue
@@ -7,14 +7,14 @@ import threading
 from socket import *
 from urllib.parse import urlparse
 import inspect
-import Public
-import BaseInfo
-import CyberCalculate
+from Modules import Public
+from Modules  import BaseInfo
+from Modules  import CyberCalculate
 import eventlet
-from PyQt5.QtCore import QThread, pyqtSignal
+from PySide6.QtCore import QThread, Signal
 
 class Vuln_Scanner(QThread):
-    _data = pyqtSignal(dict)  # 信号类型 str  更新table
+    _data = Signal(dict)  # 信号类型 str  更新table
 
     def __init__(self, plugins_dir_name, logger, timeout, jump_url, jump_fofa, threadnum, heads, target, poc_data,
                  plugins_temp_data, parent=None):
@@ -267,7 +267,7 @@ class Vuln_Scanner(QThread):
                 continue
 
     def scan_gogogogo(self, filename, url, hostname, port, scheme, heads_dict):
-        filename = (SETUP_DIR + filename)
+        filename = (SETUP_DIR +'/'+ filename).replace("\\","//")
         nnnnnnnnnnnn1 = Public.get_obj_by_path(filename)
         if nnnnnnnnnnnn1:
             vuln_info = nnnnnnnnnnnn1.vuln_info()
@@ -315,7 +315,8 @@ class Vuln_Scanner(QThread):
             }
             self._data.emit(result)
         else:
-            self.scan_log_out("Error", file_path + " 该模块未找到！")
+            result = {"type": "log", "log_info": file_path + " 该模块未找到！"}
+            self._data.emit(result)
 
     def scan_result_out(self, result_dict, vuln_info, poc_info):
         result = {

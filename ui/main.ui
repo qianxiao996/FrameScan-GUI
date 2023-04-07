@@ -1,0 +1,1639 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1411</width>
+    <height>888</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>9</pointsize>
+   </font>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::DefaultContextMenu</enum>
+  </property>
+  <property name="windowTitle">
+   <string>FrameScan-GUI by  qianxiao996</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/logo/main.png</normaloff>:/logo/main.png</iconset>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_50">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <property name="horizontalSpacing">
+     <number>7</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>1411</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+        <stylestrategy>PreferDefault</stylestrategy>
+        <kerning>true</kerning>
+       </font>
+      </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
+      <property name="tabletTracking">
+       <bool>false</bool>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <property name="elideMode">
+       <enum>Qt::ElideNone</enum>
+      </property>
+      <property name="documentMode">
+       <bool>false</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>false</bool>
+      </property>
+      <property name="movable">
+       <bool>false</bool>
+      </property>
+      <property name="tabBarAutoHide">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="vuln_scanner">
+       <attribute name="title">
+        <string>漏洞扫描</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_9">
+        <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QTabWidget" name="tabWidget_2">
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <widget class="QWidget" name="tab_5">
+             <attribute name="title">
+              <string>目标</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_12">
+              <item row="0" column="0">
+               <widget class="QPlainTextEdit" name="plainTextEdit_vuln_url">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="plainText">
+                 <string/>
+                </property>
+                <property name="placeholderText">
+                 <string>请输入你的url</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="tab_6">
+             <attribute name="title">
+              <string>插件</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_11">
+              <property name="leftMargin">
+               <number>11</number>
+              </property>
+              <property name="topMargin">
+               <number>11</number>
+              </property>
+              <property name="rightMargin">
+               <number>11</number>
+              </property>
+              <property name="bottomMargin">
+               <number>11</number>
+              </property>
+              <item row="0" column="0">
+               <layout class="QGridLayout" name="gridLayout_10">
+                <item row="0" column="0">
+                 <layout class="QHBoxLayout" name="horizontalLayout_2">
+                  <item>
+                   <widget class="QPushButton" name="pushButton_vuln_zhankai">
+                    <property name="minimumSize">
+                     <size>
+                      <width>60</width>
+                      <height>28</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>展开</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_vuln_zhedie">
+                    <property name="minimumSize">
+                     <size>
+                      <width>60</width>
+                      <height>28</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>折叠</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_vuln_all">
+                    <property name="minimumSize">
+                     <size>
+                      <width>60</width>
+                      <height>28</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>全  选</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_vuln_noall">
+                    <property name="minimumSize">
+                     <size>
+                      <width>60</width>
+                      <height>28</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>反  选</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QTreeWidget" name="treeWidget_Plugins">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                    <horstretch>4</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="verticalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAsNeeded</enum>
+                  </property>
+                  <column>
+                   <property name="text">
+                    <string>Plugins</string>
+                   </property>
+                   <property name="textAlignment">
+                    <set>AlignCenter</set>
+                   </property>
+                  </column>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="1">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="text">
+                 <string>超时</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_timeout">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>30</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>60</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>100</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>线程</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="threadsnum">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>3</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>5</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>10</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>15</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="jump_fofa">
+              <property name="minimumSize">
+               <size>
+                <width>131</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>启用FOFA检测</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="vuln_scanner_debug">
+              <property name="minimumSize">
+               <size>
+                <width>118</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>显示Debug信息</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="jump_url">
+              <property name="minimumSize">
+               <size>
+                <width>131</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>检测地址存活</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_vuln_start">
+              <property name="minimumSize">
+               <size>
+                <width>80</width>
+                <height>28</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>开始扫描</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_vuln_stop">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>停止扫描</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_vuln_expstart">
+              <property name="minimumSize">
+               <size>
+                <width>80</width>
+                <height>28</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>一键利用</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QTableWidget" name="tableWidget_vuln">
+            <property name="minimumSize">
+             <size>
+              <width>1061</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="defaultDropAction">
+             <enum>Qt::IgnoreAction</enum>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>false</bool>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="textElideMode">
+             <enum>Qt::ElideRight</enum>
+            </property>
+            <property name="verticalScrollMode">
+             <enum>QAbstractItemView::ScrollPerItem</enum>
+            </property>
+            <property name="showGrid">
+             <bool>true</bool>
+            </property>
+            <property name="gridStyle">
+             <enum>Qt::SolidLine</enum>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>210</number>
+            </attribute>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>网页地址</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>漏洞名称</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>插件路径</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>检测结果</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>返回信息</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTabWidget" name="tabWidget_9">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>200</height>
+             </size>
+            </property>
+            <property name="currentIndex">
+             <number>0</number>
+            </property>
+            <widget class="QWidget" name="tab_14">
+             <attribute name="title">
+              <string>Scanner log</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_8">
+              <item row="0" column="0">
+               <widget class="QTextEdit" name="textEdit_log">
+                <property name="minimumSize">
+                 <size>
+                  <width>600</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>200</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="html">
+                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Microsoft YaHei UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'SimSun';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="tab_15">
+             <attribute name="title">
+              <string>Headers头</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout">
+              <item row="0" column="0">
+               <widget class="QTextEdit" name="vuln_scanner_textEdit_heads">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="html">
+                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Microsoft YaHei UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="placeholderText">
+                 <string>换行分割</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="vuln_exp">
+       <attribute name="title">
+        <string>漏洞利用</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_6">
+        <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <item>
+               <widget class="QGroupBox" name="groupBox">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>800</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="title">
+                 <string>基本配置</string>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_7">
+                 <item row="0" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_7">
+                   <item>
+                    <widget class="QLabel" name="label_7">
+                     <property name="minimumSize">
+                      <size>
+                       <width>70</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>70</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>目标地址</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="vuln_lineEdit_url">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>28</height>
+                      </size>
+                     </property>
+                     <property name="sizeIncrement">
+                      <size>
+                       <width>0</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="1" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_6">
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_5">
+                     <item>
+                      <widget class="QLabel" name="label_12">
+                       <property name="minimumSize">
+                        <size>
+                         <width>60</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>70</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>漏洞类型</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QComboBox" name="vuln_type">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_4">
+                     <item>
+                      <widget class="QLabel" name="label_13">
+                       <property name="minimumSize">
+                        <size>
+                         <width>60</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>70</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="layoutDirection">
+                        <enum>Qt::LeftToRight</enum>
+                       </property>
+                       <property name="text">
+                        <string>漏洞名称</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QComboBox" name="vuln_name">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupBox_2">
+                <property name="maximumSize">
+                 <size>
+                  <width>800</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="title">
+                 <string>反弹Shell</string>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_12">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_10">
+                   <item>
+                    <widget class="QLabel" name="label_4">
+                     <property name="minimumSize">
+                      <size>
+                       <width>60</width>
+                       <height>28</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>55</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>IP地址:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="vuln_exp_input_ip">
+                     <property name="minimumSize">
+                      <size>
+                       <width>200</width>
+                       <height>28</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_5">
+                     <property name="minimumSize">
+                      <size>
+                       <width>35</width>
+                       <height>28</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>32</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>Port</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="vuln_exp_input_port">
+                     <property name="minimumSize">
+                      <size>
+                       <width>50</width>
+                       <height>28</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>60</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="vuln_exp_button_shell">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>反弹shell</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_7">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>150</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>230</height>
+               </size>
+              </property>
+              <property name="title">
+               <string>Headers</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_3">
+               <item row="0" column="0">
+                <widget class="QPlainTextEdit" name="plainTextEdit_heads">
+                 <property name="plainText">
+                  <string>User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_11">
+            <item>
+             <widget class="QTabWidget" name="exp_tabWidget">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>550</height>
+               </size>
+              </property>
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <widget class="QWidget" name="tab">
+               <attribute name="title">
+                <string>信息</string>
+               </attribute>
+               <layout class="QGridLayout" name="gridLayout_5">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <property name="verticalSpacing">
+                 <number>7</number>
+                </property>
+                <item row="0" column="0">
+                 <widget class="QTextEdit" name="vuln_exp_textEdit_info">
+                  <property name="minimumSize">
+                   <size>
+                    <width>950</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="html">
+                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Microsoft YaHei UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;信息&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="tab_2">
+               <attribute name="title">
+                <string>命令执行</string>
+               </attribute>
+               <layout class="QGridLayout" name="gridLayout_4">
+                <item row="0" column="0">
+                 <layout class="QGridLayout" name="gridLayout_2">
+                  <item row="0" column="0">
+                   <layout class="QHBoxLayout" name="horizontalLayout_19">
+                    <item>
+                     <widget class="QLabel" name="label_14">
+                      <property name="minimumSize">
+                       <size>
+                        <width>55</width>
+                        <height>28</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>CMD命令</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="vuln_exp_input_cmd">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>28</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>whoami</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="vuln_exp_button_cmd">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>执行命令</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="vuln_exp_button_clear">
+                      <property name="text">
+                       <string>清空结果</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QTextEdit" name="textEdit_result">
+                    <property name="html">
+                     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Microsoft YaHei UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'SimSun';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="placeholderText">
+                     <string>命令执行的结果将会显示在这里。</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="tab_33">
+               <attribute name="title">
+                <string>文件上传</string>
+               </attribute>
+               <layout class="QGridLayout" name="gridLayout_82">
+                <item row="0" column="0">
+                 <layout class="QVBoxLayout" name="verticalLayout_40">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_50">
+                    <item>
+                     <widget class="QLabel" name="label_37">
+                      <property name="text">
+                       <string>写入文件名</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="vuln_exp_lineEdit_filename">
+                      <property name="text">
+                       <string>996.php</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_35">
+                      <property name="text">
+                       <string>shell文件</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="vuln_exp_comboBox_shell">
+                      <property name="minimumSize">
+                       <size>
+                        <width>150</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="vuln_exp_button_getfile">
+                      <property name="text">
+                       <string>选择文件</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="vuln_exp_button_uploadfile">
+                      <property name="text">
+                       <string>上传文件</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="vuln_exp_button_clear_shell">
+                      <property name="text">
+                       <string>清空内容</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_36">
+                    <property name="text">
+                     <string>文件内容</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QTextEdit" name="vuln_exp_textEdit_shell"/>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_7">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_9">
+                <item>
+                 <widget class="QLabel" name="label_3">
+                  <property name="text">
+                   <string>Exp Logs</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="vuln_exp_debug">
+                  <property name="minimumSize">
+                   <size>
+                    <width>60</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>120</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>显示Debug信息</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <property name="checked">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButtovuln_exp_clearlog">
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>清除日志</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QTextEdit" name="vuln_exp_textEdit_log">
+                <property name="minimumSize">
+                 <size>
+                  <width>430</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>400</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="html">
+                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Microsoft YaHei UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'SimSun';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_32">
+       <attribute name="title">
+        <string>程序日志</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_78">
+        <item row="0" column="0">
+         <widget class="QTextBrowser" name="textBrowser_log_log">
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Microsoft YaHei UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'SimSun';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1411</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_5">
+    <property name="title">
+     <string>插件管理</string>
+    </property>
+    <addaction name="action_vuln_reload"/>
+    <addaction name="action_vuln_reload_update"/>
+    <addaction name="action_vuln_update"/>
+    <addaction name="action_vuln_showplubins"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>代理</string>
+    </property>
+    <addaction name="action_proxy"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>选项</string>
+    </property>
+    <addaction name="action_about_"/>
+    <addaction name="action_update_"/>
+    <addaction name="action_fankui_"/>
+   </widget>
+   <addaction name="menu_5"/>
+   <addaction name="menu"/>
+   <addaction name="menu_3"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="action_port_start">
+   <property name="text">
+    <string>开始扫描</string>
+   </property>
+  </action>
+  <action name="action_zhiwen_start">
+   <property name="text">
+    <string>开始扫描</string>
+   </property>
+  </action>
+  <action name="action_dir_stop">
+   <property name="text">
+    <string>停止扫描</string>
+   </property>
+  </action>
+  <action name="action_dir_start">
+   <property name="text">
+    <string>开始扫描</string>
+   </property>
+  </action>
+  <action name="action_vuln_showplubins">
+   <property name="text">
+    <string>插件管理</string>
+   </property>
+  </action>
+  <action name="action_vuln_reload">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>重新加载(本地)</string>
+   </property>
+   <property name="statusTip">
+    <string/>
+   </property>
+  </action>
+  <action name="action_vuln_import">
+   <property name="text">
+    <string>导入扫描列表</string>
+   </property>
+  </action>
+  <action name="action_sub_import">
+   <property name="text">
+    <string>导入扫描列表</string>
+   </property>
+  </action>
+  <action name="action_port_import">
+   <property name="text">
+    <string>导入扫描列表</string>
+   </property>
+  </action>
+  <action name="action_vuln_export">
+   <property name="text">
+    <string>导出扫描结果</string>
+   </property>
+  </action>
+  <action name="action_sub_export">
+   <property name="text">
+    <string>导出扫描结果</string>
+   </property>
+  </action>
+  <action name="action_port_export">
+   <property name="text">
+    <string>导出扫描结果</string>
+   </property>
+  </action>
+  <action name="action_zhiwen_import">
+   <property name="text">
+    <string>导入扫描列表</string>
+   </property>
+  </action>
+  <action name="action_zhiwen_export">
+   <property name="text">
+    <string>导出扫描结果</string>
+   </property>
+  </action>
+  <action name="action_ideas">
+   <property name="text">
+    <string>意见反馈</string>
+   </property>
+  </action>
+  <action name="action_version">
+   <property name="text">
+    <string>版本</string>
+   </property>
+  </action>
+  <action name="action_update">
+   <property name="text">
+    <string>更新</string>
+   </property>
+  </action>
+  <action name="action_about">
+   <property name="text">
+    <string>关于</string>
+   </property>
+  </action>
+  <action name="action_reload">
+   <property name="text">
+    <string>重新加载插件</string>
+   </property>
+  </action>
+  <action name="action_dir_Import">
+   <property name="text">
+    <string>导入扫描列表</string>
+   </property>
+  </action>
+  <action name="action_dir_export">
+   <property name="text">
+    <string>导出扫描结果</string>
+   </property>
+  </action>
+  <action name="action_zhiwen_stop">
+   <property name="text">
+    <string>停止扫描</string>
+   </property>
+  </action>
+  <action name="action_sub_stop">
+   <property name="text">
+    <string>停止扫描</string>
+   </property>
+  </action>
+  <action name="action_port_stop">
+   <property name="text">
+    <string>停止扫描</string>
+   </property>
+  </action>
+  <action name="action_sub_start">
+   <property name="text">
+    <string>开始扫描</string>
+   </property>
+  </action>
+  <action name="action_vuln_expstart">
+   <property name="text">
+    <string>漏洞一键利用</string>
+   </property>
+  </action>
+  <action name="action_vuln_start">
+   <property name="text">
+    <string>开始扫描</string>
+   </property>
+  </action>
+  <action name="action_vuln_stop">
+   <property name="text">
+    <string>停止扫描</string>
+   </property>
+  </action>
+  <action name="action_update_start">
+   <property name="text">
+    <string>更新</string>
+   </property>
+  </action>
+  <action name="action_about_start">
+   <property name="text">
+    <string>关于</string>
+   </property>
+  </action>
+  <action name="action_ideas_start">
+   <property name="text">
+    <string>意见反馈</string>
+   </property>
+  </action>
+  <action name="action_domain_reload">
+   <property name="text">
+    <string>重新加载</string>
+   </property>
+  </action>
+  <action name="action_domain_showplubins">
+   <property name="text">
+    <string>查看插件</string>
+   </property>
+  </action>
+  <action name="action_zhishiku">
+   <property name="text">
+    <string>安全知识库</string>
+   </property>
+  </action>
+  <action name="action_proxy">
+   <property name="text">
+    <string>代理设置</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>更新设置</string>
+   </property>
+  </action>
+  <action name="action_vuln_update">
+   <property name="text">
+    <string>更新设置</string>
+   </property>
+  </action>
+  <action name="action_vuln_reload_update">
+   <property name="text">
+    <string>检查更新(网络)</string>
+   </property>
+  </action>
+  <action name="action_about_">
+   <property name="text">
+    <string>关于软件</string>
+   </property>
+  </action>
+  <action name="action_update_">
+   <property name="text">
+    <string>检查更新</string>
+   </property>
+  </action>
+  <action name="action_fankui_">
+   <property name="text">
+    <string>意见反馈</string>
+   </property>
+  </action>
+  <action name="action_mingliang">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>明亮风格</string>
+   </property>
+  </action>
+  <action name="action_anhei">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>暗黑风格</string>
+   </property>
+  </action>
+  <action name="action_default">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>默认风格</string>
+   </property>
+  </action>
+ </widget>
+ <tabstops>
+  <tabstop>pushButton_vuln_all</tabstop>
+  <tabstop>pushButton_vuln_noall</tabstop>
+  <tabstop>treeWidget_Plugins</tabstop>
+  <tabstop>comboBox_timeout</tabstop>
+  <tabstop>jump_url</tabstop>
+  <tabstop>threadsnum</tabstop>
+  <tabstop>vuln_scanner_debug</tabstop>
+  <tabstop>pushButton_vuln_stop</tabstop>
+  <tabstop>pushButton_vuln_expstart</tabstop>
+  <tabstop>tabWidget_9</tabstop>
+  <tabstop>textEdit_log</tabstop>
+  <tabstop>vuln_scanner_textEdit_heads</tabstop>
+  <tabstop>vuln_lineEdit_url</tabstop>
+  <tabstop>vuln_type</tabstop>
+  <tabstop>vuln_name</tabstop>
+  <tabstop>vuln_exp_input_ip</tabstop>
+  <tabstop>vuln_exp_input_port</tabstop>
+  <tabstop>vuln_exp_button_shell</tabstop>
+  <tabstop>plainTextEdit_heads</tabstop>
+  <tabstop>exp_tabWidget</tabstop>
+  <tabstop>vuln_exp_textEdit_info</tabstop>
+  <tabstop>vuln_exp_input_cmd</tabstop>
+  <tabstop>vuln_exp_button_cmd</tabstop>
+  <tabstop>textEdit_result</tabstop>
+  <tabstop>vuln_exp_lineEdit_filename</tabstop>
+  <tabstop>vuln_exp_comboBox_shell</tabstop>
+  <tabstop>vuln_exp_button_getfile</tabstop>
+  <tabstop>vuln_exp_button_uploadfile</tabstop>
+  <tabstop>vuln_exp_button_clear_shell</tabstop>
+  <tabstop>vuln_exp_textEdit_shell</tabstop>
+  <tabstop>vuln_exp_debug</tabstop>
+  <tabstop>pushButtovuln_exp_clearlog</tabstop>
+  <tabstop>vuln_exp_textEdit_log</tabstop>
+  <tabstop>textBrowser_log_log</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButtovuln_exp_clearlog</sender>
+   <signal>clicked()</signal>
+   <receiver>vuln_exp_textEdit_log</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1449</x>
+     <y>368</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1408</x>
+     <y>735</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>vuln_exp_button_clear</sender>
+   <signal>clicked()</signal>
+   <receiver>textEdit_result</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>127</x>
+     <y>403</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>127</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>vuln_exp_button_clear_shell</sender>
+   <signal>clicked()</signal>
+   <receiver>vuln_exp_textEdit_shell</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>127</x>
+     <y>403</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>127</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_vuln_zhankai</sender>
+   <signal>clicked()</signal>
+   <receiver>treeWidget_Plugins</receiver>
+   <slot>expandAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>63</x>
+     <y>81</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>76</x>
+     <y>123</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_vuln_zhedie</sender>
+   <signal>clicked()</signal>
+   <receiver>treeWidget_Plugins</receiver>
+   <slot>collapseAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>148</x>
+     <y>85</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>147</x>
+     <y>130</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <designerdata>
+  <property name="gridDeltaX">
+   <number>10</number>
+  </property>
+  <property name="gridDeltaY">
+   <number>10</number>
+  </property>
+  <property name="gridSnapX">
+   <bool>true</bool>
+  </property>
+  <property name="gridSnapY">
+   <bool>true</bool>
+  </property>
+  <property name="gridVisible">
+   <bool>true</bool>
+  </property>
+ </designerdata>
+</ui>

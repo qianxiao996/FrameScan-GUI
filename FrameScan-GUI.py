@@ -13,9 +13,6 @@ import sys
 import traceback
 import zipfile
 import socks
-import qdarkstyle
-from qdarkstyle import LightPalette
-from qt_material import apply_stylesheet
 from requests.adapters import HTTPAdapter
 
 sys.path.append('./Modules')
@@ -24,9 +21,9 @@ sys.path.append('./Gui')
 
 if hasattr(sys, 'frozen'):
     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
-from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
+from PySide6 import QtWidgets, QtCore, QtGui
+from PySide6.QtWidgets import *
+from PySide6.QtCore import *
 import csv, re, requests, time, sqlite3
 from Gui.main import Ui_MainWindow
 from Gui.Vuln_Plugins import Ui_Form_Vuln
@@ -35,18 +32,18 @@ from Gui.Vuln_Edit import Ui_Form_Vuln_Edit
 from Gui.Proxy import Ui_Proxy
 from Gui.Server import Ui_Server
 import pyperclip
-import frozen_dir
+from Modules  import frozen_dir
 from Modules.Vuln_Scanner import Vuln_Scanner
 from Modules.Vuln_Exp import Vuln_Exp
-from Modules.PythonHighlighter import PythonHighlighter
+# from Modules.PythonHighlighter import PythonHighlighter
 import logging
 import webbrowser
-
+# os.environ["QT_FONT_DPI"] = "150"
 SETUP_DIR = frozen_dir.app_path()+"/"
 sys.path.append(SETUP_DIR)
 sys.path.append('./Modules')
 DB_NAME = './Conf/DB.db'
-version = '1.4.2'
+version = '1.4.3'
 vuln_plugins_dir = './Plugins/Vuln_Plugins/'
 exp_plugins_dir = './Plugins/Exp_Plugins/'
 log_file_dir = './Logs/'
@@ -107,21 +104,21 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         self.Ui.action_about_.triggered.connect(self.about)
         self.Ui.action_update_.triggered.connect(self.version_update)
         self.Ui.action_fankui_.triggered.connect(self.ideas)  # 意见反馈
-        self.Ui.action_default.triggered.connect(lambda: self.change_pifu("默认风格"))  # 明亮皮肤
-        self.Ui.action_mingliang.triggered.connect(lambda: self.change_pifu("明亮风格"))  # 明亮皮肤
-        self.Ui.action_anhei.triggered.connect(lambda: self.change_pifu("暗黑风格"))  # 暗黑皮肤
+        # self.Ui.action_default.triggered.connect(lambda: self.change_pifu("默认风格"))  # 明亮皮肤
+        # self.Ui.action_mingliang.triggered.connect(lambda: self.change_pifu("明亮风格"))  # 明亮皮肤
+        # self.Ui.action_anhei.triggered.connect(lambda: self.change_pifu("暗黑风格"))  # 暗黑皮肤
 
         # 漏洞利用
         self.Ui.vuln_exp_button_cmd.clicked.connect(lambda: self.exp_send('cmd'))
         self.Ui.vuln_exp_button_shell.clicked.connect(lambda: self.exp_send('shell'))
         self.Ui.vuln_exp_button_uploadfile.clicked.connect(lambda: self.exp_send('uploadfile'))
-        self.Ui.vuln_type.activated[str].connect(self.change_exp_list)
-        self.Ui.vuln_name.activated[str].connect(self.change_exp_name_change)
-        self.Ui.vuln_exp_comboBox_shell.activated[str].connect(self.change_exp_combox)
-        # self.Ui.vuln_exp_button_getfile.clicked.connect(
-        #     lambda: self.import_file(self.Ui.vuln_exp_textEdit_shell, '', self.Ui.vuln_exp_lineEdit_filename))  # 导入地址
+        self.Ui.vuln_type.textActivated[str].connect(self.change_exp_list)
+        self.Ui.vuln_name.textActivated[str].connect(self.change_exp_name_change)
+        self.Ui.vuln_exp_comboBox_shell.textActivated[str].connect(self.change_exp_combox)
+        self.Ui.vuln_exp_button_getfile.clicked.connect(
+            lambda: self.import_file(self.Ui.vuln_exp_textEdit_shell, '', self.Ui.vuln_exp_lineEdit_filename))  # 导入地址
 
-        #
+
         # 漏洞扫描右键菜单
         self.Ui.tableWidget_vuln.doubleClicked.connect(self.open_url)
         self.Ui.tableWidget_vuln.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
@@ -168,7 +165,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         self.proxy_dialog.setWindowIcon(QtGui.QIcon('Conf/main.png'))
         self.proxy_dialog.show()
         self.Proxy_WChild.pushButton_proxy_save.clicked.connect(self.proxy_save)
-        self.Proxy_WChild.comboBox_proxy_type.activated[str].connect(self.change_Proxy_combox_type)
+        self.Proxy_WChild.comboBox_proxy_type.textActivated[str].connect(self.change_Proxy_combox_type)
 
     def change_Proxy_combox_type(self):
         proxy_type = self.Proxy_WChild.comboBox_proxy_type.currentText()
@@ -323,17 +320,17 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         config_setup.read(config_file_dir, encoding='utf-8')
         plugins_version = config_setup.get('Plugins', 'version')
         # print(plugins_version)
-        if 'Skin' not in config_setup:  # 如果分组type不存在则插入type分组
-            config_setup.add_section('Skin')
-            config_setup.set("Skin", "default", '明亮风格')
-            qss_Setup = '明亮风格'
-        else:
-            qss_Setup = config_setup.get('Skin', 'default')
-        self.change_pifu(qss_Setup)
+        # if 'Skin' not in config_setup:  # 如果分组type不存在则插入type分组
+        #     config_setup.add_section('Skin')
+        #     config_setup.set("Skin", "default", '明亮风格')
+        #     qss_Setup = '明亮风格'
+        # else:
+        #     qss_Setup = config_setup.get('Skin', 'default')
+        # self.change_pifu(qss_Setup)
 
 
 
-    def change_pifu(self, q):
+    # def change_pifu(self, q):
         # ['dark_amber.xml',
         #  'dark_blue.xml',
         #  'dark_cyan.xml',
@@ -353,32 +350,32 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         #  'light_red.xml',
         #  'light_teal.xml',
         #  'light_yellow.xml']
-        config_setup.set("Skin", "default", q)
-        if q == "默认风格":
-            app.setStyleSheet('')
+        # config_setup.set("Skin", "default", q)
+        # if q == "默认风格":
+        #     app.setStyleSheet('')
             # apply_stylesheet(app, theme='dark_teal.xml')
-        elif q == "明亮风格":
+        # elif q == "明亮风格":
             # apply_stylesheet(app, theme='light_amber.xml', invert_secondary=True)
             # apply_stylesheet(app, theme='light_blue.xml')
-            app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5', palette=LightPalette()))
-        elif q == "暗黑风格":
-            app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+            # app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5', palette=LightPalette()))
+        # elif q == "暗黑风格":
+        #     app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
         #
         # print(i[1].menu().actions()[4].text())
-        othersmenubar = self.menuBar()  # 获取窗体的菜单栏
-        for i in othersmenubar.actions():
-            # print(i.text())
-            if i.text() == "选项":
-                # sub_action = i()
-                for j in i.menu().actions():
-                    # 输出为关于软件、检查更新、意见反馈、皮肤风格
-                    if j.text() == "皮肤风格":
-                        for k in j.menu().actions():
-                            if k.text() == q:
-                                k.setChecked(True)
-                            else:
-                                k.setChecked(False)
-                        return
+        # othersmenubar = self.menuBar()  # 获取窗体的菜单栏
+        # for i in othersmenubar.actions():
+        #     # print(i.text())
+        #     if i.text() == "选项":
+        #         # sub_action = i()
+        #         for j in i.menu().actions():
+        #             # 输出为关于软件、检查更新、意见反馈、皮肤风格
+        #             if j.text() == "皮肤风格":
+        #                 for k in j.menu().actions():
+        #                     if k.text() == q:
+        #                         k.setChecked(True)
+        #                     else:
+        #                         k.setChecked(False)
+        #                 return
 
     def createtableWidget_vulnMenu(self):
         '''''
@@ -515,7 +512,6 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         # print(all_data)
         # 返回所有选中的数据
         return all_data
-
     # 开始扫描
     def vuln_Start(self):
         try:
@@ -546,6 +542,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         self.Ui.pushButton_vuln_stop.setEnabled(True)
         self.Ui.textEdit_log.clear()
         self.vuln_scan_obj.start()  # 线程启动
+
 
 
     def update_vulnscanner_data(self, data):
@@ -662,15 +659,14 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             root.setText(0, cms)  # 设置根节点的名称
             # root.setCheckState(0, QtCore.Qt.Unchecked)  # 开启复选框
             root.setFlags(
-                QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsDragEnabled | QtCore.Qt.ItemIsDropEnabled | QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsTristate)
-
+                Qt.ItemIsSelectable | Qt.ItemIsDragEnabled | Qt.ItemIsDropEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEnabled | Qt.ItemIsAutoTristate)
             # print(cms_name[cms])
             for cms_single in self.poc_cms_name_dict[cms]:
                 # 为root节点设置子结点
                 child1 = QTreeWidgetItem(root)
                 child1.setText(0, cms_single['vuln_name'])
                 child1.setText(1, cms_single['vuln_file'])
-                child1.setCheckState(0, QtCore.Qt.Unchecked)
+                child1.setCheckState(0, Qt.Unchecked)
         # self.Ui.treeWidget_Plugins.itemChanged.connect(self.handleChanged)
         self.Ui.treeWidget_Plugins.doubleClicked.connect(self.Show_Plugins_info)
         self.Ui.textEdit_log.append(
@@ -1027,7 +1023,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         self.form3_vuln_edit.show()
         for cms_name in cms_name_data:
             self.widget_vuln_edit.comboBox_vuln_cms.addItem(cms_name[0])
-        self.highlighter = PythonHighlighter(self.widget_vuln_edit.vuln_exp_textEdit_shell.document())
+        # self.highlighter = PythonHighlighter(self.widget_vuln_edit.vuln_exp_textEdit_shell.document())
         f = open(vuln_plugins_template, 'r', encoding='utf-8')
         data = f.read()
         f.close()
@@ -1145,7 +1141,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             self.form3_vuln_edit.setWindowIcon(QtGui.QIcon('Conf/main.png'))
             self.form3_vuln_edit.show()
             self.widget_vuln_edit.comboBox_vuln_cms.addItem(cms_name_data[0]['cms_name'])
-            self.highlighter = PythonHighlighter(self.widget_vuln_edit.vuln_exp_textEdit_shell.document())
+            # self.highlighter = PythonHighlighter(self.widget_vuln_edit.vuln_exp_textEdit_shell.document())
             self.widget_vuln_edit.vuln_exp_textEdit_shell.setText(data)
             self.widget_vuln_edit.label_vuln_id.setText(str(self.com_plugins_edit_id))
             self.widget_vuln_edit.lineEdit_vuln_file.setText(cms_name_data[0]['vuln_file'])
@@ -1760,7 +1756,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
 
 # 重新向输出
 class EmittingStream(QtCore.QObject):
-    textWritten = QtCore.pyqtSignal(str)
+    textWritten = QtCore.Signal(str)
 
     def write(self, text):
         text = text.strip()
