@@ -23,7 +23,7 @@ PySocks==1.7.1
 pytz==2024.1
 PyYAML==6.0.1
 qrcode==7.3.1
-requests==2.28.2
+requests==2.32.2
 shiboken6==6.5.2
 six==1.16.0
 socks==0
