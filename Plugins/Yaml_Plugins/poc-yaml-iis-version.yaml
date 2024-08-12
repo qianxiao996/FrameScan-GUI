@@ -1,0 +1,23 @@
+name: poc-yaml-iis-version
+transport: http
+rules:
+  r1:
+    request:
+      method: GET
+      path: /test_version/iis
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: |
+      operator.contains(str(response.headers.get('Server')),'Microsoft-IIS/')
+    output:
+      version_headers: "{{response.headers.get('Server')}}"
+output: $version_headers
+expression: r1()
+detail:
+  name: 'IIS版本号泄露漏洞'
+  group: 敏感信息泄露
+  category: IIS
+  author: qianxiao996
+  vuln_id: 无
+  description: 'IIS版本号泄露漏洞'
+  links: []

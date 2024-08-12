@@ -1,0 +1,24 @@
+name: poc-yaml-nginx-version
+transport: http
+rules:
+  r1:
+    request:
+      method: GET
+      path: /test_version/nginx
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: |
+      re.search('nginx/\d{0,3}.\d{0,3}.\d{0,3}',response.text) || operator.contains(str(response.headers.get('Server')),'nginx/')
+    output:
+      version_body: "{{re.search('nginx/\\d{0,3}.\\d{0,3}.\\d{0,3}',response.text).group() if re.search('nginx/\\d{0,3}.\\d{0,3}.\\d{0,3}',response.text) else ''}}"
+      version_headers: "{{response.headers.get('Server')}}"
+output: "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers"
+expression: r1()
+detail:
+  name: 'Nginx版本号泄露漏洞'
+  author: qianxiao996
+  group: 敏感信息泄露
+  category: Nginx
+  vuln_id: 无
+  description: 'Nginx版本号泄露漏洞'
+  links: []

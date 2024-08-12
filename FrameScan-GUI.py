@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # -*- coding: UTF-8 -*-
 import base64
 import configparser
@@ -6,6 +5,7 @@ import datetime
 import importlib
 import json
 import shutil
+import yaml
 import os
 import platform
 import socket
@@ -14,11 +14,9 @@ import traceback
 import zipfile
 import socks
 from requests.adapters import HTTPAdapter
-
 sys.path.append('./Modules')
 sys.path.append('./Plugins/Modules')
 sys.path.append('./Gui')
-
 if hasattr(sys, 'frozen'):
     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
 from PySide6 import QtWidgets, QtCore, QtGui
@@ -32,19 +30,19 @@ from Gui.Vuln_Edit import Ui_Form_Vuln_Edit
 from Gui.Proxy import Ui_Proxy
 from Gui.Server import Ui_Server
 import pyperclip
-from Modules  import frozen_dir
+# from Modules  import frozen_dir
 from Modules.Vuln_Scanner import Vuln_Scanner
 from Modules.Vuln_Exp import Vuln_Exp
-# from Modules.PythonHighlighter import PythonHighlighter
 import logging
 import webbrowser
-# os.environ["QT_FONT_DPI"] = "150"
-SETUP_DIR = frozen_dir.app_path()+"/"
+os.environ["QT_FONT_DPI"] = "150"
+SETUP_DIR = os.path.abspath('.')+"/"
 sys.path.append(SETUP_DIR)
 sys.path.append('./Modules')
 DB_NAME = './Conf/DB.db'
-version = '1.4.3'
+version = '1.4.4'
 vuln_plugins_dir = './Plugins/Vuln_Plugins/'
+yaml_plugins_dir = './Plugins/Yaml_Plugins/'
 exp_plugins_dir = './Plugins/Exp_Plugins/'
 log_file_dir = './Logs/'
 config_file_dir = './Conf/config.ini'
@@ -58,9 +56,8 @@ if (sysstr == "Windows"):
     houzhui = '.pyd'
 elif (sysstr == "Linux"):
     houzhui = '.so'
-plugins_ext = ['.py', '.pyc']
+plugins_ext = ['.py','yaml', '.pyc']
 plugins_ext.append(houzhui)
-
 
 class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
     def __init__(self, parent=None):
@@ -253,10 +250,15 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                                 self.Proxy_port))
     ## @detail 创建logger类
     def __BuildLogger(self):
+        log_file_path =  log_file_dir + "FrameScan.log"
+        if not os.path.exists(log_file_path):
+            file = open(log_file_path)
+            print("日志文件不存在，创建"+log_file_path)
+            file.close()
         logger = logging.getLogger(__file__)
         logger.setLevel(logging.DEBUG)
         # 建立一个filehandler来把日志记录在文件里，级别为debug以上
-        fh = logging.FileHandler(log_file_dir + "FrameScan.log")
+        fh = logging.FileHandler(log_file_path)
         fh.setLevel(logging.DEBUG)
         # 建立一个streamhandler来把日志打在CMD窗口上，级别为error以上
         ch = logging.StreamHandler()
@@ -534,7 +536,9 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             return
         # print(target)
         poc_data = self.get_methods()  # 得到选中的数据
-        self.vuln_scan_obj = Vuln_Scanner(vuln_plugins_dir, self.__Logger, timeout, jump_url, jump_fofa, threadnum,
+
+
+        self.vuln_scan_obj = Vuln_Scanner(os.path.abspath(vuln_plugins_dir),os.path.abspath(yaml_plugins_dir), self.__Logger, timeout, jump_url, jump_fofa, threadnum,
                                           heads, target, poc_data,self.plugins_temp_data)
         self.vuln_scan_obj._data.connect(self.update_vulnscanner_data)  # 线程发过来的信号挂接到槽函数update_sum
         # self.Ui.pushButton_vuln_file.setEnabled(False)
@@ -619,8 +623,8 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 (time.strftime('%H:%M:%S', time.localtime(time.time())))))
         self.Ui.pushButton_vuln_start.setEnabled(True)
         self.vuln_scan_obj.vuln_portQueue.queue.clear()
-        self.vuln_scan_obj=""
-        self.exp_send_obj= ""
+        # self.vuln_scan_obj=""
+        # self.exp_send_obj= ""
         # 初始化加载vuln插件
 
     def load_vuln_plugins(self):
@@ -1127,10 +1131,13 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
         if self.com_plugins_edit_id:
             sql = 'SELECT distinct * from vuln_poc where id=' + str(self.com_plugins_edit_id)
             cms_name_data = self.sql_search(sql, 'dict')
-            plugins = vuln_plugins_dir + cms_name_data[0]['cms_name'] + '/' + cms_name_data[0]['vuln_file'] + '.py'
-            if os.path.splitext(plugins)[-1] != '.py':
+            if cms_name_data[0]['vuln_file'].endswith(".yaml"):
+                plugins = yaml_plugins_dir  + '/' + cms_name_data[0]['vuln_file']
+            else:
+                plugins = vuln_plugins_dir + cms_name_data[0]['cms_name'] + '/' + cms_name_data[0]['vuln_file'] + '.py'
+            if os.path.splitext(plugins)[-1] != '.py' and os.path.splitext(plugins)[-1] != '.yaml':
                 box = QtWidgets.QMessageBox()
-                box.information(self.form2, "Error", "此插件非py脚本格式！")
+                box.information(self.form2, "Error", "此插件非py或yaml脚本格式！")
                 return
             f = open(plugins, 'r', encoding='utf-8')
             data = f.read()
@@ -1160,29 +1167,61 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 if not os.path.exists(vuln_plugins_dir + '/' + cms_name):
                     os.makedirs(vuln_plugins_dir + '/' + cms_name)
                 else:
-                    if fine_name[:8] != "Plugins_":
-                        fine_name = 'Plugins_' + fine_name
-                    if not fine_name.endswith('.py'):
+                    if fine_name[:8] != "Plugins_" and not fine_name.startswith("poc-yaml"):
+                        box = QtWidgets.QMessageBox()
+                        box.information(self.form2, "Error", "插件应以Plugins_或poc-yaml开头！")
+                        return
+                    if fine_name.startswith("poc-yaml"):
+                        insert_file_name = fine_name
+                        plugins_filename = yaml_plugins_dir +'/' + fine_name
+                        data = yaml.load(plugins_text, Loader=yaml.FullLoader)
+                        cms_name   = data.get("detail").get("category")
+                        if  data.get("detail").get("name"):
+                            vuln_name = data.get("detail").get("name")
+                        else:
+                            vuln_name =  data.get("name") 
+                        vuln_class = data.get("detail").get("category")
+                        vuln_author = data.get("detail").get("author")
+                        vuln_referer = str(data.get("detail").get("links"))
+                        vuln_description = str(data.get("detail").get("description"))
+                        vuln_identifier = str(data.get("detail").get("identifier"))
+                        vuln_solution = str(data.get("detail").get("solution"))
+                        is_poc = True
+                        is_exp = False            
+                        FofaQuery_link="/"
+                        FofaQuery_rule=""
+                    else:
+                        insert_file_name = fine_name
                         fine_name = fine_name + '.py'
-                    plugins_filename = vuln_plugins_dir + '/' + cms_name + '/' + fine_name
+                        plugins_filename = vuln_plugins_dir + '/' + cms_name + '/' + fine_name
+                        nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(plugins_filename[:-3],
+                                                                        plugins_filename).load_module()
+                        vuln_info = nnnnnnnnnnnn1.vuln_info()
+                        vuln_name =  vuln_info['vuln_name']
+                        vuln_author=vuln_info['vuln_author']
+                        vuln_referer=vuln_info['vuln_referer']
+                        vuln_description=vuln_info['vuln_description']
+                        vuln_identifier=vuln_info['vuln_identifier']
+                        vuln_solution=vuln_info['vuln_solution']
+                        is_poc = vuln_info['ispoc']
+                        is_exp = vuln_info['isexp']
+
+                        if vuln_info.get('vuln_class'):
+                            vuln_class = vuln_info.get('vuln_class')
+                        else:
+                            vuln_class = '未分类'
+                        if vuln_info.get('FofaQuery_link'):
+                            FofaQuery_link = (vuln_info.get('FofaQuery_link'))
+                        else:
+                            FofaQuery_link = '/'
+                        if vuln_info.get('FofaQuery_rule'):
+                            FofaQuery_rule = vuln_info.get('FofaQuery_rule')
+                        else:
+                            FofaQuery_rule = ''
                     f = open(plugins_filename, 'w', encoding='utf-8')
                     f.write(plugins_text)
                     f.close()
-                    nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(plugins_filename[:-3],
-                                                                         plugins_filename).load_module()
-                    vuln_info = nnnnnnnnnnnn1.vuln_info()
-                    if vuln_info.get('vuln_class'):
-                        vuln_class = vuln_info.get('vuln_class')
-                    else:
-                        vuln_class = '未分类'
-                    if vuln_info.get('FofaQuery_link'):
-                        FofaQuery_link = (vuln_info.get('FofaQuery_link'))
-                    else:
-                        FofaQuery_link = '/'
-                    if vuln_info.get('FofaQuery_rule'):
-                        FofaQuery_rule = vuln_info.get('FofaQuery_rule')
-                    else:
-                        FofaQuery_rule = ''
+
                     insert_sql = 'insert into vuln_poc  (id,cms_name,vuln_file,vuln_name,vuln_author,vuln_referer,vuln_description,vuln_identifier,vuln_solution,ispoc,isexp,vuln_class,FofaQuery_link,FofaQuery_rule) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
                     conn = sqlite3.connect(DB_NAME)
                     # 创建一个游标 curson
@@ -1193,11 +1232,9 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                     # print(id_values[0][0])
                     # 将数据插入到表中
                     cursor.execute(insert_sql, (
-                        str(int(id_values[0][0]) + 1), cms_name, fine_name[:-3], vuln_info['vuln_name'],
-                        vuln_info['vuln_author'],
-                        vuln_info['vuln_referer'], vuln_info['vuln_description'],
-                        vuln_info['vuln_identifier'], vuln_info['vuln_solution'], vuln_info['ispoc'],
-                        vuln_info['isexp'], vuln_class, FofaQuery_link, FofaQuery_rule))
+                        str(int(id_values[0][0]) + 1), cms_name,insert_file_name,vuln_name,vuln_author
+                        ,vuln_referer, vuln_description,vuln_identifier, vuln_solution,is_poc,
+                        is_exp, vuln_class, FofaQuery_link, FofaQuery_rule))
                     conn.commit()  # 提交
                     cursor.close()
                     conn.close()
@@ -1212,6 +1249,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 box = QtWidgets.QMessageBox()
                 box.information(self.form3_vuln_edit, "Error", "请输入插件名称！")
         except Exception as e:
+            self.__Logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
             box = QtWidgets.QMessageBox()
             box.information(self.form3_vuln_edit, "Error", "保存失败\n！" + str(e))
 
@@ -1297,60 +1335,14 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             return 0
         try:
             id = 1
-            all_plugins = self.get_dir_file(vuln_plugins_dir)
-            # print(all_plugins)
-            go_load_plugins = []  # 存放已经加载的模块
-
-            for poc in all_plugins:
-                try:
-                    if os.path.splitext(poc['poc_file_name'])[-1] in plugins_ext:
-                        if os.path.splitext(poc['poc_file_name'])[-1] == '.py':
-                            nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(
-                                os.path.splitext(poc['poc_file_name'])[0],
-                                poc['poc_file_path']).load_module()
-                        elif os.path.splitext(poc['poc_file_name'])[-1] in ['.pyc', '.pyd', '.so']:
-                            if os.path.splitext(poc['poc_file_name'])[0] in go_load_plugins:
-                                continue
-                            module_spec = importlib.util.spec_from_file_location(
-                                os.path.splitext(poc['poc_file_name'])[0], poc['poc_file_path'])
-                            nnnnnnnnnnnn1 = importlib.util.module_from_spec(module_spec)
-                            module_spec.loader.exec_module(nnnnnnnnnnnn1)
-                        vuln_info = nnnnnnnnnnnn1.vuln_info()
-                        if vuln_info.get('vuln_class'):
-                            vuln_class = vuln_info.get('vuln_class')
-                        else:
-                            vuln_class = '未分类'
-                        if vuln_info.get('FofaQuery_type'):
-                            FofaQuery_type = vuln_info.get('FofaQuery_type')
-                        else:
-                            FofaQuery_type = 'http'
-                        if vuln_info.get('FofaQuery_link'):
-                            FofaQuery_link = (vuln_info.get('FofaQuery_link'))
-                        else:
-                            FofaQuery_link = '/'
-
-                        if vuln_info.get('FofaQuery_rule'):
-                            FofaQuery_rule = vuln_info.get('FofaQuery_rule')
-                        else:
-                            FofaQuery_rule = ''
-                        insert_sql = 'insert into vuln_poc  (id,cms_name,vuln_file,vuln_name,vuln_author,vuln_referer,vuln_description,vuln_identifier,vuln_solution,ispoc,isexp,vuln_class,FofaQuery_type,FofaQuery_link,FofaQuery_rule) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
-
-                        # 将数据插入到表中
-                        cursor.execute(insert_sql, (
-                            id, poc['cms_name'], os.path.splitext(poc['poc_file_name'])[0], vuln_info['vuln_name'],
-                            vuln_info['vuln_author'],
-                            vuln_info['vuln_referer'], vuln_info['vuln_description'],
-                            vuln_info['vuln_identifier'], vuln_info['vuln_solution'], vuln_info['ispoc'],
-                            vuln_info['isexp'], vuln_class, FofaQuery_type, FofaQuery_link, FofaQuery_rule))
-                        id = id + 1
-                        go_load_plugins.append(os.path.splitext(poc['poc_file_name'])[0])
-                except Exception as  e:
-                    self.__Logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
-                    self.Ui.textEdit_log.append(
-                        "<a  style=\"color:red\">[%s]Error:%s脚本执行错误！<br>[Exception]:<br>%s</a>" % (
-                            (time.strftime('%H:%M:%S', time.localtime(time.time()))), poc['poc_file_name'], e))
-                    continue
-                conn.commit()  # 提交
+            id,all_poc = self.Reload_POC_Python(id)
+            id,all_yaml_poc = self.Reload_POC_Yaml(id)
+            all_poc += all_yaml_poc
+            insert_sql = 'insert into vuln_poc  (id,cms_name,vuln_file,vuln_name,vuln_author,vuln_referer,vuln_description,vuln_identifier,vuln_solution,ispoc,isexp,vuln_class,FofaQuery_type,FofaQuery_link,FofaQuery_rule) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+            for i in all_poc:
+                # 将数据插入到表中
+                cursor.execute(insert_sql,i)
+            conn.commit()  # 提交
             # print(result)
             cursor.execute("select count(ispoc) from vuln_poc where ispoc =1")
             poc_num = cursor.fetchall()
@@ -1376,7 +1368,98 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 "<a  style=\"color:red\">[%s]Error:数据写入失败！\n[Exception]:\n%s</a>" % (
                     (time.strftime('%H:%M:%S', time.localtime(time.time()))), e))
             return 0
+    def Reload_POC_Yaml(self,id):
+        all_plugins = []
+        plugins_path = yaml_plugins_dir.replace("\\", "/")
+        for root, dirs, files in os.walk(plugins_path):
+            for poc_file_name in files:
+                poc_name_path = root + "\\" + poc_file_name
+                poc_name_path = poc_name_path.replace("\\", "/")
+                # 判断是py文件在打开  文件存在
+                # print(poc_file_name[:8])
+                if poc_file_name.startswith("poc-yaml") and poc_file_name.endswith(".yaml"):
+                    try:
+                        f= open(poc_name_path, 'r', encoding='utf-8')
+                        data = yaml.load(stream=f, Loader=yaml.FullLoader)
+                        f.close()
+                        cms_name   = data.get("detail").get("category")
+                        if  data.get("detail").get("name"):
+                            vuln_name = data.get("detail").get("name")
+                        else:
+                            vuln_name =  data.get("name") 
+                        poc_file_path = poc_file_name
+                                        # 将数据插入到表中
+                        id+=1
+                        vuln_class = data.get("detail").get("category")
+                        vuln_author = data.get("detail").get("author")
+                        vuln_referer = str(data.get("detail").get("links"))
+                        vuln_description = str(data.get("detail").get("description"))
+                        vuln_identifier = str(data.get("detail").get("identifier"))
+                        vuln_solution = str(data.get("detail").get("solution"))
+                        single_data = [
+                            id, cms_name, poc_file_path , vuln_name,vuln_author,vuln_referer, vuln_description,
+                            vuln_identifier, vuln_solution, True,
+                            False, vuln_class, "", "", ""]
+                        all_plugins.append(single_data)
+                    except Exception as e:
+                        self.Ui.textEdit_log.append(
+                            "<a  style=\"color:red\">[%s]Error:数据写入失败！\n[Exception]:\n%s</a>" % (
+                                (time.strftime('%H:%M:%S', time.localtime(time.time()))), e))
+                        continue
+        return id,all_plugins
+    def Reload_POC_Python(self,id):
+        all_plugins = self.get_dir_file(vuln_plugins_dir)
+        # print(all_plugins)
+        go_load_plugins = []  # 存放已经加载的模块
 
+        for poc in all_plugins:
+            try:
+                if os.path.splitext(poc['poc_file_name'])[-1] in plugins_ext:
+                    if os.path.splitext(poc['poc_file_name'])[-1] == '.py':
+                        nnnnnnnnnnnn1 = importlib.machinery.SourceFileLoader(
+                            os.path.splitext(poc['poc_file_name'])[0],
+                            poc['poc_file_path']).load_module()
+                    elif os.path.splitext(poc['poc_file_name'])[-1] in ['.pyc', '.pyd', '.so']:
+                        if os.path.splitext(poc['poc_file_name'])[0] in go_load_plugins:
+                            continue
+                        module_spec = importlib.util.spec_from_file_location(
+                            os.path.splitext(poc['poc_file_name'])[0], poc['poc_file_path'])
+                        nnnnnnnnnnnn1 = importlib.util.module_from_spec(module_spec)
+                        module_spec.loader.exec_module(nnnnnnnnnnnn1)
+                    vuln_info = nnnnnnnnnnnn1.vuln_info()
+                    if vuln_info.get('vuln_class'):
+                        vuln_class = vuln_info.get('vuln_class')
+                    else:
+                        vuln_class = '未分类'
+                    if vuln_info.get('FofaQuery_type'):
+                        FofaQuery_type = vuln_info.get('FofaQuery_type')
+                    else:
+                        FofaQuery_type = 'http'
+                    if vuln_info.get('FofaQuery_link'):
+                        FofaQuery_link = (vuln_info.get('FofaQuery_link'))
+                    else:
+                        FofaQuery_link = '/'
+
+                    if vuln_info.get('FofaQuery_rule'):
+                        FofaQuery_rule = vuln_info.get('FofaQuery_rule')
+                    else:
+                        FofaQuery_rule = ''
+                    # 将数据插入到表中
+                    single_data = [
+                        id, poc['cms_name'], os.path.splitext(poc['poc_file_name'])[0], vuln_info['vuln_name'],
+                        vuln_info['vuln_author'],
+                        vuln_info['vuln_referer'], vuln_info['vuln_description'],
+                        vuln_info['vuln_identifier'], vuln_info['vuln_solution'], vuln_info['ispoc'],
+                        vuln_info['isexp'], vuln_class, FofaQuery_type, FofaQuery_link, FofaQuery_rule]
+                    id = id + 1
+                    go_load_plugins.append(single_data)
+            except Exception as  e:
+                self.__Logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
+                self.Ui.textEdit_log.append(
+                    "<a  style=\"color:red\">[%s]Error:%s脚本执行错误！<br>[Exception]:<br>%s</a>" % (
+                        (time.strftime('%H:%M:%S', time.localtime(time.time()))), poc['poc_file_name'], e))
+                continue
+        return id,go_load_plugins
     def vuln_exp(self):
         if self.Ui.tableWidget_vuln.selectedItems():
             url = self.Ui.tableWidget_vuln.selectedItems()[0].text()
@@ -1485,8 +1568,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
             data['filename'] = filename
             data['filename_contents'] = shell_neirong
         self.exp_flag_type = data['type']
-
-        self.exp_send_obj = Vuln_Exp(exp_path, url, heads_dict, data,self.plugins_temp_data)  # 创建一个线程
+        self.exp_send_obj = Vuln_Exp(os.path.abspath(exp_path), url, heads_dict, data,self.plugins_temp_data)  # 创建一个线程
         self.exp_send_obj._data.connect(self.update_data_exp)  # 线程发过来的信号挂接到槽函数update_sum
         self.Ui.vuln_exp_button_shell.setEnabled(False)
         self.Ui.vuln_exp_button_cmd.setEnabled(False)
@@ -1520,10 +1602,10 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
                 if self.exp_flag_type == 'cmd':
                     # self.Ui.textEdit_result.append(result.get("Result_Info"))
                     self.Ui.textEdit_result.append(
-                        "[%s]执行结果:\n%s" % (time.strftime('%H:%M:%S'), result.get("Result_Info")))
+                        "[%s]执行结果:\n%s" % (time.strftime('%H:%M:%S'), str(result.get("Result_Info"))))
                 else:
                     self.Ui.vuln_exp_textEdit_log.append(
-                        "[%s]执行结果:%s" % (time.strftime('%H:%M:%S'), result.get("Result_Info")))
+                        "[%s]执行结果:%s" % (time.strftime('%H:%M:%S'), str(result.get("Result_Info"))))
             else:
             # 不存在
                 self.Ui.vuln_exp_textEdit_log.append(
@@ -1562,7 +1644,7 @@ class MainWindows(QtWidgets.QMainWindow, Ui_MainWindow):  # 主窗口
     # 意见反馈
     def ideas(self):
         box = QtWidgets.QMessageBox()
-        box.setIcon(1)
+        # box.setIcon(1)
         box.about(self, "意见反馈", "作者邮箱：qianxiao996@126.com\n作者主页：http://qianxiao996.cn")
 
     # 全选

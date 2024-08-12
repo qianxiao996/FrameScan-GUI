@@ -1,0 +1,44 @@
+name: poc-yaml-test
+transport: http
+rules:
+  r1:
+    request:
+      method: GET
+      path: /
+      body: addd $num
+      headers:
+        Content-Type: application/json
+    expression: |
+      response.status_code==200 && operator.contains(str(response.text),'html')
+    output:
+      serial: re.search('\w+',response.text).group()
+      html: re.search('refresh',response.text).group()
+  r2:
+    request:
+      method: GET
+      path: /
+      body: aaa $html aaaa
+      headers:
+        Content-Type: application/json $html
+    expression: |
+      response.status_code==300 && operator.contains(response.text,'html')
+    output:
+      serial: re.search('\w+',response.text).group()
+      html: re.search('refresh',response.text).group()
+output: 卧槽{{re.search('\w+',response.text).group()}} $num
+expression: r1() && r2()
+detail:
+  name: 测试漏洞
+  author: qianxiao996
+  vuln_id: cve-2019-2222
+  group: 敏感信息泄露
+  category: ALL
+  description: '111'
+  links:
+    - http://example.com
+set:
+  a: "''.join(random.sample(string.ascii_lowercase, 10))"
+  num: randint(1000, 2000)
+
+
+

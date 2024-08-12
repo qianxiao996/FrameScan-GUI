@@ -1,0 +1,23 @@
+name: poc-yaml-apache-version
+transport: http
+rules:
+  r1:
+    request:
+      method: GET
+      path: /test_version/apache
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: |
+      operator.contains(str(response.headers.get('Server')),'Apache/')
+    output:
+      version_Server: "{{response.headers.get('Server')}}"
+output: $version_Server
+expression: r1()
+detail:
+  name: 'Apache版本号泄露漏洞'
+  group: 敏感信息泄露
+  category: Apahce
+  author: qianxiao996
+  vuln_id: 无
+  description: 'apache版本号泄露漏洞'
+  links: []

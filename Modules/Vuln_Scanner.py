@@ -1,5 +1,4 @@
-from Modules  import frozen_dir
-SETUP_DIR = frozen_dir.app_path()
+import sys
 import json
 import queue
 import os
@@ -8,20 +7,23 @@ from socket import *
 from urllib.parse import urlparse
 import inspect
 from Modules import Public
-from Modules  import BaseInfo
-from Modules  import CyberCalculate
+from Modules import BaseInfo
+from Modules import CyberCalculate
 import eventlet
 from PySide6.QtCore import QThread, Signal
+from Modules.Class_Poc import Class_Poc
+import yaml
 
 class Vuln_Scanner(QThread):
     _data = Signal(dict)  # 信号类型 str  更新table
 
-    def __init__(self, plugins_dir_name, logger, timeout, jump_url, jump_fofa, threadnum, heads, target, poc_data,
+    def __init__(self,plugins_dir_name,yaml_plugins_dir_name, logger, timeout, jump_url, jump_fofa, threadnum, heads, target, poc_data,
                  plugins_temp_data, parent=None):
         super(Vuln_Scanner, self).__init__(parent)
         self.timeout = timeout
         self.vuln_portQueue = queue.Queue()
         self.plugins_dir_name = plugins_dir_name
+        self.yaml_plugins_dir_name = yaml_plugins_dir_name
         self.logger = logger
         self.jump_url = jump_url
         self.jump_fofa = jump_fofa
@@ -90,9 +92,13 @@ class Vuln_Scanner(QThread):
                 hostname_port_scheme = self.get_port(u)
                 url = hostname_port_scheme[0]
                 for xuanzhong_data in self.poc_data:
-                    # print(xuanzhong_data)
-                    filename = self.plugins_dir_name + '/' + xuanzhong_data['cms_name'] + '/' + xuanzhong_data[
+                    if xuanzhong_data['vuln_file'].endswith('.yaml'):
+                        filename = self.yaml_plugins_dir_name + '/' + xuanzhong_data[
                         'vuln_file']
+                    else:
+                        filename = self.plugins_dir_name + '/' + xuanzhong_data['cms_name'] + '/' + xuanzhong_data[
+                        'vuln_file']
+                    
                     # url  filename heads poc fofa_link  fofa  check_fofa
                     if not xuanzhong_data.get('FofaQuery_type'):
                         xuanzhong_data['FofaQuery_type'] = 'socket'
@@ -118,7 +124,11 @@ class Vuln_Scanner(QThread):
                         if result:
                             for xuanzhong_data in self.poc_data:
                                 # print(poc_data)
-                                filename = self.plugins_dir_name + '/' + xuanzhong_data['cms_name'] + '/' + \
+                                if xuanzhong_data['vuln_file'].endswith('.yaml'):
+                                    filename = self.plugins_dir_name + '/' + xuanzhong_data['cms_name'] + '/' + xuanzhong_data[
+                                    'vuln_file']
+                                else:
+                                    filename = self.plugins_dir_name + '/' + xuanzhong_data['cms_name'] + '/' + \
                                            xuanzhong_data['vuln_file']
                                 self.vuln_portQueue.put(
                                     u + '$$$' + filename + '$$$' + json.dumps(self.heads) + '$$$' + xuanzhong_data[
@@ -160,7 +170,6 @@ class Vuln_Scanner(QThread):
             for i in self.thread_list:
                 i.join()
             self._update_log("扫描结束!")
-
 
 
     def vuln_scan(self):
@@ -265,9 +274,30 @@ class Vuln_Scanner(QThread):
                 self._update_log(
                     "Error:%s脚本执行错误！<br>[Exception]:<br>%s" % (filename, str(e)))
                 continue
-
-    def scan_gogogogo(self, filename, url, hostname, port, scheme, heads_dict):
-        filename = (SETUP_DIR +'/'+ filename).replace("\\","//")
+    def vuln_scan_yaml(self,poc_filename, url, hostname, port, scheme, heads_dict):
+        try:
+            f=open(poc_filename,"r",encoding="utf-8")
+            poc = yaml.load(f,Loader=yaml.FullLoader)
+            f.close()
+            poc_obj  = Class_Poc(url,poc,timeout,False)
+            result = poc_obj.main()
+            poc_info = {
+                'url': url,
+                'path': poc_filename,
+                'cms_name': poc.get("detail").get('category')
+            }
+            vuln_info={
+                "vuln_name":poc.get("detail").get('name')
+                }
+            ret_result = {
+                "Result":result.get("result"),
+                "Result_Info":result.get("others"),
+            }
+            self.scan_result_out(ret_result, vuln_info, poc_info)
+        except Exception as e:
+            self.logger.error(str(e) + '----' + str(e.__traceback__.tb_lineno) + '行')
+            return
+    def vuln_scan_python(self,filename, url, hostname, port, scheme, heads_dict):
         nnnnnnnnnnnn1 = Public.get_obj_by_path(filename)
         if nnnnnnnnnnnn1:
             vuln_info = nnnnnnnnnnnn1.vuln_info()
@@ -285,12 +315,21 @@ class Vuln_Scanner(QThread):
                 result = {"Result": False, "Result_Info": ""}
             self.scan_result_out(result, vuln_info, poc_info)
         else:
-            self.scan_log_out("Error",filename+" 该模块未找到！")
+            self._update_log(filename + " 该模块未找到！")
+    def scan_gogogogo(self, filename, url, hostname, port, scheme, heads_dict):
+        filename = (filename).replace("\\", "//")
+        if  filename.endswith(".yaml"):
+            self.vuln_scan_yaml(filename, url, hostname, port, scheme, heads_dict)
+        else:
+            self.vuln_scan_python(filename, url, hostname, port, scheme, heads_dict)
 
+
+        
 
     def _update_log(self, info):
         result = {"type": "log", "log_info": str(info)}
         self._data.emit(result)
+
 
     def scan_log_out(self, log_type='Debug', log_info=""):
         caller = inspect.stack()
@@ -298,7 +337,7 @@ class Vuln_Scanner(QThread):
         # 获取所有请求值
         localvars = caller_methos.f_locals
         file_path = caller[1][1]
-        file_path =  os.path.splitext(file_path)[0]
+        file_path = os.path.splitext(file_path)[0]
         nnnnnnnnnnnn1 = Public.get_obj_by_path(file_path)
         if nnnnnnnnnnnn1:
             vuln_info = nnnnnnnnnnnn1.vuln_info()
@@ -322,11 +361,11 @@ class Vuln_Scanner(QThread):
         result = {
             "type": "result",
             'result': result_dict.get('Result'),
-            'result_info': result_dict.get('Result_Info'),
-            'url': poc_info['url'],
-            'poc_file': poc_info['path'],
-            'cms_name': poc_info.get('cms_name'),
-            'poc_name': vuln_info.get('vuln_name')
+            'result_info': str(result_dict.get('Result_Info')),
+            'url': str(poc_info['url']),
+            'poc_file': str(poc_info['path']),
+            'cms_name': str(poc_info.get('cms_name')),
+            'poc_name': str(vuln_info.get('vuln_name'))
         }
         self._data.emit(result)
 

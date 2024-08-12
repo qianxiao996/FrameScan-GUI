@@ -10747,4 +10747,561 @@ AttributeError: 'str' object has no attribute 'globalMatch'
 2023-04-07 10:26:39 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com/ test|POC测试漏洞
 2023-04-07 10:26:57 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 253 module 'E:\code\Python37\obj\FrameScan-GUI\Modules\Vuln_Scanner' has no attribute 'vuln_info'----250行
 2023-04-07 10:27:31 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com/ test|POC测试漏洞
-2023-04-07 10:39:43 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com/ test|POC测试漏洞
+2023-04-07 15:41:10 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com/ test|POC测试漏洞
+2023-04-07 15:47:25 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com test|POC测试漏洞
+2023-04-07 15:48:44 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com test|POC测试漏洞
+2023-04-07 15:49:17 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com/ test|POC测试漏洞
+2023-04-07 15:50:12 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com/ test|POC测试漏洞
+2023-07-13 10:37:38 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://121.36.245.131 泛微OA|E-cology uploadOperation.jsp文件上传漏洞
+2023-07-13 10:40:46 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://121.36.245.131 泛微OA|E-cology uploadOperation.jsp文件上传漏洞
+2023-07-13 10:41:26 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://121.36.245.131 泛微OA|E-cology uploadOperation.jsp文件上传漏洞
+2023-07-13 10:41:42 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://121.36.245.131 泛微OA|E-cology uploadOperation.jsp文件上传漏洞
+2023-07-13 10:42:06 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://121.36.245.131/ 泛微OA|E-cology uploadOperation.jsp文件上传漏洞
+2023-07-13 10:42:33 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://121.36.245.131 泛微OA|E-cology uploadOperation.jsp文件上传漏洞
+2023-07-13 10:43:09 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://121.36.245.131 泛微OA|E-cology uploadOperation.jsp文件上传漏洞
+2023-07-13 10:43:37 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://121.36.245.131 泛微OA|E-cology FileDownloadForOutDoc SQL Injection
+2023-07-13 10:44:22 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://121.36.245.131 泛微OA|E-cology FileDownloadForOutDoc SQL Injection
+2023-07-13 10:44:33 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 615 'PySide6.QtWidgets.QTableWidgetItem.__init__' called with wrong argument types:
+  PySide6.QtWidgets.QTableWidgetItem.__init__(CaseInsensitiveDict)
+Supported signatures:
+  PySide6.QtWidgets.QTableWidgetItem.__init__(Union[PySide6.QtGui.QIcon, PySide6.QtGui.QPixmap], str, int = <ItemType.Type: 0>)
+  PySide6.QtWidgets.QTableWidgetItem.__init__(PySide6.QtWidgets.QTableWidgetItem)
+  PySide6.QtWidgets.QTableWidgetItem.__init__(str, int = <ItemType.Type: 0>)
+  PySide6.QtWidgets.QTableWidgetItem.__init__(int = <ItemType.Type: 0>)----593行
+2023-07-13 10:44:49 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://121.36.245.131 泛微OA|E-cology FileDownloadForOutDoc SQL Injection
+2023-08-01 15:25:48 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://bore.pub:6763/ 通达OA|TongdaOA v2017 action_upload.php File Upload
+2023-08-01 15:39:43 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://bore.pub:6763/ 通达OA|TongdaOA v2017 action_upload.php File Upload
+2023-08-02 10:06:01 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com 360天擎|360天擎client_upload_file远程命令执行
+2023-08-02 10:27:38 - FrameScan-GUI.py - ERROR - 1347 No module named 'bs4'----1309行
+2023-08-02 10:27:38 - FrameScan-GUI.py - ERROR - 1347 No module named 'importlib_metadata'----1309行
+2023-08-02 10:27:38 - FrameScan-GUI.py - ERROR - 1347 No module named 'Crypto'----1309行
+2023-08-02 10:27:52 - FrameScan-GUI.py - INFO - 1712 Timestamp: 2023-08-02 10:27:52
+2023-08-02 10:27:52 - FrameScan-GUI.py - ERROR - 1714 ErrorMessage: Traceback (most recent call last):
+  File "FrameScan-GUI.py", line 1659, in closeEvent
+    def closeEvent(self, event):
+KeyboardInterrupt
+
+2023-08-02 10:27:52 - FrameScan-GUI.py - ERROR - 1715 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x17dcf1692c0, name="MainWindow") at 0x0000017DD0A31F48>>
+2023-08-02 10:27:52 - FrameScan-GUI.py - ERROR - 1716 excType: <class 'KeyboardInterrupt'>
+2023-08-02 10:27:52 - FrameScan-GUI.py - ERROR - 1717 excValue: 
+2023-08-02 10:27:52 - FrameScan-GUI.py - ERROR - 1718 tb: <traceback object at 0x0000017DD6954608>
+2023-08-02 10:28:46 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com 360天擎|360天擎client_upload_file远程命令执行
+2023-08-02 11:32:30 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2FEA~1\FrameScan-GUI.py - ERROR - 1352 No module named 'bs4'----1312行
+2023-08-02 11:32:30 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2FEA~1\FrameScan-GUI.py - ERROR - 1352 No module named 'Crypto'----1312行
+2023-08-02 11:39:41 - C:\Users\QIANXI~1\AppData\Local\Temp\ON443F~1\FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com test|POC测试漏洞
+2023-08-02 11:42:23 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC8B2~1\FrameScan-GUI.py - ERROR - 1352 No module named 'bs4'----1312行
+2023-08-02 11:42:23 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC8B2~1\FrameScan-GUI.py - ERROR - 1352 No module named 'Crypto'----1312行
+2023-08-02 11:42:36 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC8B2~1\FrameScan-GUI.py - INFO - 191 Scanner:http://11111 test|POC测试漏洞
+2023-08-02 11:52:16 - C:\Users\QIANXI~1\AppData\Local\Temp\ONDE61~1\FrameScan-GUI.py - ERROR - 1352 No module named 'bs4'----1312行
+2023-08-02 11:52:16 - C:\Users\QIANXI~1\AppData\Local\Temp\ONDE61~1\FrameScan-GUI.py - ERROR - 1352 No module named 'Crypto'----1312行
+2023-08-02 11:52:26 - C:\Users\QIANXI~1\AppData\Local\Temp\ONDE61~1\FrameScan-GUI.py - INFO - 191 Scanner:http://dsadasdsadsad test|POC测试漏洞
+2023-08-02 11:56:55 - C:\Users\QIANXI~1\AppData\Local\Temp\ON82CF~1\FrameScan-GUI.py - ERROR - 1352 No module named 'bs4'----1312行
+2023-08-02 11:56:55 - C:\Users\QIANXI~1\AppData\Local\Temp\ON82CF~1\FrameScan-GUI.py - ERROR - 1352 No module named 'Crypto'----1312行
+2023-08-02 11:57:06 - C:\Users\QIANXI~1\AppData\Local\Temp\ON82CF~1\FrameScan-GUI.py - INFO - 191 Scanner:http://dasdasd test|POC测试漏洞
+2023-08-02 12:01:45 - C:\Users\QIANXI~1\AppData\Local\Temp\ON38BA~1\FrameScan-GUI.py - ERROR - 1352 No module named 'bs4'----1312行
+2023-08-02 12:01:45 - C:\Users\QIANXI~1\AppData\Local\Temp\ON38BA~1\FrameScan-GUI.py - ERROR - 1352 No module named 'Crypto'----1312行
+2023-08-02 12:01:53 - C:\Users\QIANXI~1\AppData\Local\Temp\ON38BA~1\FrameScan-GUI.py - INFO - 191 Scanner:http://dsad test|POC测试漏洞
+2023-08-02 12:28:31 - C:\Users\QIANXI~1\AppData\Local\Temp\ONDBF6~1\FrameScan-GUI.py - ERROR - 1352 No module named 'bs4'----1312行
+2023-08-02 12:28:31 - C:\Users\QIANXI~1\AppData\Local\Temp\ONDBF6~1\FrameScan-GUI.py - ERROR - 1352 No module named 'Crypto'----1312行
+2023-08-02 12:28:40 - C:\Users\QIANXI~1\AppData\Local\Temp\ONDBF6~1\FrameScan-GUI.py - INFO - 191 Scanner:http://111 test|POC测试漏洞
+2023-08-02 12:31:49 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC584~1\FrameScan-GUI.py - INFO - 191 Scanner:http://dsadsa test|POC测试漏洞
+2023-08-02 12:34:27 - C:\Users\QIANXI~1\AppData\Local\Temp\ON0AA5~1\FrameScan-GUI.py - INFO - 191 Scanner:http://1.11 test|POC测试漏洞
+2023-08-02 12:37:32 - C:\Users\QIANXI~1\AppData\Local\Temp\ONB985~1\FrameScan-GUI.py - INFO - 191 Scanner:http://1111 test|POC测试漏洞
+2023-08-02 12:50:49 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1350 No module named 'bs4'----1310行
+2023-08-02 12:50:49 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1350 No module named 'Crypto'----1310行
+2023-08-02 12:50:51 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - INFO - 1715 Timestamp: 2023-08-02 12:50:51
+2023-08-02 12:50:51 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1717 ErrorMessage: Traceback (most recent call last):
+  File "C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py", line 721, in Show_Plugins_info
+AttributeError: 'NoneType' object has no attribute 'childCount'
+
+2023-08-02 12:50:51 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1718 sys.excepthook: <bound compiled_method MainWindows.HandleException of <__main__.MainWindows(0x1e77df6e9d0, name="MainWindow") at 0x000001E77EF07AC8>>
+2023-08-02 12:50:51 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1719 excType: <class 'AttributeError'>
+2023-08-02 12:50:51 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1720 excValue: 'NoneType' object has no attribute 'childCount'
+2023-08-02 12:50:51 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1721 tb: <traceback object at 0x000001E702369148>
+2023-08-02 12:50:51 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - INFO - 1715 Timestamp: 2023-08-02 12:50:51
+2023-08-02 12:50:51 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1717 ErrorMessage: Traceback (most recent call last):
+  File "C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py", line 721, in Show_Plugins_info
+AttributeError: 'NoneType' object has no attribute 'childCount'
+
+2023-08-02 12:50:51 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1718 sys.excepthook: <bound compiled_method MainWindows.HandleException of <__main__.MainWindows(0x1e77df6e9d0, name="MainWindow") at 0x000001E77EF07AC8>>
+2023-08-02 12:50:51 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1719 excType: <class 'AttributeError'>
+2023-08-02 12:50:51 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1720 excValue: 'NoneType' object has no attribute 'childCount'
+2023-08-02 12:50:51 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1721 tb: <traceback object at 0x000001E77EF19DC8>
+2023-08-02 12:50:58 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - INFO - 191 Scanner:http://1.1.111 test|POC测试漏洞
+2023-08-02 12:50:58 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 253 module 'C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\Modules\Vuln_Scanner' has no attribute 'vuln_info'----250行
+2023-08-02 12:51:50 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1350 No module named 'bs4'----1310行
+2023-08-02 12:51:50 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1350 No module named 'Crypto'----1310行
+2023-08-02 12:52:29 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1350 No module named 'bs4'----1310行
+2023-08-02 12:52:29 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 1350 No module named 'Crypto'----1310行
+2023-08-02 12:52:38 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - INFO - 191 Scanner:http://1.1.111 test|POC测试漏洞
+2023-08-02 12:52:38 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\FrameScan-GUI.py - ERROR - 253 module 'C:\Users\QIANXI~1\AppData\Local\Temp\ON2B6F~1\Modules\Vuln_Scanner' has no attribute 'vuln_info'----250行
+2023-08-02 12:58:04 - C:\Users\QIANXI~1\AppData\Local\Temp\ON82EB~1\FrameScan-GUI.py - INFO - 193 Scanner:http://11 test|POC测试漏洞
+2023-08-02 12:58:04 - C:\Users\QIANXI~1\AppData\Local\Temp\ON82EB~1\FrameScan-GUI.py - ERROR - 255 module 'C:\Users\QIANXI~1\AppData\Local\Temp\ON82EB~1\Modules\Vuln_Scanner' has no attribute 'vuln_info'----252行
+2023-08-02 13:02:16 - C:\Users\QIANXI~1\AppData\Local\Temp\ONB386~1\FrameScan-GUI.py - INFO - 193 Scanner:http://11 test|POC测试漏洞
+2023-08-02 13:02:16 - C:\Users\QIANXI~1\AppData\Local\Temp\ONB386~1\FrameScan-GUI.py - ERROR - 255 module 'C:\Users\QIANXI~1\AppData\Local\Temp\ONB386~1\Modules\Vuln_Scanner' has no attribute 'vuln_info'----252行
+2023-08-02 13:07:21 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2077~1\FrameScan-GUI.py - INFO - 193 Scanner:http://111 test|POC测试漏洞
+2023-08-02 13:07:21 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2077~1\FrameScan-GUI.py - ERROR - 255 module 'C:\Users\QIANXI~1\AppData\Local\Temp\ON2077~1\Modules\Vuln_Scanner' has no attribute 'vuln_info'----252行
+2023-08-02 13:11:04 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py - INFO - 1715 Timestamp: 2023-08-02 13:11:04
+2023-08-02 13:11:04 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py - ERROR - 1717 ErrorMessage: Traceback (most recent call last):
+  File "C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py", line 721, in Show_Plugins_info
+AttributeError: 'NoneType' object has no attribute 'childCount'
+
+2023-08-02 13:11:04 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py - ERROR - 1718 sys.excepthook: <bound compiled_method MainWindows.HandleException of <__main__.MainWindows(0x28f86d92aa0, name="MainWindow") at 0x0000028F87CF9C48>>
+2023-08-02 13:11:04 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py - ERROR - 1719 excType: <class 'AttributeError'>
+2023-08-02 13:11:04 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py - ERROR - 1720 excValue: 'NoneType' object has no attribute 'childCount'
+2023-08-02 13:11:04 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py - ERROR - 1721 tb: <traceback object at 0x0000028F87763288>
+2023-08-02 13:11:07 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py - INFO - 193 Scanner:http://11 test|POC测试漏洞
+2023-08-02 13:11:07 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py - ERROR - 255 module 'C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\Modules\Vuln_Scanner' has no attribute 'vuln_info'----252行
+2023-08-02 13:12:05 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 193 Scanner:http://111 test|POC测试漏洞
+2023-08-02 13:12:15 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - ERROR - 255 module 'E:\code\Python37\obj\FrameScan-GUI\Modules\Vuln_Scanner' has no attribute 'vuln_info'----252行
+2023-08-02 13:13:02 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 193 Scanner:http://111 test|POC测试漏洞
+2023-08-02 13:19:05 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 193 Scanner:http://1.1.11 test|POC测试漏洞
+2023-08-02 13:20:17 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py - INFO - 1715 Timestamp: 2023-08-02 13:20:17
+2023-08-02 13:20:17 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py - ERROR - 1717 ErrorMessage: Traceback (most recent call last):
+  File "C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py", line 1671, in closeEvent
+  File "C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\enum.py", line 835, in __or__
+KeyboardInterrupt
+
+2023-08-02 13:20:17 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py - ERROR - 1718 sys.excepthook: <bound compiled_method MainWindows.HandleException of <__main__.MainWindows(0x28f86d92aa0, name="MainWindow") at 0x0000028F87CF9C48>>
+2023-08-02 13:20:17 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py - ERROR - 1719 excType: <class 'KeyboardInterrupt'>
+2023-08-02 13:20:17 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py - ERROR - 1720 excValue: 
+2023-08-02 13:20:17 - C:\Users\QIANXI~1\AppData\Local\Temp\ONC6E2~1\FrameScan-GUI.py - ERROR - 1721 tb: <traceback object at 0x0000028F85BE19C8>
+2023-08-02 13:24:14 - C:\Users\QIANXI~1\AppData\Local\Temp\ONADBD~1\FrameScan-GUI.py - INFO - 193 Scanner:http://1.1.11 test|POC测试漏洞
+2023-08-02 13:35:29 - C:\Users\QIANXI~1\AppData\Local\Temp\ON5650~1\FrameScan-GUI.py - INFO - 194 Scanner:http://111 test|POC测试漏洞
+2023-08-02 13:41:34 - C:\Users\QIANXI~1\AppData\Local\Temp\ONE0CC~1\FrameScan-GUI.py - INFO - 191 Scanner:http://aadsds test|POC测试漏洞
+2023-08-02 13:46:17 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://111 test|POC测试漏洞
+2023-08-02 13:49:56 - C:\Users\QIANXI~1\AppData\Local\Temp\ON2EDF~1\FrameScan-GUI.py - INFO - 191 Scanner:http://11 test|POC测试漏洞
+2023-08-02 13:54:58 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://1111 test|POC测试漏洞
+2023-08-02 13:57:49 - C:\Users\QIANXI~1\AppData\Local\Temp\ON0CDA~1\FrameScan-GUI.py - INFO - 191 Scanner:http://dsada test|POC测试漏洞
+2023-08-02 14:00:06 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 191 Scanner:http://1111 test|POC测试漏洞
+2023-08-02 14:01:56 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 189 Scanner:http://1.11 test|POC测试漏洞
+2023-08-02 14:07:57 - C:\Users\QIANXI~1\AppData\Local\Temp\ON64E6~1\FrameScan-GUI.py - INFO - 1716 Timestamp: 2023-08-02 14:07:57
+2023-08-02 14:07:57 - C:\Users\QIANXI~1\AppData\Local\Temp\ON64E6~1\FrameScan-GUI.py - ERROR - 1718 ErrorMessage: Traceback (most recent call last):
+  File "C:\Users\QIANXI~1\AppData\Local\Temp\ON64E6~1\FrameScan-GUI.py", line 723, in Show_Plugins_info
+AttributeError: 'NoneType' object has no attribute 'childCount'
+
+2023-08-02 14:07:57 - C:\Users\QIANXI~1\AppData\Local\Temp\ON64E6~1\FrameScan-GUI.py - ERROR - 1719 sys.excepthook: <bound compiled_method MainWindows.HandleException of <__main__.MainWindows(0x1ff9abf2a70, name="MainWindow") at 0x000001FF9BB38A48>>
+2023-08-02 14:07:57 - C:\Users\QIANXI~1\AppData\Local\Temp\ON64E6~1\FrameScan-GUI.py - ERROR - 1720 excType: <class 'AttributeError'>
+2023-08-02 14:07:57 - C:\Users\QIANXI~1\AppData\Local\Temp\ON64E6~1\FrameScan-GUI.py - ERROR - 1721 excValue: 'NoneType' object has no attribute 'childCount'
+2023-08-02 14:07:57 - C:\Users\QIANXI~1\AppData\Local\Temp\ON64E6~1\FrameScan-GUI.py - ERROR - 1722 tb: <traceback object at 0x000001FF9B5921C8>
+2023-08-02 14:08:03 - C:\Users\QIANXI~1\AppData\Local\Temp\ON64E6~1\FrameScan-GUI.py - INFO - 189 Scanner:http://11 test|POC测试漏洞
+2023-08-02 14:08:25 - C:\Users\QIANXI~1\AppData\Local\Temp\ON64E6~1\FrameScan-GUI.py - INFO - 189 Scanner:http://11 test|POC测试漏洞
+2023-08-02 14:08:25 - C:\Users\QIANXI~1\AppData\Local\Temp\ON64E6~1\FrameScan-GUI.py - INFO - 189 Scanner:http://11 test|POC测试漏洞
+2023-08-02 14:18:56 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 189 Scanner:http://1234 test|POC测试漏洞
+2023-08-02 14:19:05 - E:/code/Python37/obj/FrameScan-GUI/FrameScan-GUI.py - INFO - 189 Scanner:http://1234 test|POC测试漏洞
+2024-05-04 09:55:10 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - INFO - 1716 Timestamp: 2024-05-04 09:55:10
+2024-05-04 09:55:10 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1718 ErrorMessage: Traceback (most recent call last):
+  File "E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py", line 1009, in vuln_ShowPlugins
+    self.vuln_widget.pushButton_show_Plugins_add.clicked.connect(self.vuln_plugins_add)
+AttributeError: 'Ui_Form_Vuln' object has no attribute 'pushButton_show_Plugins_add'
+
+2024-05-04 09:55:10 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1719 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x28d6e135d00, name="MainWindow") at 0x0000028D6F612208>>
+2024-05-04 09:55:10 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1720 excType: <class 'AttributeError'>
+2024-05-04 09:55:10 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1721 excValue: 'Ui_Form_Vuln' object has no attribute 'pushButton_show_Plugins_add'
+2024-05-04 09:55:10 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1722 tb: <traceback object at 0x0000028D74ECDE08>
+2024-05-04 09:57:01 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - INFO - 1716 Timestamp: 2024-05-04 09:57:01
+2024-05-04 09:57:01 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1718 ErrorMessage: Traceback (most recent call last):
+  File "E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py", line 992, in vuln_ShowPlugins
+    def vuln_ShowPlugins(self):
+KeyboardInterrupt
+
+2024-05-04 09:57:01 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1719 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x28d6e135d00, name="MainWindow") at 0x0000028D6F612208>>
+2024-05-04 09:57:01 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1720 excType: <class 'KeyboardInterrupt'>
+2024-05-04 09:57:01 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1721 excValue: 
+2024-05-04 09:57:01 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1722 tb: <traceback object at 0x0000028D74ECDD88>
+2024-05-04 09:57:04 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - INFO - 1716 Timestamp: 2024-05-04 09:57:04
+2024-05-04 09:57:04 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1718 ErrorMessage: Traceback (most recent call last):
+  File "E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py", line 1009, in vuln_ShowPlugins
+    # self.vuln_widget.pushButton_show_Plugins_add.clicked.connect(self.vuln_plugins_add)
+AttributeError: 'Ui_Form_Vuln' object has no attribute 'pushButton_show_Plugins_add'
+
+2024-05-04 09:57:04 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1719 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x28d6e135d00, name="MainWindow") at 0x0000028D6F612208>>
+2024-05-04 09:57:04 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1720 excType: <class 'AttributeError'>
+2024-05-04 09:57:04 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1721 excValue: 'Ui_Form_Vuln' object has no attribute 'pushButton_show_Plugins_add'
+2024-05-04 09:57:04 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1722 tb: <traceback object at 0x0000028D74ECDE88>
+2024-05-04 10:04:54 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - INFO - 1716 Timestamp: 2024-05-04 10:04:54
+2024-05-04 10:04:54 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1718 ErrorMessage: Traceback (most recent call last):
+  File "E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py", line 1663, in closeEvent
+KeyboardInterrupt
+
+2024-05-04 10:04:54 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1719 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x1e2a5e20a40, name="MainWindow") at 0x000001E2A72F02C8>>
+2024-05-04 10:04:54 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1720 excType: <class 'KeyboardInterrupt'>
+2024-05-04 10:04:54 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1721 excValue: 
+2024-05-04 10:04:54 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - ERROR - 1722 tb: <traceback object at 0x000001E2ACBBC988>
+2024-05-04 10:08:13 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - INFO - 189 Scanner:http://dsadsadas test|POC测试漏洞
+2024-05-04 10:08:17 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - INFO - 189 Scanner:http://dsadsadas test|POC测试漏洞
+2024-05-04 10:08:46 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - INFO - 189 Scanner:http://dsadsad test|POC测试漏洞
+2024-05-04 10:30:34 - E:\code\Python37\obj\FrameScan-GUI\FrameScan-GUI.py - INFO - 189 Scanner:http://127.0.0.1 test|POC测试漏洞
+2024-08-11 09:06:14 - FrameScan-GUI.py - INFO - 1759 Timestamp: 2024-08-11 09:06:14
+2024-08-11 09:06:14 - FrameScan-GUI.py - ERROR - 1761 ErrorMessage: Traceback (most recent call last):
+  File "FrameScan-GUI.py", line 1706, in closeEvent
+    box.warning(self, "提示", "该EXP暂无描述信息！")
+KeyboardInterrupt
+
+2024-08-11 09:06:14 - FrameScan-GUI.py - ERROR - 1762 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x22b130266a0, name="MainWindow") at 0x0000022B14769C88>>
+2024-08-11 09:06:14 - FrameScan-GUI.py - ERROR - 1763 excType: <class 'KeyboardInterrupt'>
+2024-08-11 09:06:14 - FrameScan-GUI.py - ERROR - 1764 excValue: 
+2024-08-11 09:06:14 - FrameScan-GUI.py - ERROR - 1765 tb: <traceback object at 0x0000022B1A86A188>
+2024-08-11 09:09:55 - FrameScan-GUI.py - INFO - 1762 Timestamp: 2024-08-11 09:09:55
+2024-08-11 09:09:55 - FrameScan-GUI.py - ERROR - 1764 ErrorMessage: Traceback (most recent call last):
+  File "FrameScan-GUI.py", line 1140, in vuln_plugins_edit
+    f = open(plugins, 'r', encoding='utf-8')
+FileNotFoundError: [Errno 2] No such file or directory: './Plugins/Vuln_Plugins/Tomcat/poc-yaml-tomcat-version.yaml.py'
+
+2024-08-11 09:09:55 - FrameScan-GUI.py - ERROR - 1765 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x1748f3e64e0, name="MainWindow") at 0x0000017490BA1E48>>
+2024-08-11 09:09:55 - FrameScan-GUI.py - ERROR - 1766 excType: <class 'FileNotFoundError'>
+2024-08-11 09:09:55 - FrameScan-GUI.py - ERROR - 1767 excValue: [Errno 2] No such file or directory: './Plugins/Vuln_Plugins/Tomcat/poc-yaml-tomcat-version.yaml.py'
+2024-08-11 09:09:55 - FrameScan-GUI.py - ERROR - 1768 tb: <traceback object at 0x0000017498240788>
+2024-08-11 09:09:57 - FrameScan-GUI.py - INFO - 1762 Timestamp: 2024-08-11 09:09:57
+2024-08-11 09:09:57 - FrameScan-GUI.py - ERROR - 1764 ErrorMessage: Traceback (most recent call last):
+  File "FrameScan-GUI.py", line 1140, in vuln_plugins_edit
+    f = open(plugins, 'r', encoding='utf-8')
+FileNotFoundError: [Errno 2] No such file or directory: './Plugins/Vuln_Plugins/Tomcat/poc-yaml-tomcat-version.yaml.py'
+
+2024-08-11 09:09:57 - FrameScan-GUI.py - ERROR - 1765 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x1748f3e64e0, name="MainWindow") at 0x0000017490BA1E48>>
+2024-08-11 09:09:57 - FrameScan-GUI.py - ERROR - 1766 excType: <class 'FileNotFoundError'>
+2024-08-11 09:09:57 - FrameScan-GUI.py - ERROR - 1767 excValue: [Errno 2] No such file or directory: './Plugins/Vuln_Plugins/Tomcat/poc-yaml-tomcat-version.yaml.py'
+2024-08-11 09:09:57 - FrameScan-GUI.py - ERROR - 1768 tb: <traceback object at 0x0000017498240C48>
+2024-08-11 09:16:45 - FrameScan-GUI.py - INFO - 1769 Timestamp: 2024-08-11 09:16:45
+2024-08-11 09:16:45 - FrameScan-GUI.py - ERROR - 1771 ErrorMessage: Traceback (most recent call last):
+  File "FrameScan-GUI.py", line 1135, in vuln_plugins_edit
+    if cms_name_data['vuln_file'].endswith(".yaml"):
+TypeError: list indices must be integers or slices, not str
+
+2024-08-11 09:16:45 - FrameScan-GUI.py - ERROR - 1772 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x2cf4bc2ccf0, name="MainWindow") at 0x000002CF4D462F48>>
+2024-08-11 09:16:45 - FrameScan-GUI.py - ERROR - 1773 excType: <class 'TypeError'>
+2024-08-11 09:16:45 - FrameScan-GUI.py - ERROR - 1774 excValue: list indices must be integers or slices, not str
+2024-08-11 09:16:45 - FrameScan-GUI.py - ERROR - 1775 tb: <traceback object at 0x000002CF53602C08>
+2024-08-11 09:17:50 - FrameScan-GUI.py - INFO - 1769 Timestamp: 2024-08-11 09:17:50
+2024-08-11 09:17:50 - FrameScan-GUI.py - ERROR - 1771 ErrorMessage: Traceback (most recent call last):
+  File "FrameScan-GUI.py", line 1143, in vuln_plugins_edit
+    f = open(plugins, 'r', encoding='utf-8')
+FileNotFoundError: [Errno 2] No such file or directory: './Plugins/Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'
+
+2024-08-11 09:17:50 - FrameScan-GUI.py - ERROR - 1772 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x1e0d261d450, name="MainWindow") at 0x000001E0D3EB2C88>>
+2024-08-11 09:17:50 - FrameScan-GUI.py - ERROR - 1773 excType: <class 'FileNotFoundError'>
+2024-08-11 09:17:50 - FrameScan-GUI.py - ERROR - 1774 excValue: [Errno 2] No such file or directory: './Plugins/Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'
+2024-08-11 09:17:50 - FrameScan-GUI.py - ERROR - 1775 tb: <traceback object at 0x000001E0D3EB2D08>
+2024-08-11 09:17:52 - FrameScan-GUI.py - INFO - 1769 Timestamp: 2024-08-11 09:17:52
+2024-08-11 09:17:52 - FrameScan-GUI.py - ERROR - 1771 ErrorMessage: Traceback (most recent call last):
+  File "FrameScan-GUI.py", line 1143, in vuln_plugins_edit
+    f = open(plugins, 'r', encoding='utf-8')
+FileNotFoundError: [Errno 2] No such file or directory: './Plugins/Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'
+
+2024-08-11 09:17:52 - FrameScan-GUI.py - ERROR - 1772 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x1e0d261d450, name="MainWindow") at 0x000001E0D3EB2C88>>
+2024-08-11 09:17:52 - FrameScan-GUI.py - ERROR - 1773 excType: <class 'FileNotFoundError'>
+2024-08-11 09:17:52 - FrameScan-GUI.py - ERROR - 1774 excValue: [Errno 2] No such file or directory: './Plugins/Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'
+2024-08-11 09:17:52 - FrameScan-GUI.py - ERROR - 1775 tb: <traceback object at 0x000001E0D3B68408>
+2024-08-11 09:21:54 - FrameScan-GUI.py - ERROR - 1227 invalid syntax (./Plugins/Yaml_Plugins//poc-yaml-tomcat-version.yaml, line 3)----1184行
+2024-08-11 09:32:54 - FrameScan-GUI.py - ERROR - 1247 name 'poc_file_name' is not defined----1184行
+2024-08-11 09:33:01 - FrameScan-GUI.py - ERROR - 1247 name 'poc_file_name' is not defined----1184行
+2024-08-11 09:36:22 - FrameScan-GUI.py - ERROR - 1254 local variable 'id' referenced before assignment----1184行
+2024-08-11 10:55:10 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:55:10 - FrameScan-GUI.py - ERROR - 253 vuln_scan_python() takes 7 positional arguments but 8 were given----250行
+2024-08-11 10:55:10 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:55:10 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:55:10 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:55:10 - FrameScan-GUI.py - ERROR - 253 vuln_scan_python() takes 7 positional arguments but 8 were given----250行
+2024-08-11 10:55:10 - FrameScan-GUI.py - ERROR - 253 vuln_scan_python() takes 7 positional arguments but 8 were given----250行
+2024-08-11 10:55:10 - FrameScan-GUI.py - ERROR - 253 vuln_scan_python() takes 7 positional arguments but 8 were given----250行
+2024-08-11 10:56:30 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:56:30 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:56:30 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:56:34 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:56:40 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:56:40 - FrameScan-GUI.py - ERROR - 253 vuln_scan_python() takes 7 positional arguments but 8 were given----250行
+2024-08-11 10:56:40 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:56:40 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:56:40 - FrameScan-GUI.py - ERROR - 253 vuln_scan_python() takes 7 positional arguments but 8 were given----250行
+2024-08-11 10:56:40 - FrameScan-GUI.py - ERROR - 253 vuln_scan_python() takes 7 positional arguments but 8 were given----250行
+2024-08-11 10:56:40 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:56:40 - FrameScan-GUI.py - ERROR - 253 vuln_scan_python() takes 7 positional arguments but 8 were given----250行
+2024-08-11 10:57:55 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:57:55 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:57:55 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:57:55 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:58:59 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:58:59 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:58:59 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 10:58:59 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:01:05 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:01:05 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:01:05 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:01:09 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:01:15 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:01:15 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:01:15 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:01:15 - FrameScan-GUI.py - ERROR - 311 E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml
+2024-08-11 11:01:15 - FrameScan-GUI.py - ERROR - 311 E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml
+2024-08-11 11:01:15 - FrameScan-GUI.py - ERROR - 311 E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml
+2024-08-11 11:01:15 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:01:15 - FrameScan-GUI.py - ERROR - 311 E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml
+2024-08-11 11:01:55 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:01:55 - FrameScan-GUI.py - ERROR - 253 vuln_scan_yaml() takes 7 positional arguments but 8 were given----250行
+2024-08-11 11:01:55 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:01:55 - FrameScan-GUI.py - ERROR - 253 vuln_scan_yaml() takes 7 positional arguments but 8 were given----250行
+2024-08-11 11:01:55 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:01:55 - FrameScan-GUI.py - ERROR - 253 vuln_scan_yaml() takes 7 positional arguments but 8 were given----250行
+2024-08-11 11:01:55 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:01:55 - FrameScan-GUI.py - ERROR - 253 vuln_scan_yaml() takes 7 positional arguments but 8 were given----250行
+2024-08-11 11:03:01 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:03:01 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:03:01 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:03:04 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:03:06 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:03:06 - FrameScan-GUI.py - ERROR - 253 int() argument must be a string, a bytes-like object or a number, not 'type'----250行
+2024-08-11 11:03:06 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:03:06 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:03:06 - FrameScan-GUI.py - ERROR - 253 int() argument must be a string, a bytes-like object or a number, not 'type'----250行
+2024-08-11 11:03:06 - FrameScan-GUI.py - ERROR - 253 int() argument must be a string, a bytes-like object or a number, not 'type'----250行
+2024-08-11 11:03:06 - FrameScan-GUI.py - INFO - 191 Scanner:http://badu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:03:07 - FrameScan-GUI.py - ERROR - 253 int() argument must be a string, a bytes-like object or a number, not 'type'----250行
+2024-08-11 11:04:55 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:04:55 - FrameScan-GUI.py - ERROR - 253 int() argument must be a string, a bytes-like object or a number, not 'type'----250行
+2024-08-11 11:04:55 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:04:55 - FrameScan-GUI.py - ERROR - 253 int() argument must be a string, a bytes-like object or a number, not 'type'----250行
+2024-08-11 11:04:55 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:04:55 - FrameScan-GUI.py - ERROR - 253 int() argument must be a string, a bytes-like object or a number, not 'type'----250行
+2024-08-11 11:04:55 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:04:55 - FrameScan-GUI.py - ERROR - 253 int() argument must be a string, a bytes-like object or a number, not 'type'----250行
+2024-08-11 11:06:17 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:06:17 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:06:17 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:06:17 - FrameScan-GUI.py - ERROR - 286 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----270行
+2024-08-11 11:06:17 - FrameScan-GUI.py - ERROR - 286 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----270行
+2024-08-11 11:06:17 - FrameScan-GUI.py - ERROR - 286 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----270行
+2024-08-11 11:06:17 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:06:17 - FrameScan-GUI.py - ERROR - 286 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----270行
+2024-08-11 11:06:22 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:06:22 - FrameScan-GUI.py - ERROR - 286 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----270行
+2024-08-11 11:06:22 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:06:22 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:06:22 - FrameScan-GUI.py - INFO - 191 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:06:22 - FrameScan-GUI.py - ERROR - 286 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----270行
+2024-08-11 11:06:22 - FrameScan-GUI.py - ERROR - 286 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----270行
+2024-08-11 11:06:22 - FrameScan-GUI.py - ERROR - 286 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----270行
+2024-08-11 11:11:11 - FrameScan-GUI.py - INFO - 1795 Timestamp: 2024-08-11 11:11:11
+2024-08-11 11:11:11 - FrameScan-GUI.py - ERROR - 1797 ErrorMessage: Traceback (most recent call last):
+  File "E:\code\Python37\obj\FrameScan-GUI\Modules\Vuln_Scanner.py", line 63, in run
+    self.add_queue(check_fofa)
+  File "E:\code\Python37\obj\FrameScan-GUI\Modules\Vuln_Scanner.py", line 96, in add_queue
+    if xuanzhong_data['vulm_file'].endswith('.yaml'):
+KeyError: 'vulm_file'
+
+2024-08-11 11:11:11 - FrameScan-GUI.py - ERROR - 1798 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x20bb8448190, name="MainWindow") at 0x0000020BB9DFD148>>
+2024-08-11 11:11:11 - FrameScan-GUI.py - ERROR - 1799 excType: <class 'KeyError'>
+2024-08-11 11:11:11 - FrameScan-GUI.py - ERROR - 1800 excValue: 'vulm_file'
+2024-08-11 11:11:11 - FrameScan-GUI.py - ERROR - 1801 tb: <traceback object at 0x0000020BBFF17DC8>
+2024-08-11 11:11:55 - FrameScan-GUI.py - INFO - 197 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:11:55 - FrameScan-GUI.py - ERROR - 292 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----276行
+2024-08-11 11:11:55 - FrameScan-GUI.py - INFO - 197 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:11:55 - FrameScan-GUI.py - INFO - 197 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:11:55 - FrameScan-GUI.py - INFO - 197 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:11:55 - FrameScan-GUI.py - ERROR - 292 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----276行
+2024-08-11 11:11:55 - FrameScan-GUI.py - ERROR - 292 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----276行
+2024-08-11 11:11:55 - FrameScan-GUI.py - ERROR - 292 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----276行
+2024-08-11 11:12:55 - FrameScan-GUI.py - INFO - 197 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:12:55 - FrameScan-GUI.py - INFO - 197 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:12:55 - FrameScan-GUI.py - INFO - 197 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:12:56 - FrameScan-GUI.py - ERROR - 292 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----276行
+2024-08-11 11:12:56 - FrameScan-GUI.py - ERROR - 292 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----276行
+2024-08-11 11:12:56 - FrameScan-GUI.py - ERROR - 292 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----276行
+2024-08-11 11:12:56 - FrameScan-GUI.py - INFO - 197 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:12:56 - FrameScan-GUI.py - ERROR - 292 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----276行
+2024-08-11 11:13:43 - FrameScan-GUI.py - ERROR - 95 {'cms_name': 'Tongweb', 'vuln_name': 'TongWeb信息泄露', 'vuln_file': 'poc-yaml-tongweb-version.yaml', 'FofaQuery_type': '', 'FofaQuery_link': '', 'FofaQuery_rule': ''}
+2024-08-11 11:13:43 - FrameScan-GUI.py - ERROR - 95 {'cms_name': 'Tongweb', 'vuln_name': 'TongWeb信息泄露', 'vuln_file': 'poc-yaml-tongweb-version.yaml', 'FofaQuery_type': None, 'FofaQuery_link': '/', 'FofaQuery_rule': ''}
+2024-08-11 11:13:43 - FrameScan-GUI.py - ERROR - 95 {'cms_name': 'Tongweb', 'vuln_name': 'TongWeb信息泄露', 'vuln_file': 'poc-yaml-tongweb-version.yaml', 'FofaQuery_type': 'socket', 'FofaQuery_link': '/', 'FofaQuery_rule': ''}
+2024-08-11 11:13:43 - FrameScan-GUI.py - ERROR - 95 {'cms_name': 'Tongweb', 'vuln_name': 'TongWeb信息泄露', 'vuln_file': 'poc-yaml-tongweb-version.yaml', 'FofaQuery_type': 'socket', 'FofaQuery_link': '/', 'FofaQuery_rule': ''}
+2024-08-11 11:13:43 - FrameScan-GUI.py - INFO - 197 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:13:43 - FrameScan-GUI.py - INFO - 197 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:13:43 - FrameScan-GUI.py - ERROR - 292 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----276行
+2024-08-11 11:13:43 - FrameScan-GUI.py - INFO - 197 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:13:43 - FrameScan-GUI.py - ERROR - 292 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----276行
+2024-08-11 11:13:43 - FrameScan-GUI.py - INFO - 197 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:13:43 - FrameScan-GUI.py - ERROR - 292 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----276行
+2024-08-11 11:13:43 - FrameScan-GUI.py - ERROR - 292 [Errno 2] No such file or directory: 'E://code//Python37//obj//FrameScan-GUI//Plugins//Vuln_Plugins/Tongweb/poc-yaml-tongweb-version.yaml'----276行
+2024-08-11 11:15:42 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:15:42 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:15:42 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:15:42 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:15:42 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:15:42 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:15:42 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:15:42 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:15:46 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:15:46 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:15:46 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:15:46 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:15:46 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:15:46 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:15:46 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:15:46 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:16:35 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:16:35 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:16:35 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:16:35 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:16:35 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:16:35 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:16:35 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:16:35 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:16:59 - FrameScan-GUI.py - INFO - 1795 Timestamp: 2024-08-11 11:16:59
+2024-08-11 11:16:59 - FrameScan-GUI.py - ERROR - 1797 ErrorMessage: Traceback (most recent call last):
+  File "FrameScan-GUI.py", line 723, in Show_Plugins_info
+    if self.Ui.treeWidget_Plugins.currentItem().childCount() > 0:
+AttributeError: 'NoneType' object has no attribute 'childCount'
+
+2024-08-11 11:16:59 - FrameScan-GUI.py - ERROR - 1798 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x1d80b3a4570, name="MainWindow") at 0x000001D80CB03588>>
+2024-08-11 11:16:59 - FrameScan-GUI.py - ERROR - 1799 excType: <class 'AttributeError'>
+2024-08-11 11:16:59 - FrameScan-GUI.py - ERROR - 1800 excValue: 'NoneType' object has no attribute 'childCount'
+2024-08-11 11:16:59 - FrameScan-GUI.py - ERROR - 1801 tb: <traceback object at 0x000001D812C5D0C8>
+2024-08-11 11:17:06 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:17:06 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:17:06 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:17:06 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:17:06 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:17:06 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:17:06 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:17:06 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:17:58 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:17:58 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:17:58 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:17:58 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:17:58 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:17:58 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:17:58 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:17:59 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:18:29 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:18:29 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:18:29 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:18:29 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:18:29 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:18:29 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:18:29 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:18:30 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:21:49 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:21:49 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:21:49 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:21:49 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:21:49 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:21:49 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:21:49 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:21:49 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:22:29 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:22:29 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:22:29 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:22:29 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:22:29 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:22:29 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:22:29 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:22:29 - FrameScan-GUI.py - ERROR - 295 'module' object is not callable----282行
+2024-08-11 11:23:15 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:23:15 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:23:15 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:23:15 - FrameScan-GUI.py - ERROR - 295 'categroy'----287行
+2024-08-11 11:23:15 - FrameScan-GUI.py - ERROR - 295 'categroy'----287行
+2024-08-11 11:23:15 - FrameScan-GUI.py - ERROR - 295 'categroy'----287行
+2024-08-11 11:23:15 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:23:15 - FrameScan-GUI.py - ERROR - 295 'categroy'----287行
+2024-08-11 11:24:37 - FrameScan-GUI.py - INFO - 1795 Timestamp: 2024-08-11 11:24:37
+2024-08-11 11:24:37 - FrameScan-GUI.py - ERROR - 1797 ErrorMessage: Traceback (most recent call last):
+  File "FrameScan-GUI.py", line 1742, in closeEvent
+    def closeEvent(self, event):
+KeyboardInterrupt
+
+2024-08-11 11:24:37 - FrameScan-GUI.py - ERROR - 1798 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x2b0d2ddd760, name="MainWindow") at 0x000002B0D45621C8>>
+2024-08-11 11:24:37 - FrameScan-GUI.py - ERROR - 1799 excType: <class 'KeyboardInterrupt'>
+2024-08-11 11:24:37 - FrameScan-GUI.py - ERROR - 1800 excValue: 
+2024-08-11 11:24:37 - FrameScan-GUI.py - ERROR - 1801 tb: <traceback object at 0x000002B0DA67FFC8>
+2024-08-11 11:24:51 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:24:51 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:24:51 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:24:51 - FrameScan-GUI.py - ERROR - 289 {'url': 'http://baidu.com', 'poc': {'name': 'poc-yaml-tongweb-version', 'transport': 'http', 'rules': {'r1': {'request': {'method': 'GET', 'path': '/test_version/tongweb', 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}}, 'expression': "operator.contains(str(response.text),'TongWeb Server')|| operator.contains(str(response.headers.get('Server')),'TongWeb')\n", 'output': {'version_body': "{{re.search('TongWeb Server',response.text).group() if re.search('TongWeb Server',response.text) else ''}}", 'version_headers': "{{response.headers.get('Server')}}"}}}, 'output': "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers", 'expression': 'r1()', 'detail': {'name': 'TongWeb信息泄露', 'author': 'qianxiao996', 'group': '敏感信息泄露', 'category': 'Tongweb', 'vuln_id': '无', 'description': 'TongWeb信息泄露', 'links': []}}, 'result': False, 'others': None}
+2024-08-11 11:24:51 - FrameScan-GUI.py - ERROR - 289 {'url': 'http://baidu.com', 'poc': {'name': 'poc-yaml-tongweb-version', 'transport': 'http', 'rules': {'r1': {'request': {'method': 'GET', 'path': '/test_version/tongweb', 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}}, 'expression': "operator.contains(str(response.text),'TongWeb Server')|| operator.contains(str(response.headers.get('Server')),'TongWeb')\n", 'output': {'version_body': "{{re.search('TongWeb Server',response.text).group() if re.search('TongWeb Server',response.text) else ''}}", 'version_headers': "{{response.headers.get('Server')}}"}}}, 'output': "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers", 'expression': 'r1()', 'detail': {'name': 'TongWeb信息泄露', 'author': 'qianxiao996', 'group': '敏感信息泄露', 'category': 'Tongweb', 'vuln_id': '无', 'description': 'TongWeb信息泄露', 'links': []}}, 'result': False, 'others': None}
+2024-08-11 11:24:51 - FrameScan-GUI.py - ERROR - 289 {'url': 'http://baidu.com', 'poc': {'name': 'poc-yaml-tongweb-version', 'transport': 'http', 'rules': {'r1': {'request': {'method': 'GET', 'path': '/test_version/tongweb', 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}}, 'expression': "operator.contains(str(response.text),'TongWeb Server')|| operator.contains(str(response.headers.get('Server')),'TongWeb')\n", 'output': {'version_body': "{{re.search('TongWeb Server',response.text).group() if re.search('TongWeb Server',response.text) else ''}}", 'version_headers': "{{response.headers.get('Server')}}"}}}, 'output': "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers", 'expression': 'r1()', 'detail': {'name': 'TongWeb信息泄露', 'author': 'qianxiao996', 'group': '敏感信息泄露', 'category': 'Tongweb', 'vuln_id': '无', 'description': 'TongWeb信息泄露', 'links': []}}, 'result': False, 'others': None}
+2024-08-11 11:24:51 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:24:52 - FrameScan-GUI.py - ERROR - 289 {'url': 'http://baidu.com', 'poc': {'name': 'poc-yaml-tongweb-version', 'transport': 'http', 'rules': {'r1': {'request': {'method': 'GET', 'path': '/test_version/tongweb', 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}}, 'expression': "operator.contains(str(response.text),'TongWeb Server')|| operator.contains(str(response.headers.get('Server')),'TongWeb')\n", 'output': {'version_body': "{{re.search('TongWeb Server',response.text).group() if re.search('TongWeb Server',response.text) else ''}}", 'version_headers': "{{response.headers.get('Server')}}"}}}, 'output': "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers", 'expression': 'r1()', 'detail': {'name': 'TongWeb信息泄露', 'author': 'qianxiao996', 'group': '敏感信息泄露', 'category': 'Tongweb', 'vuln_id': '无', 'description': 'TongWeb信息泄露', 'links': []}}, 'result': False, 'others': None}
+2024-08-11 11:27:37 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:27:37 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:27:37 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:27:37 - FrameScan-GUI.py - ERROR - 292 {'url': 'http://baidu.com', 'poc': {'name': 'poc-yaml-tongweb-version', 'transport': 'http', 'rules': {'r1': {'request': {'method': 'GET', 'path': '/test_version/tongweb', 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}}, 'expression': "operator.contains(str(response.text),'TongWeb Server')|| operator.contains(str(response.headers.get('Server')),'TongWeb')\n", 'output': {'version_body': "{{re.search('TongWeb Server',response.text).group() if re.search('TongWeb Server',response.text) else ''}}", 'version_headers': "{{response.headers.get('Server')}}"}}}, 'output': "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers", 'expression': 'r1()', 'detail': {'name': 'TongWeb信息泄露', 'author': 'qianxiao996', 'group': '敏感信息泄露', 'category': 'Tongweb', 'vuln_id': '无', 'description': 'TongWeb信息泄露', 'links': []}}, 'result': False, 'others': None}
+2024-08-11 11:27:37 - FrameScan-GUI.py - ERROR - 292 {'url': 'http://baidu.com', 'poc': {'name': 'poc-yaml-tongweb-version', 'transport': 'http', 'rules': {'r1': {'request': {'method': 'GET', 'path': '/test_version/tongweb', 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}}, 'expression': "operator.contains(str(response.text),'TongWeb Server')|| operator.contains(str(response.headers.get('Server')),'TongWeb')\n", 'output': {'version_body': "{{re.search('TongWeb Server',response.text).group() if re.search('TongWeb Server',response.text) else ''}}", 'version_headers': "{{response.headers.get('Server')}}"}}}, 'output': "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers", 'expression': 'r1()', 'detail': {'name': 'TongWeb信息泄露', 'author': 'qianxiao996', 'group': '敏感信息泄露', 'category': 'Tongweb', 'vuln_id': '无', 'description': 'TongWeb信息泄露', 'links': []}}, 'result': False, 'others': None}
+2024-08-11 11:27:37 - FrameScan-GUI.py - ERROR - 292 {'url': 'http://baidu.com', 'poc': {'name': 'poc-yaml-tongweb-version', 'transport': 'http', 'rules': {'r1': {'request': {'method': 'GET', 'path': '/test_version/tongweb', 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}}, 'expression': "operator.contains(str(response.text),'TongWeb Server')|| operator.contains(str(response.headers.get('Server')),'TongWeb')\n", 'output': {'version_body': "{{re.search('TongWeb Server',response.text).group() if re.search('TongWeb Server',response.text) else ''}}", 'version_headers': "{{response.headers.get('Server')}}"}}}, 'output': "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers", 'expression': 'r1()', 'detail': {'name': 'TongWeb信息泄露', 'author': 'qianxiao996', 'group': '敏感信息泄露', 'category': 'Tongweb', 'vuln_id': '无', 'description': 'TongWeb信息泄露', 'links': []}}, 'result': False, 'others': None}
+2024-08-11 11:27:37 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:27:37 - FrameScan-GUI.py - ERROR - 292 {'url': 'http://baidu.com', 'poc': {'name': 'poc-yaml-tongweb-version', 'transport': 'http', 'rules': {'r1': {'request': {'method': 'GET', 'path': '/test_version/tongweb', 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}}, 'expression': "operator.contains(str(response.text),'TongWeb Server')|| operator.contains(str(response.headers.get('Server')),'TongWeb')\n", 'output': {'version_body': "{{re.search('TongWeb Server',response.text).group() if re.search('TongWeb Server',response.text) else ''}}", 'version_headers': "{{response.headers.get('Server')}}"}}}, 'output': "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers", 'expression': 'r1()', 'detail': {'name': 'TongWeb信息泄露', 'author': 'qianxiao996', 'group': '敏感信息泄露', 'category': 'Tongweb', 'vuln_id': '无', 'description': 'TongWeb信息泄露', 'links': []}}, 'result': False, 'others': None}
+2024-08-11 11:30:36 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:30:36 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:30:36 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:30:36 - FrameScan-GUI.py - ERROR - 292 {'url': 'http://baidu.com', 'poc': {'name': 'poc-yaml-tongweb-version', 'transport': 'http', 'rules': {'r1': {'request': {'method': 'GET', 'path': '/test_version/tongweb', 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}}, 'expression': "operator.contains(str(response.text),'TongWeb Server')|| operator.contains(str(response.headers.get('Server')),'TongWeb')\n", 'output': {'version_body': "{{re.search('TongWeb Server',response.text).group() if re.search('TongWeb Server',response.text) else ''}}", 'version_headers': "{{response.headers.get('Server')}}"}}}, 'output': "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers", 'expression': 'r1()', 'detail': {'name': 'TongWeb信息泄露', 'author': 'qianxiao996', 'group': '敏感信息泄露', 'category': 'Tongweb', 'vuln_id': '无', 'description': 'TongWeb信息泄露', 'links': []}}, 'result': False, 'others': None}
+2024-08-11 11:30:36 - FrameScan-GUI.py - ERROR - 292 {'url': 'http://baidu.com', 'poc': {'name': 'poc-yaml-tongweb-version', 'transport': 'http', 'rules': {'r1': {'request': {'method': 'GET', 'path': '/test_version/tongweb', 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}}, 'expression': "operator.contains(str(response.text),'TongWeb Server')|| operator.contains(str(response.headers.get('Server')),'TongWeb')\n", 'output': {'version_body': "{{re.search('TongWeb Server',response.text).group() if re.search('TongWeb Server',response.text) else ''}}", 'version_headers': "{{response.headers.get('Server')}}"}}}, 'output': "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers", 'expression': 'r1()', 'detail': {'name': 'TongWeb信息泄露', 'author': 'qianxiao996', 'group': '敏感信息泄露', 'category': 'Tongweb', 'vuln_id': '无', 'description': 'TongWeb信息泄露', 'links': []}}, 'result': False, 'others': None}
+2024-08-11 11:30:36 - FrameScan-GUI.py - ERROR - 292 {'url': 'http://baidu.com', 'poc': {'name': 'poc-yaml-tongweb-version', 'transport': 'http', 'rules': {'r1': {'request': {'method': 'GET', 'path': '/test_version/tongweb', 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}}, 'expression': "operator.contains(str(response.text),'TongWeb Server')|| operator.contains(str(response.headers.get('Server')),'TongWeb')\n", 'output': {'version_body': "{{re.search('TongWeb Server',response.text).group() if re.search('TongWeb Server',response.text) else ''}}", 'version_headers': "{{response.headers.get('Server')}}"}}}, 'output': "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers", 'expression': 'r1()', 'detail': {'name': 'TongWeb信息泄露', 'author': 'qianxiao996', 'group': '敏感信息泄露', 'category': 'Tongweb', 'vuln_id': '无', 'description': 'TongWeb信息泄露', 'links': []}}, 'result': False, 'others': None}
+2024-08-11 11:30:36 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:30:36 - FrameScan-GUI.py - ERROR - 292 {'url': 'http://baidu.com', 'poc': {'name': 'poc-yaml-tongweb-version', 'transport': 'http', 'rules': {'r1': {'request': {'method': 'GET', 'path': '/test_version/tongweb', 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}}, 'expression': "operator.contains(str(response.text),'TongWeb Server')|| operator.contains(str(response.headers.get('Server')),'TongWeb')\n", 'output': {'version_body': "{{re.search('TongWeb Server',response.text).group() if re.search('TongWeb Server',response.text) else ''}}", 'version_headers': "{{response.headers.get('Server')}}"}}}, 'output': "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers", 'expression': 'r1()', 'detail': {'name': 'TongWeb信息泄露', 'author': 'qianxiao996', 'group': '敏感信息泄露', 'category': 'Tongweb', 'vuln_id': '无', 'description': 'TongWeb信息泄露', 'links': []}}, 'result': False, 'others': None}
+2024-08-11 11:31:12 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:31:12 - FrameScan-GUI.py - ERROR - 292 {'url': 'http://baidu.com', 'poc': {'name': 'poc-yaml-tongweb-version', 'transport': 'http', 'rules': {'r1': {'request': {'method': 'GET', 'path': '/test_version/tongweb', 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}}, 'expression': "operator.contains(str(response.text),'TongWeb Server')|| operator.contains(str(response.headers.get('Server')),'TongWeb')\n", 'output': {'version_body': "{{re.search('TongWeb Server',response.text).group() if re.search('TongWeb Server',response.text) else ''}}", 'version_headers': "{{response.headers.get('Server')}}"}}}, 'output': "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers", 'expression': 'r1()', 'detail': {'name': 'TongWeb信息泄露', 'author': 'qianxiao996', 'group': '敏感信息泄露', 'category': 'Tongweb', 'vuln_id': '无', 'description': 'TongWeb信息泄露', 'links': []}}, 'result': False, 'others': None}
+2024-08-11 11:33:42 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:33:42 - FrameScan-GUI.py - ERROR - 296 {'Result': False, 'Result_Info': None}
+2024-08-11 11:35:02 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:35:02 - FrameScan-GUI.py - ERROR - 296 False
+2024-08-11 11:36:27 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:36:27 - FrameScan-GUI.py - ERROR - 296 <class 'bool'>
+2024-08-11 11:39:02 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-11 11:39:02 - FrameScan-GUI.py - ERROR - 296 <class 'bool'>
+2024-08-11 11:39:33 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com test|POC测试漏洞
+2024-08-11 11:39:39 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|Thinkphp 3.2.3 缓存命令执行
+2024-08-11 11:39:39 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|construct_debug命令执行
+2024-08-11 11:39:39 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|construct命令执行
+2024-08-11 11:39:41 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|container命令执行
+2024-08-11 11:39:41 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|display命令执行
+2024-08-11 11:39:41 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|filter命令执行
+2024-08-11 11:39:43 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|input命令执行
+2024-08-11 11:39:43 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|invokefunction命令执行
+2024-08-11 11:39:43 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|lite命令执行
+2024-08-11 11:39:45 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|ThinkPHP 3.x Log命令执行
+2024-08-11 11:39:45 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|runtime命令执行
+2024-08-11 11:39:45 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|session命令执行
+2024-08-11 11:39:57 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|templalte filewrite
+2024-08-11 11:40:18 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|Thinkphp 3.2.3 缓存命令执行
+2024-08-11 11:40:18 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|construct_debug命令执行
+2024-08-11 11:40:18 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|construct命令执行
+2024-08-11 11:40:18 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|container命令执行
+2024-08-11 11:40:18 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|display命令执行
+2024-08-11 11:40:18 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|filter命令执行
+2024-08-11 11:40:18 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|input命令执行
+2024-08-11 11:40:19 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|invokefunction命令执行
+2024-08-11 11:40:19 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|lite命令执行
+2024-08-11 11:40:19 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|ThinkPHP 3.x Log命令执行
+2024-08-11 11:40:19 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|runtime命令执行
+2024-08-11 11:40:19 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|session命令执行
+2024-08-11 11:40:19 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Thinkphp|templalte filewrite
+2024-08-12 13:50:44 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com 金山终端安全系统|任意文件读取
+2024-08-12 13:50:44 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tomcat|Apache Tomcat版本号泄露
+2024-08-12 13:50:44 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tongweb|TongWeb信息泄露
+2024-08-12 13:51:36 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com 金山终端安全系统|任意文件读取
+2024-08-12 13:51:36 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Python|Python版本号泄露
+2024-08-12 13:51:36 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tomcat|Apache Tomcat版本号泄露
+2024-08-12 13:51:46 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com 金山终端安全系统|任意文件读取
+2024-08-12 13:51:46 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Python|Python版本号泄露
+2024-08-12 13:51:46 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tomcat|Apache Tomcat版本号泄露
+2024-08-12 13:51:54 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com 金山终端安全系统|任意文件读取
+2024-08-12 13:51:54 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Python|Python版本号泄露
+2024-08-12 13:51:54 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tomcat|Apache Tomcat版本号泄露
+2024-08-12 13:58:07 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com 金山终端安全系统|任意文件读取
+2024-08-12 13:58:07 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Python|Python版本号泄露
+2024-08-12 13:58:07 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tomcat|Apache Tomcat版本号泄露
+2024-08-12 13:58:32 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com 金山终端安全系统|任意文件读取
+2024-08-12 13:58:32 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Python|Python版本号泄露
+2024-08-12 13:58:32 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tomcat|Apache Tomcat版本号泄露
+2024-08-12 14:01:52 - FrameScan-GUI.py - INFO - 1795 Timestamp: 2024-08-12 14:01:52
+2024-08-12 14:01:52 - FrameScan-GUI.py - ERROR - 1797 ErrorMessage: Traceback (most recent call last):
+  File "FrameScan-GUI.py", line 1742, in closeEvent
+    def closeEvent(self, event):
+KeyboardInterrupt
+
+2024-08-12 14:01:52 - FrameScan-GUI.py - ERROR - 1798 sys.excepthook: <bound method MainWindows.HandleException of <__main__.MainWindows(0x2793b4a46b0, name="MainWindow") at 0x000002793CD520C8>>
+2024-08-12 14:01:52 - FrameScan-GUI.py - ERROR - 1799 excType: <class 'KeyboardInterrupt'>
+2024-08-12 14:01:52 - FrameScan-GUI.py - ERROR - 1800 excValue: 
+2024-08-12 14:01:52 - FrameScan-GUI.py - ERROR - 1801 tb: <traceback object at 0x0000027942D55C48>
+2024-08-12 14:31:04 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Tomcat|Apache Tomcat版本号泄露
+2024-08-12 14:31:57 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com Python|Python版本号泄露
+2024-08-12 14:42:49 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com test|POC测试漏洞
+2024-08-12 14:42:49 - FrameScan-GUI.py - INFO - 200 Scanner:http://baidu.com PHP|PHP版本号泄露漏洞

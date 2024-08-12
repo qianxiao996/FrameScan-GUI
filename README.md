@@ -259,29 +259,23 @@ setup(
 
 # 环境安装
 
-本程序采用python3.7+pyqt5开发。
+本程序采用python3.7+PySide6开发。
 
 ```
 Pysocks
-PyQt5
+PySide6
 requests
 pyperclip
 chardet
 eventlet
 ```
 
-## PyQt5安装
+## PySide6安装
 
 采用命令安装，Win+R，输入CMD，打开命令框，输入以下命令。后面是豆瓣的镜像地址，是为了加快下载速度。
 
 ```
-pip install PyQt5 -i https://pypi.douban.com/simple
-```
-
-安装Qt的工具包
-
-```
-pip install PyQt5-tools -i https://pypi.douban.com/simple
+pip install PySide6 -i https://pypi.douban.com/simple
 ```
 
 ## 程序目录说明

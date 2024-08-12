@@ -1,0 +1,24 @@
+name: poc-yaml-jetty-version
+transport: http
+rules:
+  r1:
+    request:
+      method: GET
+      path: /test_version/jetty
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: |
+      response.status_code==404 && (re.search('Powered by Jetty://.*</a>',str(response.text)) || re.search('Jetty(.*)',str(response.headers.get('Server')))|| re.search('Jetty/',str(response.headers.get('Server')))) 
+    output:
+      version_body: "{{re.search('Powered by Jetty://.*</a>',response.text).group() if re.search('Powered by Jetty://.*</a>',response.text) else ''}}"
+      version_headers: "{{response.headers.get('Server')}}"
+output: "{{'$version_body'.replace('</a>','').replace('Powered by ','') if len('$version_body')>0 else ''}} $version_headers"
+expression: r1()
+detail:
+  name: Jetty版本号泄露
+  author: qianxiao996
+  group: 敏感信息泄露
+  category: Jetty
+  vuln_id: 无
+  description: 'Jetty版本号泄露'
+  links: []

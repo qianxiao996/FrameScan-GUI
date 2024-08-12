@@ -1,0 +1,24 @@
+name: poc-yaml-tomcat-version
+transport: http
+rules:
+  r1:
+    request:
+      method: GET
+      path: /test_version/tomcat
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: |
+      response.status_code==404 && (re.search('Tomcat/\d{0,3}.\d{0,3}.\d{0,3}',response.text) || operator.contains(str(response.headers.get('Server')),'Apache Tomcat/') || operator.contains(str(response.headers.get('Server')),'Tomcat Web Server/') ) 
+    output:
+      version_body: "{{re.search('Tomcat/\\d{0,3}.\\d{0,3}.\\d{0,3}',response.text).group() if re.search('Tomcat/\\d{0,3}.\\d{0,3}.\\d{0,3}',response.text) else ''}}"
+      version_headers: "{{response.headers.get('Server')}}"
+output: "{{'$version_body' if len('$version_body')>0 else ''}} $version_headers"
+expression: r1()
+detail:
+  name: 'Apache Tomcat版本号泄露'
+  author: qianxiao996
+  vuln_id: 无
+  group: 敏感信息泄露
+  category: Tomcat
+  description: 'Apache Tomcat版本号泄露'
+  links: []

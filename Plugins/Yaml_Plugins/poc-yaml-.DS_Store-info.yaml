@@ -1,0 +1,21 @@
+name: poc-yaml-.DS_Store-info
+transport: http
+rules:
+  r1:
+    request:
+      method: GET
+      path: /.DS_Store
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: |
+      response.status_code==200
+output: "发现.DS_Store文件"
+expression: r1()
+detail:
+  name: '.DS_Store文件泄露'
+  author: qianxiao996
+  group: 敏感信息泄露
+  category: ALL
+  vuln_id: 无
+  description: '.DS_Store文件泄露'
+  links: []

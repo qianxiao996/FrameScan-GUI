@@ -3,11 +3,7 @@ import os
 import eventlet
 from urllib.parse import urlparse
 from PySide6.QtCore import QThread, Signal
-from Modules  import frozen_dir
-from Modules   import Public
-
-
-SETUP_DIR = frozen_dir.app_path()
+from Modules import Public
 
 class Vuln_Exp(QThread):
     """该线程用于计算耗时的累加操作"""
@@ -43,7 +39,8 @@ class Vuln_Exp(QThread):
                     if 'http://' not in url.lower() and 'http' not in url.lower():
                         url = 'http://' + hostname + ':' + str(port) + path
 
-                    file_path = SETUP_DIR + "/" + os.path.splitext(self.exp_path)[0]
+                    file_path = os.path.splitext(self.exp_path)[0]
+                    self._update_log(self.exp_path)
                     nnnnnnnnnnnn1 = Public.get_obj_by_path(file_path)
                     if nnnnnnnnnnnn1:
                         Function_Out = getattr(self, 'scan_log_out')  # 以字符串的形式执行函数

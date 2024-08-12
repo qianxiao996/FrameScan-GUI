@@ -1,0 +1,54 @@
+name: poc-yaml-dir-list-info
+transport: http
+rules:
+  r1:
+    request:
+      method: GET
+      path: /
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: $expression
+  r2:
+    request:
+      method: GET
+      path: /assets/
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: $expression
+  r3:
+    request:
+      method: GET
+      path: /static/
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: $expression
+  r3:
+    request:
+      method: GET
+      path: /templates/
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: $expression
+  r4:
+    request:
+      method: GET
+      path: /js/
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: $expression
+
+
+output: "发现目录浏览漏洞"
+expression: r1() || r2() || r3() || r4()
+payload:
+  expression: |
+    response.status_code==200 && (re.search('Index of /',str(response.text)) || re.search('Directory: /',str(response.text)) || re.search(' - /</title>',str(response.text)))
+detail:
+  name: '目录浏览漏洞'
+  author: qianxiao996
+  group: 敏感信息泄露
+  vuln_id: 无
+  description: '目录浏览'
+  links: []
+
+

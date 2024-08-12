@@ -1,0 +1,24 @@
+name: poc-yaml-php-version
+transport: http
+rules:
+  r1:
+    request:
+      method: GET
+      path: /test_version/php
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    expression: |
+      operator.contains(str(response.headers.get('Server')),'PHP/') || operator.contains(str(response.headers.get('X-Powered-By')),'PHP/')
+    output:
+      version_Server: "{{response.headers.get('Server')}}"
+      version_xpb: "{{response.headers.get('X-Powered-By')}}"
+output: $version_Server $version_xpb
+expression: r1()
+detail:
+  name: 'PHP版本号泄露漏洞'
+  group: 敏感信息泄露
+  category: PHP
+  author: qianxiao996
+  vuln_id: 无
+  description: 'PHP版本号泄露漏洞'
+  links: []
