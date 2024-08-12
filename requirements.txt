@@ -28,7 +28,7 @@ shiboken6==6.5.2
 six==1.16.0
 socks==0
 soupsieve==2.4.1
-sqlparse==0.4.4
+sqlparse==0.5.0
 tqdm==4.66.5
 typing_extensions==4.7.1
 urllib3==1.26.16
