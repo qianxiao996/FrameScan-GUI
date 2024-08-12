@@ -6,7 +6,7 @@ charset-normalizer==3.2.0
 colorama==0.4.6
 Django==3.2.25
 dnspython==2.3.0
-eventlet==0.33.3
+eventlet==0.35.2
 greenlet==2.0.2
 idna==3.4
 image==1.5.33
