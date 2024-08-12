@@ -8,7 +8,7 @@ Django==3.2.25
 dnspython==2.3.0
 eventlet==0.33.3
 greenlet==2.0.2
-idna==3.4
+idna==3.7
 image==1.5.33
 importlib-metadata==6.7.0
 Nuitka==1.3
