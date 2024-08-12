@@ -31,7 +31,7 @@ soupsieve==2.4.1
 sqlparse==0.4.4
 tqdm==4.66.5
 typing_extensions==4.7.1
-urllib3==1.26.16
+urllib3==1.26.19
 wcwidth==0.2.13
 wifi-password==1.1.1
 wincertstore==0.2
