@@ -4,7 +4,7 @@ bs4==0.0.1
 chardet==5.2.0
 charset-normalizer==3.2.0
 colorama==0.4.6
-Django==3.2.25
+Django==4.2.16
 dnspython==2.3.0
 eventlet==0.33.3
 greenlet==2.0.2
